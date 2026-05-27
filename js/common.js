@@ -12,7 +12,9 @@ const TAB_STORAGE_KEY   = 'tab_ps2627';
 const KICKOFF = null;
 
 function renderCountdown() {
-    const el = document.getElementById('countdown-bar');
+    const bar = document.getElementById('countdown-bar');
+    const el = document.getElementById('countdown-bar-inner') || bar;
+    if (!bar) return;
     if (!el) return;
 
     if (!KICKOFF) {

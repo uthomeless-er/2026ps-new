@@ -28,8 +28,21 @@
         .mark-chip { display:inline-flex; align-items:center; gap:3px; background:#f0f0f0; border-radius:4px; padding:2px 8px; font-size:.82em; }
         .mark-chip img { width:16px; height:16px; }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="site-logo">
+            <div class="site-logo-text">
+                <span class="site-logo-main">PS予想企画</span>
+                <span class="site-logo-sub">PREMIER SERIES 26-27</span>
+            </div>
+        </a>
+    </div>
+</header>
 <nav class="page-nav">
     <a href="index.html">出馬表</a>
     <a href="marks.html">印</a>
@@ -37,7 +50,7 @@
     <a href="submit.html" class="active">買い目を送る</a>
     <a href="help.html">使い方</a>
 </nav>
-<div id="countdown-bar"></div>
+<div id="countdown-bar"><div id="countdown-bar-inner"></div></div>
 
 <div class="submit-wrap">
 
@@ -85,6 +98,7 @@
 </div>
 
 <script src="js/common.js"></script>
+<script>document.addEventListener("DOMContentLoaded", renderCountdown);</script>
 <script>
 const UNIQUE_MARKS  = ['honmei','taikou','tanana','renka'];
 const MARK_LABELS   = { honmei:'◎', taikou:'○', tanana:'▲', renka:'⟁', osae:'△' };
