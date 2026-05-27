@@ -43,10 +43,6 @@
 
         /* ナビ */
         .page-nav { background: var(--navy-mid); border-bottom: 1px solid rgba(255,255,255,.08); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
-        .page-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; overflow-x: auto; scrollbar-width: none; }
-        .page-nav-inner::-webkit-scrollbar { display: none; }
-        .page-nav-inner a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .82rem; font-weight: 500; padding: 12px 18px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; letter-spacing: .03em; }
-        .page-nav-inner a.active, .page-nav-inner a:hover { color: #fff; border-bottom-color: var(--blue); }
 
         /* カウントダウン */
         #countdown-bar { background: var(--blue-light); border-bottom: 1px solid #c5d3f0; padding: 7px 20px; font-size: .82rem; }
@@ -121,7 +117,6 @@
             .site-header { padding: 0 14px; }
             .header-inner { height: 46px; }
             .site-title { font-size: 1.1rem; }
-            .page-nav-inner a { padding: 9px 12px; font-size: .75rem; }
             #countdown-bar { padding: 6px 14px; font-size: .75rem; text-align: center; }
             .pc-view { display: none !important; }
             .sp-view { display: block !important; }
@@ -165,25 +160,23 @@
 
 <header class="site-header">
     <div class="header-inner">
-        <div class="site-title">
-            PS予想企画
-            <span>PREMIER SERIES 26-27</span>
-        </div>
+        <a href="index.html" class="site-logo">
+            <div class="site-logo-text">
+                <span class="site-logo-main">PS予想企画</span>
+                <span class="site-logo-sub">PREMIER SERIES 26-27</span>
+            </div>
+        </a>
     </div>
 </header>
-
 <nav class="page-nav">
-    <div class="page-nav-inner">
-        <a href="index.html" class="active">出馬表</a>
-        <a href="marks.html">印</a>
-        <a href="odds.html">オッズ</a>
-        <a href="submit.html">買い目を送る</a>
-        <a href="help.html">使い方</a>
-    </div>
+    <a href="index.html" class="active">出馬表</a>
+    <a href="marks.html">印</a>
+    <a href="odds.html">オッズ</a>
+    <a href="submit.html">買い目を送る</a>
+    <a href="help.html">使い方</a>
+    <a href="faq.html">Q&A</a>
 </nav>
-
-<div id="countdown-bar">
-    <div id="countdown-bar-inner"></div>
+<div id="countdown-bar"><div id="countdown-bar-inner"></div></div>
 </div>
 
 <!-- PC表示 -->
