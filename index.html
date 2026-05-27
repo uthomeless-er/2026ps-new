@@ -378,11 +378,10 @@ function openMemberPopup(member, anchor) {
         const rect = anchor.getBoundingClientRect();
         const pw = popup.offsetWidth || 240;
         const ph = popup.offsetHeight || 120;
-        let left = rect.left + window.scrollX;
-        let top  = rect.top  + window.scrollY - ph - 8;
-        // 上に出す。上がはみ出すなら下に出す
-        if (top < window.scrollY + 10) top = rect.bottom + window.scrollY + 8;
-        // 右がはみ出すなら左にずらす
+        // position:fixed なので getBoundingClientRect の値をそのまま使う（scrollY不要）
+        let left = rect.left;
+        let top  = rect.top - ph - 8;
+        if (top < 10) top = rect.bottom + 8;
         if (left + pw > window.innerWidth - 10) left = window.innerWidth - pw - 10;
         if (left < 10) left = 10;
         popup.style.left = left + 'px';
