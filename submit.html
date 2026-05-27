@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>買い目を送る — Premier Series 26-27予想企画</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .submit-wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 40px; }
+        .check-section { border:1px solid #ddd; border-radius:8px; padding:16px 18px; margin-bottom:16px; background:#fff; }
+        .check-section h3 { margin:0 0 10px; font-size:.95em; color:#003399; display:flex; align-items:center; gap:8px; }
+        .check-section pre { margin:0; font-family:monospace; font-size:.85em; white-space:pre-wrap; word-break:break-all; line-height:1.8; color:#333; }
+        .status-ok   { color:#007d43; font-size:.82em; font-weight:bold; }
+        .status-warn { color:#d00;    font-size:.82em; font-weight:bold; }
+        .warn-box { background:#fff3cd; border:1px solid #ffc107; border-radius:4px; padding:8px 12px; font-size:.85em; margin-bottom:12px; }
+        .copy-area { border:2px solid #003399; border-radius:8px; padding:16px 18px; background:#fff; }
+        .copy-area h3 { margin:0 0 10px; font-size:1em; color:#003399; }
+        .copy-preview { background:#f8f8f8; border:1px solid #ddd; border-radius:4px; padding:10px 12px; margin-bottom:12px; max-height:280px; overflow-y:auto; }
+        .copy-preview pre { margin:0; font-family:monospace; font-size:.85em; white-space:pre-wrap; word-break:break-all; line-height:1.8; color:#333; }
+        .copy-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+        #copy-feedback { color:#007d43; font-size:.88em; font-weight:bold; display:none; }
+        .form-open-btn { display:inline-block; padding:10px 24px; background:#003399; color:#fff; font-weight:bold; border-radius:4px; text-decoration:none; font-size:.95em; margin-top:10px; }
+        .form-open-btn:hover { background:#0044cc; }
+        .edit-link { font-size:.82em; color:#003399; }
+        .mark-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+        .mark-chip { display:inline-flex; align-items:center; gap:3px; background:#f0f0f0; border-radius:4px; padding:2px 8px; font-size:.82em; }
+        .mark-chip img { width:16px; height:16px; }
+    </style>
+</head>
+<body>
+<nav class="page-nav">
+    <a href="index.html">出馬表</a>
+    <a href="marks.html">印</a>
+    <a href="odds.html">オッズ</a>
+    <a href="submit.html" class="active">買い目を送る</a>
+    <a href="help.html">使い方</a>
+</nav>
+<div id="countdown-bar"></div>
+
+<div class="submit-wrap">
+
+<div class="section-title">買い目を送る</div>
+
+<p style="font-size:.9em;line-height:1.8;margin-bottom:8px;">
+    買い目の内容を確認し、コピーしてGoogleフォームに送信してください。
+</p>
+<div style="font-size:.85em;background:#f0f4ff;border-left:3px solid #003399;padding:8px 12px;margin-bottom:16px;line-height:1.7;">
+    📌 <strong>買い目の送信は必須です。</strong>印（◎○▲など）の入力は任意です。印なしでも参加できます。
+</div>
+
+<!-- 印の確認 -->
+<div class="check-section">
+    <h3>印の確認 <span style="font-size:.78em;color:#888;font-weight:normal;">（任意）</span> <a class="edit-link" href="marks.html">← 修正する</a></h3>
+    <div id="marks-check"></div>
+</div>
+
+<!-- 買い目の確認 -->
+<div class="check-section">
+    <h3>買い目の確認 <a class="edit-link" href="odds.html">← 修正する</a></h3>
+    <div id="bets-check"></div>
+</div>
+
+<!-- 警告 -->
+<div id="warn-box" class="warn-box" style="display:none;"></div>
+
+<!-- コピー・送信 -->
+<div class="copy-area">
+    <h3>📋 送信データをコピーする</h3>
+    <div class="copy-preview">
+        <pre id="copy-text"></pre>
+    </div>
+    <div class="copy-actions">
+        <button class="odd_view" onclick="copyData()">📋 コピーする</button>
+        <span id="copy-feedback">✔ コピーしました！</span>
+    </div>
+    <div style="margin-top:10px;font-size:.85em;color:#555;">
+        コピーしたら、Googleフォームの「買い目・印」欄に貼り付けて送信してください。
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3lkH75uSufuwNEllHmrXZQmxXnq-w1T2SBLne6kO7JiUJvA/viewform?usp=header"
+       target="_blank" class="form-open-btn">📝 Googleフォームを開く</a>
+</div>
+
+</div>
+
+<script src="js/common.js"></script>
+<script>
+const UNIQUE_MARKS  = ['honmei','taikou','tanana','renka'];
+const MARK_LABELS   = { honmei:'◎', taikou:'○', tanana:'▲', renka:'⟁', osae:'△' };
+const MARK_FILES    = {
+    honmei:'assets/marks/mark_honmei.svg',
+    taikou:'assets/marks/mark_taikou.svg',
+    tanana:'assets/marks/mark_tanana.svg',
+    renka: 'assets/marks/mark_renka.svg',
+    osae:  'assets/marks/mark_osae.svg',
+};
+
+let teamsData = [];
+let selectedMarks = JSON.parse(localStorage.getItem(MY_MARKS_KEY) || '{}');
+let cart = [];
+
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+        teamsData = await loadJSON('data/teams.json');
+        const saved = localStorage.getItem(CART_STORAGE_KEY);
+        cart = saved ? JSON.parse(saved) : [];
+    } catch(e) { console.error(e); }
+    renderMarksCheck();
+    renderBetsCheck();
+    checkWarnings();
+    buildCopyText();
+});
+
+function renderMarksCheck() {
+    const el = document.getElementById('marks-check');
+    if (!teamsData.length) { el.innerHTML = '<span class="status-warn">読み込み中...</span>'; return; }
+    const hasHonmei = Object.values(selectedMarks).includes('honmei');
+    const hasAnyMark = Object.values(selectedMarks).some(v => v !== '');
+    const statusHtml = !hasAnyMark
+        ? '<span style="color:#888;font-size:.82em;">印なし（任意のため問題ありません）</span>'
+        : hasHonmei
+            ? '<span class="status-ok">✔ 印入力済み</span>'
+            : '<span class="status-warn">⚠️ ◎が付いていません（印を送る場合は◎必須）</span>';
+    // ◎○▲⟁△の順でソート
+    const MARK_ORDER = ['honmei','taikou','tanana','renka','osae'];
+    const chipsByMark = [];
+    MARK_ORDER.forEach(mk => {
+        teamsData.forEach(team => {
+            if (selectedMarks[String(team.id)] === mk) {
+                chipsByMark.push(`<div class="mark-chip"><img src="${MARK_FILES[mk]}" alt="${MARK_LABELS[mk]}">${team.tag}</div>`);
+            }
+        });
+    });
+    el.innerHTML = `${statusHtml}<div class="mark-row">${chipsByMark.join('') || ''}</div>`;
+}
+
+function renderBetsCheck() {
+    const el = document.getElementById('bets-check');
+    if (!cart.length) {
+        el.innerHTML = '<span class="status-warn">⚠️ 買い目がありません</span><br><a href="odds.html" style="color:#003399;font-size:.85em;">オッズページで買い目を作成してください</a>';
+        return;
+    }
+    const total = cart.reduce((s, i) => s + i.combs.length * i.amountPerBet, 0);
+    let html = `<span class="status-ok">✔ ${cart.length}件 / 合計 ${total.toLocaleString()}pt</span><pre style="margin-top:6px;font-family:monospace;font-size:.82em;line-height:1.7;color:#333;">`;
+    cart.forEach(item => {
+        html += `[${item.displayType}] ${item.formation} / ${item.combs.length}点 / 各${item.amountPerBet}pt\n`;
+    });
+    el.innerHTML = html + '</pre>';
+}
+
+function checkWarnings() {
+    const warnBox = document.getElementById('warn-box');
+    const warnings = [];
+    // 印は任意のため未入力は警告しない。ただし印を付けた場合は◎必須
+    const hasAnyMark = Object.values(selectedMarks).some(v => v !== '');
+    const hasHonmei = Object.values(selectedMarks).includes('honmei');
+    if (hasAnyMark && !hasHonmei) warnings.push('印を付ける場合は◎（本命）が必須です');
+    if (!cart.length) warnings.push('買い目がありません（買い目は送信必須です）');
+    if (warnings.length) {
+        warnBox.style.display = 'block';
+        warnBox.innerHTML = warnings.map(w => `⚠️ ${w}`).join('<br>');
+    } else {
+        warnBox.style.display = 'none';
+    }
+}
+
+function buildCopyText() {
+    const MARK_LABELS_JP = { honmei:'◎本命', taikou:'○対抗', tanana:'▲単穴', renka:'⟁連下', osae:'△抑え' };
+    // 印
+    let marksText = '';
+    if (teamsData.length) {
+        marksText = teamsData.map(team => {
+            const m = selectedMarks[String(team.id)];
+            return `${team.id}.${team.tag}: ${m ? MARK_LABELS_JP[m] : 'なし'}`;
+        }).join(' / ');
+    }
+    // 買い目
+    let betsText = '';
+    if (cart.length) {
+        cart.forEach(item => {
+            betsText += `[${item.displayType}] ${item.formation} / ${item.combs.length}点 / 各${item.amountPerBet}pt / 計${item.combs.length * item.amountPerBet}pt\n`;
+        });
+        const total = cart.reduce((s, i) => s + i.combs.length * i.amountPerBet, 0);
+        betsText += `合計: ${total.toLocaleString()}pt`;
+    } else {
+        betsText = '（買い目なし）';
+    }
+    const full = `【Premier Series 26-27 予想】\n\n▼印\n${marksText}\n\n▼買い目\n${betsText}`;
+    document.getElementById('copy-text').textContent = full;
+}
+
+function copyData() {
+    const text = document.getElementById('copy-text').textContent;
+    const onSuccess = () => {
+        const fb = document.getElementById('copy-feedback');
+        fb.style.display = 'inline';
+        setTimeout(() => { fb.style.display = 'none'; }, 3000);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallbackCopy(text, onSuccess));
+    } else {
+        fallbackCopy(text, onSuccess);
+    }
+}
+
+function fallbackCopy(text, onSuccess) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { if (document.execCommand('copy')) onSuccess(); } catch(e) {}
+    document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>
