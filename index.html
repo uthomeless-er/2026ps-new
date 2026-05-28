@@ -6,9 +6,6 @@
     <title>出馬表 — Premier Series 26-27予想企画</title>
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
         :root {
@@ -165,8 +162,7 @@
     <a href="help.html">使い方</a>
     <a href="faq.html">Q&A</a>
 </nav>
-<div id="countdown-bar"><div id="countdown-bar-inner"></div></div>
-
+<div id="countdown-bar"><div id="countdown-bar-inner"></div>
 <!-- PC表示 -->
 <div class="pc-view">
     <div class="page-inner">
@@ -298,7 +294,7 @@ function renderSP() {
     list.innerHTML = '';
     teamsData.forEach(team => {
         const oddsVal = (oddsData.win || {})[String(team.id)] || '---';
-        const hot = parseFloat(oddsVal) <= 5;
+        const hot = parseFloat(oddsVal) <= 10;
         const card = document.createElement('div');
         card.className = 'sp-card';
         const memberChips = team.members.map(m =>

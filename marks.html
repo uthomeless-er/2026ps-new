@@ -6,9 +6,6 @@
     <title>印 — Premier Series 26-27予想企画</title>
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
         :root {
@@ -112,7 +109,7 @@
 
             /* スマホ用印入力カードリスト */
             .sp-marks-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-            .sp-mark-card { background: #fff; border: 1px solid #dde3ed; border-radius: 10px; overflow: hidden; display: flex; align-items: center; min-height: 58px; }
+            .sp-mark-card { background: #fff; border: 1px solid #dde3ed; border-radius: 8px; overflow: hidden; display: flex; align-items: center; height: 50px; }
             .sp-frame-badge { width: 38px; min-height: 58px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 900; flex-shrink: 0; }
             .sp-frame-1 { background: var(--frame-1); color: var(--frame-1-text); }
             .sp-frame-2 { background: var(--frame-2); color: var(--frame-2-text); }
@@ -125,26 +122,20 @@
             .sp-mark-logo { width: 44px; min-height: 58px; display: flex; align-items: center; justify-content: center; background: #fafafa; border-left: 1px solid #eef0f4; flex-shrink: 0; }
             .sp-mark-logo img { width: 30px; height: 30px; object-fit: contain; }
             .sp-mark-logo-ph { width: 30px; height: 30px; background: #e8eaed; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .55rem; font-weight: 700; color: #8a9ab2; }
-            .sp-mark-info { flex: 1; padding: 8px 10px; min-width: 0; }
-            .sp-mark-name { font-size: .84rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #0a1628; margin-bottom: 6px; }
-            /* 印ボタングループ */
-            .sp-mark-btns { display: flex; gap: 4px; flex-wrap: wrap; }
-            .sp-mark-btn {
-                min-width: 36px; height: 32px; padding: 0 6px;
+            .sp-mark-info { flex: 1; padding: 0 10px; min-width: 0; display: flex; align-items: center; gap: 10px; }
+            .sp-mark-name { font-size: .84rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #0a1628; flex: 1; }
+            .sp-mark-select {
+                width: 96px; padding: 7px 6px; flex-shrink: 0;
                 border: 1.5px solid #ccc; border-radius: 6px;
-                background: #f8f8f8; color: #444;
-                font-size: .82rem; font-weight: 700;
-                cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
-                transition: background .12s, border-color .12s, color .12s;
-                -webkit-tap-highlight-color: transparent;
+                background: #fff; font-size: .82rem; font-weight: 700;
+                font-family: 'Noto Sans JP', sans-serif;
+                cursor: pointer; color: #333;
             }
-            .sp-mark-btn.active-honmei { background: #fff0f0; border-color: #cc2200; color: #cc2200; }
-            .sp-mark-btn.active-taikou { background: #fffbe6; border-color: #b08000; color: #7a5800; }
-            .sp-mark-btn.active-tanana { background: #f0fff0; border-color: #1a7a3a; color: #1a7a3a; }
-            .sp-mark-btn.active-renka  { background: #f0f0ff; border-color: #1a4fd6; color: #1a4fd6; }
-            .sp-mark-btn.active-osae   { background: #f5f5f5; border-color: #888; color: #444; }
-            .sp-mark-btn.none-btn { color: #bbb; font-size: .72rem; font-weight: 400; }
-            .sp-mark-btn.none-btn.active-none { background: #e0e0e0; border-color: #888; color: #333; font-weight: 700; }
+            .sp-mark-select.sel-honmei { border-color: #cc2200; color: #cc2200; background: #fff0f0; }
+            .sp-mark-select.sel-taikou { border-color: #b08000; color: #7a5800; background: #fffbe6; }
+            .sp-mark-select.sel-tanana { border-color: #1a7a3a; color: #1a7a3a; background: #f0fff0; }
+            .sp-mark-select.sel-renka  { border-color: #1a4fd6; color: #1a4fd6; background: #f0f0ff; }
+            .sp-mark-select.sel-osae   { border-color: #888;    color: #444;    background: #f5f5f5; }
 
             /* スマホ用アクションバー */
             .sp-action-bar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
@@ -357,6 +348,9 @@ function renderSPList() {
         const saved = selectedMarks[String(team.id)] || '';
         const card = document.createElement('div');
         card.className = 'sp-mark-card';
+        const opts = MARK_OPTIONS.map(o =>
+            `<option value="${o.value}" ${saved===o.value?'selected':''}>${o.value ? MARK_LABELS[o.value]+' '+o.value.replace('honmei','本命').replace('taikou','対抗').replace('tanana','単穴').replace('renka','連下').replace('osae','抑え') : 'なし'}</option>`
+        ).join('');
         card.innerHTML = `
             <div class="sp-frame-badge sp-frame-${team.id}">${team.id}</div>
             <div class="sp-mark-logo">
@@ -365,19 +359,18 @@ function renderSPList() {
             </div>
             <div class="sp-mark-info">
                 <div class="sp-mark-name">${team.name}</div>
-                <div class="sp-mark-btns" id="sp-btns-${team.id}">
-                    <button class="sp-mark-btn none-btn ${!saved ? 'active-none' : ''}" data-val="" data-tid="${team.id}">なし</button>
-                    ${MARK_OPTIONS.filter(o=>o.value).map(o =>
-                        `<button class="sp-mark-btn ${saved===o.value ? 'active-'+o.value : ''}" data-val="${o.value}" data-tid="${team.id}">${MARK_LABELS[o.value]}</button>`
-                    ).join('')}
-                </div>
+                <select class="sp-mark-select${saved ? ' sel-'+saved : ''}" id="sp-sel-${team.id}">
+                    ${opts}
+                </select>
             </div>`;
-        card.querySelectorAll('.sp-mark-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const val = btn.dataset.val;
-                const tid = parseInt(btn.dataset.tid);
-                onMarkChange(tid, val);
-                refreshSPBtns(tid);
+        card.querySelector('select').addEventListener('change', function() {
+            onMarkChange(team.id, this.value);
+            // セレクトの色も更新
+            this.className = 'sp-mark-select' + (this.value ? ' sel-'+this.value : '');
+            // 他チームのセレクトも更新（排他制御）
+            teamsData.forEach(t => {
+                const sel = document.getElementById('sp-sel-'+t.id);
+                if (sel) sel.className = 'sp-mark-select' + (sel.value ? ' sel-'+sel.value : '');
             });
         });
         list.appendChild(card);
@@ -450,8 +443,8 @@ function saveMarks() {
     if (st) { st.style.display = 'inline'; setTimeout(() => { st.style.display = 'none'; }, 2000); }
 }
 
-function resetMarks() {
-    if (!confirm('印をすべてリセットします。よろしいですか？')) return;
+async function resetMarks() {
+    const ok = await psConfirm('印をすべてリセットします。よろしいですか？'); if (!ok) return;
     selectedMarks = {};
     localStorage.setItem(MY_MARKS_KEY, JSON.stringify(selectedMarks));
     teamsData.forEach(t => {
@@ -496,12 +489,12 @@ function updateFormationPreview() {
     prev.textContent = txt;
 }
 
-function goToOddsWithFormation() {
+async function goToOddsWithFormation() {
     const type = document.getElementById('f-type').value;
     const r0 = getTeamsByMarkGroup(document.getElementById('f-row0').value);
     const r1 = getTeamsByMarkGroup(document.getElementById('f-row1').value);
     const r2 = getTeamsByMarkGroup(document.getElementById('f-row2').value);
-    if (!r0.length) { alert('1列目に該当するチームがありません。先に印を付けてください。'); return; }
+    if (!r0.length) { await psAlert('1列目に該当するチームがありません。先に印を付けてください。'); return; }
     const p = new URLSearchParams({ tab: type, mode: 'formation', r0: r0.join(','), r1: r1.join(','), r2: r2.join(',') });
     p.append('apply', '1');
     window.location.href = `odds.html?${p.toString()}`;
