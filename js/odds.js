@@ -653,7 +653,7 @@ function npConfirm() {
         }
     }
     _closeNumpadCleanup();
-}function _doExpandWithBudget(id, budget) {
+}async function _doExpandWithBudget(id, budget) {
     const item = cart.find(i => i.id === id);
     if (!item || item.combs.length === 0) return;
 
@@ -703,7 +703,7 @@ function npConfirm() {
 
 // ── フォーム出力 ─────────────────────────────────────
 
-function prepareGoogleForm() {
+async function prepareGoogleForm() {
     if (cart.length === 0) return await psAlert('買い目がありません');
     let exportData = '【Premier Series 26-27 買い目】\n';
     cart.forEach(item => {
@@ -739,7 +739,7 @@ async function copyFormData() {
     }
 }
 
-function fallbackCopy(text, onSuccess) {
+async function fallbackCopy(text, onSuccess) {
     // readonlyを一時解除して選択→コピー→再設定
     const ta = document.getElementById('form-data-text');
     ta.removeAttribute('readonly');
