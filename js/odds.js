@@ -28,7 +28,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         renderTeamHeader();
         initMsHeader();
         renderCart();
-        // SP初期化（データロード完了後）
         initSPAfterLoad();
         // 前回のタブを復元
         // URLパラメータからフォーメーションを復元（印ページからの遷移）
@@ -755,6 +754,7 @@ function fallbackCopy(text, onSuccess) {
     }
     ta.setAttribute('readonly', '');
 }
+
 
 // ══════════════════════════════════════════════════════
 //   スマホ専用オッズUI
