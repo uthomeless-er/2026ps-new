@@ -24,7 +24,7 @@ const FRAME_COLORS = {
 };
 
 // ブレイクポイントはCSSと同期（style.cssの--is-spで管理するのが理想）
-function isSP() { return window.innerWidth <= 767; }
+function isSP() { return getComputedStyle(document.documentElement).getPropertyValue('--is-sp').trim() === '1'; }
 
 function initSP() {
     spRenderMs();
