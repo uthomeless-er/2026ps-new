@@ -326,6 +326,14 @@
     }
     .sp-budget-rem { font-weight: 700; color: #fff; }
     .sp-budget-rem.over { color: #ff6b6b; }
+    /* 最小化状態 */
+    .sp-cart-wrap.minimized .sp-cart-bar-left { display: none; }
+    .sp-cart-wrap.minimized .sp-budget-bar { display: none; }
+    .sp-cart-wrap.minimized .sp-cart-actions { display: none; }
+    .sp-cart-wrap.minimized .sp-cart-bar { padding: 5px 14px; }
+    .sp-cart-mini-label { display: none; font-size: .78rem; color: #ccc; }
+    .sp-cart-wrap.minimized .sp-cart-mini-label { display: inline; }
+    .sp-minimize-btn { font-size: .7rem; color: #aaa; background: none; border: 1px solid #555; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-family: inherit; margin-left: 6px; }
 }
 </style>
 
@@ -375,7 +383,9 @@
         <div class="sp-cart-total">合計: <span id="sp-cart-total">0</span> pt</div>
       </div>
       <div class="sp-cart-bar-right">
+        <span class="sp-cart-mini-label"><span id="sp-cart-count-mini">0</span>件</span>
         <span class="sp-cart-toggle" id="sp-cart-toggle">▲ 開く</span>
+        <button class="sp-minimize-btn" id="sp-minimize-btn" onclick="event.stopPropagation();spToggleMinimize()">最小化</button>
       </div>
     </div>
     <div class="sp-budget-bar">

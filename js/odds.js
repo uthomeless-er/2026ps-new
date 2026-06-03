@@ -981,7 +981,7 @@ function spRender() {
                         <div style="font-size:.62rem;color:#aaa;">単勝</div>
                     </div>
                     <div style="text-align:center;cursor:pointer;padding:6px 10px;border:1.5px solid #ddd;border-radius:6px;background:#fff;" onclick="spAddBet('place','${item.no}','複勝')">
-                        <div class="sp-odds-val" style="font-size:.82rem;color:#333;">${item.place||'---'}</div>
+                        <div class="sp-odds-val">${item.place||'---'}</div>
                         <div style="font-size:.62rem;color:#aaa;">複勝</div>
                     </div>
                 </div>
@@ -1091,6 +1091,8 @@ function spRenderCart() {
     const rem   = 20000 - total;
 
     document.getElementById('sp-cart-count').textContent = count;
+    const miniCount = document.getElementById('sp-cart-count-mini');
+    if (miniCount) miniCount.textContent = count;
     document.getElementById('sp-cart-total').textContent = total.toLocaleString();
     const remEl = document.getElementById('sp-budget-rem');
     remEl.textContent = rem.toLocaleString() + ' pt';
@@ -1111,6 +1113,22 @@ function spRenderCart() {
 
     // PC版カートも同期
     renderCart();
+}
+
+function spToggleMinimize() {
+    const wrap = document.getElementById('sp-cart-wrap');
+    const btn  = document.getElementById('sp-minimize-btn');
+    const isMin = wrap.classList.toggle('minimized');
+    btn.textContent = isMin ? '戻す' : '最小化';
+    // 最小化時はカートを閉じる
+    if (isMin) {
+        spCartOpen = false;
+        document.getElementById('sp-cart-detail').classList.remove('open');
+        document.getElementById('sp-cart-toggle').textContent = '▲ 開く';
+    }
+    // 最小化時の件数表示を更新
+    const countMini = document.getElementById('sp-cart-count-mini');
+    if (countMini) countMini.textContent = document.getElementById('sp-cart-count').textContent;
 }
 
 function spToggleCart() {
