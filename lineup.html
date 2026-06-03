@@ -75,9 +75,10 @@
         .member-btn:hover { color: #e91e63; }
         .row-predictor .cell { height: calc(var(--mark-size) + 16px); background: #fff; }
         .row-predictor.even-row .cell { background: #f8f8f8; }
-        .row-odds .cell { font-size: 1em; background: #f4f4f4; height: 52px; }
-        .odds-buy-btn { font-size: .68em; padding: 2px 8px; background: #003399; color: #fff; border-radius: 3px; text-decoration: none; white-space: nowrap; font-weight: 700; }
-        .odds-buy-btn:hover { background: #1a4fd6; }
+        .row-odds .cell { font-weight: bold; font-size: 1em; background: #f4f4f4; height: 34px; }
+        .row-odds .cell { cursor: pointer; transition: background .12s; }
+        .row-odds .cell:hover { background: #fff9c4 !important; }
+        .row-odds .cell:active { background: #ffe082 !important; }
         .odds-low { color: #d00; }
         .odds-dark { color: #111; }
         .mark-img { width: var(--mark-size); height: var(--mark-size); object-fit: contain; display: block; }
@@ -124,7 +125,7 @@
             .sp-card-info { flex: 1; padding: 0 10px; min-width: 0; }
             .sp-team-name { font-size: .84rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
             .sp-team-desc { font-size: .68rem; color: #8a9ab2; margin-top: 2px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-            .sp-buy-btn { font-size: .65rem; padding: 2px 7px; background: #003399; color: #fff; border-radius: 3px; text-decoration: none; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+            .sp-odds-val { cursor: pointer; }
             .sp-odds-row { display: flex; align-items: center; gap: 5px; margin-top: 2px; }
             .sp-odds-label { font-size: .65rem; color: #8a9ab2; }
             .sp-odds-val { font-size: .82rem; font-weight: 700; }
@@ -207,6 +208,29 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/common.js"></script>
 <script>
+// lineup → オッズページのカートに単勝を追加
+async function addWinBetFromLineup(teamId, oddsVal) {
+    let cart = [];
+    try { const s = localStorage.getItem(CART_STORAGE_KEY); if (s) cart = JSON.parse(s); } catch(e) {}
+    const BUDGET_LIMIT = 20000;
+    const total = cart.reduce((s,i) => s + i.combs.length * i.amountPerBet, 0);
+    if (total + 100 > BUDGET_LIMIT) {
+        await psAlert(`予算超過：残り${(BUDGET_LIMIT-total).toLocaleString()}ptのため追加できません。`);
+        return;
+    }
+    const id = Date.now();
+    cart.push({ id, displayType:'単勝', type:'win', formation: String(teamId), combs:[String(teamId)], amountPerBet:100 });
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    // フラッシュ表示
+    const cells = document.querySelectorAll('.row-odds .cell');
+    cells.forEach(cell => {
+        if (cell.closest('.team-col') && cell.closest('.team-col').classList.contains(`frame-${teamId}`)) {
+            cell.style.background = '#ffe082';
+            setTimeout(() => { cell.style.background = ''; }, 600);
+        }
+    });
+}
+
 const MARKS = [
     { key:'honmei', label:'◎', file:'assets/marks/mark_honmei.svg' },
     { key:'taikou', label:'○', file:'assets/marks/mark_taikou.svg' },
@@ -289,20 +313,11 @@ function renderPC() {
         const oddsVal = (oddsData.win || {})[String(team.id)] || '---';
         const oddsWrap = document.createElement('div'); oddsWrap.className = 'row-odds';
         const oddsCell = document.createElement('div'); oddsCell.className = 'cell';
-        oddsCell.style.flexDirection = 'column';
-        oddsCell.style.gap = '4px';
         const oddsNum = parseFloat(oddsVal);
-        const oddsSpan = document.createElement('span');
-        oddsSpan.textContent = oddsVal;
-        oddsSpan.className = !isNaN(oddsNum) && oddsNum <= 10 ? 'odds-low' : 'odds-dark';
-        oddsSpan.style.fontWeight = 'bold';
-        const buyBtn = document.createElement('a');
-        buyBtn.href = `odds.html?tab=win-place&highlight=${team.id}`;
-        buyBtn.textContent = '単勝を買う';
-        buyBtn.className = 'odds-buy-btn';
-        buyBtn.onclick = e => e.stopPropagation();
-        oddsCell.appendChild(oddsSpan);
-        oddsCell.appendChild(buyBtn);
+        oddsCell.textContent = oddsVal;
+        oddsCell.title = `${team.name} 単勝 ${oddsVal} をカートに追加`;
+        oddsCell.classList.add(!isNaN(oddsNum) && oddsNum <= 10 ? 'odds-low' : 'odds-dark');
+        oddsCell.addEventListener('click', () => addWinBetFromLineup(team.id, oddsVal));
         oddsWrap.appendChild(oddsCell); col.appendChild(oddsWrap);
         table.appendChild(col);
     });
@@ -330,8 +345,7 @@ function renderSP() {
                     <div class="sp-team-name">${team.name}</div>
                     <div class="sp-odds-row">
                         <span class="sp-odds-label">単勝</span>
-                        <span class="sp-odds-val ${hot ? 'sp-odds-hot' : 'sp-odds-mid'}">${oddsVal}倍</span>
-                        <a href="odds.html?tab=win-place&highlight=${team.id}" class="sp-buy-btn" onclick="event.stopPropagation()">単勝</a>
+                        <span class="sp-odds-val ${hot ? 'sp-odds-hot' : 'sp-odds-mid'}" onclick="event.stopPropagation();addWinBetFromLineup(${team.id},'${oddsVal}')" title="単勝をカートに追加">${oddsVal}倍</span>
                     </div>
                     ${team.description ? `<div class="sp-team-desc">${team.description}</div>` : ''}
                 </div>
