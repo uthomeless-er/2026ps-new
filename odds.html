@@ -173,11 +173,27 @@
 /* ── スマホ専用オッズUI ── */
 .sp-odds-ui { display: none; }
 
+/* 最小化状態（@media外・常に有効） */
+.sp-cart-wrap.minimized .sp-cart-bar-left { display: none; }
+.sp-cart-wrap.minimized .sp-budget-bar { display: none; }
+.sp-cart-wrap.minimized .sp-cart-actions { display: none; }
+.sp-cart-wrap.minimized .sp-cart-bar { padding: 5px 14px; }
+.sp-cart-mini-label { display: none; font-size: .78rem; color: #ccc; }
+.sp-cart-wrap.minimized .sp-cart-mini-label { display: inline; }
+.sp-minimize-btn { font-size: .7rem; color: #aaa; background: none; border: 1px solid #555; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-family: inherit; margin-left: 6px; }
+
 @media (max-width: 767px) {
     /* PC要素を隠す */
     .section-title, .team-table, .tab-menu, .sort-controls,
     .vote-mode-bar, .marksheet-area, #main-view, #bet-management,
     #numpad-overlay, #form-export-area { display: none !important; }
+
+    .sp-cart-wrap {
+        display: block;
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+        background: #222; color: #fff;
+        box-shadow: 0 -2px 10px rgba(0,0,0,.3);
+    }
 
     .sp-odds-ui { display: block; padding: 0 0 130px; }
 
@@ -275,9 +291,7 @@
 
     /* SP カート */
     .sp-cart-wrap {
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-        background: #222; color: #fff;
-        box-shadow: 0 -2px 10px rgba(0,0,0,.3);
+        display: none;
     }
     .sp-cart-bar {
         display: flex; align-items: center; justify-content: space-between;
@@ -326,14 +340,7 @@
     }
     .sp-budget-rem { font-weight: 700; color: #fff; }
     .sp-budget-rem.over { color: #ff6b6b; }
-    /* 最小化状態 */
-    .sp-cart-wrap.minimized .sp-cart-bar-left { display: none; }
-    .sp-cart-wrap.minimized .sp-budget-bar { display: none; }
-    .sp-cart-wrap.minimized .sp-cart-actions { display: none; }
-    .sp-cart-wrap.minimized .sp-cart-bar { padding: 5px 14px; }
-    .sp-cart-mini-label { display: none; font-size: .78rem; color: #ccc; }
-    .sp-cart-wrap.minimized .sp-cart-mini-label { display: inline; }
-    .sp-minimize-btn { font-size: .7rem; color: #aaa; background: none; border: 1px solid #555; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-family: inherit; margin-left: 6px; }
+
 }
 </style>
 
