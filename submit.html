@@ -19,51 +19,73 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .submit-wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 40px; }
-        .check-section { border:1px solid #ddd; border-radius:8px; padding:16px 18px; margin-bottom:16px; background:#fff; }
-        .check-section h3 { margin:0 0 10px; font-size:.95em; color:#003399; display:flex; align-items:center; gap:8px; }
-        .check-section pre { margin:0; font-family:monospace; font-size:.85em; white-space:pre-wrap; word-break:break-all; line-height:1.8; color:#333; }
-        .status-ok   { color:#007d43; font-size:.82em; font-weight:bold; }
-        .status-warn { color:#d00;    font-size:.82em; font-weight:bold; }
-        .warn-box { background:#fff3cd; border:1px solid #ffc107; border-radius:4px; padding:8px 12px; font-size:.85em; margin-bottom:12px; }
-        .copy-area { border:2px solid #003399; border-radius:8px; padding:16px 18px; background:#fff; }
-        .copy-area h3 { margin:0 0 10px; font-size:1em; color:#003399; }
-        .copy-preview { background:#f8f8f8; border:1px solid #ddd; border-radius:4px; padding:10px 12px; margin-bottom:12px; max-height:280px; overflow-y:auto; }
-        .copy-preview pre { margin:0; font-family:monospace; font-size:.85em; white-space:pre-wrap; word-break:break-all; line-height:1.8; color:#333; }
-        .copy-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-        #copy-feedback { color:#007d43; font-size:.88em; font-weight:bold; display:none; }
-        .form-open-btn { display:inline-block; padding:10px 24px; background:#003399; color:#fff; font-weight:bold; border-radius:4px; text-decoration:none; font-size:.95em; margin-top:10px; }
-        .form-open-btn:hover { background:#0044cc; }
-        .edit-link { font-size:.82em; color:#003399; }
-        .mark-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
-        .mark-chip { display:inline-flex; align-items:center; gap:3px; background:#f0f0f0; border-radius:4px; padding:2px 8px; font-size:.82em; }
-        .mark-chip img { width:16px; height:16px; }
-    @media (max-width:767px) { .submit-wrap { padding: 0 10px 40px; } }
-</style>
+        .submit-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; }
 
-<style>
-@media (max-width: 767px) {
-    .check-section { padding: 12px; }
-    .check-section h3 { font-size: .88em; }
-    .copy-area { padding: 14px; }
-    .copy-area h3 { font-size: .92em; }
-    .copy-preview { max-height: 180px; }
-    .copy-preview pre { font-size: .78em; }
-    /* コピー・フォームボタンを大きく */
-    .copy-actions { flex-direction: column; }
-    .copy-actions button, .copy-actions .odd_view {
-        width: 100%; padding: 13px; font-size: .92rem; text-align: center;
-        box-sizing: border-box;
-    }
-    .form-open-btn {
-        display: block !important; width: 100%; box-sizing: border-box;
-        text-align: center; padding: 14px !important; font-size: .95rem !important;
-        margin-top: 8px; border-radius: 6px;
-    }
-    .mark-chip { font-size: .78em; }
-    .warn-box { font-size: .84em; }
-}
-</style>
+        /* 確認カード */
+        .check-card { border: 1px solid #dde3ed; border-radius: 8px; padding: 16px 18px; margin-bottom: 14px; background: #fff; }
+        .check-card h3 { margin: 0 0 10px; font-size: .92em; color: #003399; display: flex; align-items: center; gap: 8px; }
+        .edit-link { font-size: .78em; color: #003399; margin-left: auto; }
+        .status-ok   { color: #007d43; font-size: .82em; font-weight: bold; }
+        .status-warn { color: #d00;    font-size: .82em; font-weight: bold; }
+        .mark-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .mark-chip { display: inline-flex; align-items: center; gap: 3px; background: #f0f0f0; border-radius: 4px; padding: 2px 8px; font-size: .82em; }
+        .mark-chip img { width: 16px; height: 16px; }
+        .bets-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: .84em; }
+        .bets-table th { background: #f0f4ff; padding: 5px 8px; text-align: left; border-bottom: 2px solid #dde3ed; }
+        .bets-table td { padding: 5px 8px; border-bottom: 1px solid #eef0f4; }
+        .bets-total { text-align: right; padding: 8px 0 0; font-weight: bold; font-size: .88em; }
+
+        /* 警告ボックス */
+        .warn-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 10px 14px; font-size: .85em; margin-bottom: 14px; line-height: 1.7; }
+        .error-box { background: #fff0f0; border: 1px solid #f5b8b0; border-radius: 6px; padding: 10px 14px; font-size: .85em; margin-bottom: 14px; line-height: 1.7; display: none; }
+
+        /* 入力フォーム */
+        .form-card { border: 2px solid #003399; border-radius: 8px; padding: 20px 18px; background: #fff; margin-bottom: 14px; }
+        .form-card h3 { margin: 0 0 16px; font-size: .95em; color: #003399; }
+        .form-row { margin-bottom: 14px; }
+        .form-row label { display: block; font-size: .84em; font-weight: 700; color: #333; margin-bottom: 5px; }
+        .form-row label .req { color: #d00; margin-left: 3px; }
+        .form-row label .opt { color: #888; font-weight: 400; margin-left: 4px; font-size: .9em; }
+        .form-row input[type="text"],
+        .form-row textarea {
+            width: 100%; box-sizing: border-box;
+            padding: 9px 12px; border: 1.5px solid #ccc; border-radius: 6px;
+            font-size: .9em; font-family: 'Noto Sans JP', sans-serif;
+            transition: border-color .15s;
+        }
+        .form-row input[type="text"]:focus,
+        .form-row textarea:focus { outline: none; border-color: #003399; }
+        .form-row input.input-error { border-color: #d00; }
+        .form-row .input-hint { font-size: .78em; color: #888; margin-top: 3px; }
+        .form-row .input-error-msg { font-size: .78em; color: #d00; margin-top: 3px; display: none; }
+        .form-row textarea { resize: vertical; min-height: 70px; }
+        .checkbox-row { display: flex; align-items: flex-start; gap: 10px; }
+        .checkbox-row input[type="checkbox"] { margin-top: 2px; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+        .checkbox-row label { font-size: .86em; color: #333; cursor: pointer; font-weight: 400; line-height: 1.6; }
+
+        /* 送信ボタン */
+        .submit-btn {
+            display: block; width: 100%; padding: 15px;
+            background: #007d43; color: #fff; border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: background .15s;
+        }
+        .submit-btn:hover { background: #005f35; }
+        .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+        /* 送信完了 */
+        .done-card { display: none; border: 2px solid #007d43; border-radius: 8px; padding: 30px 20px; text-align: center; background: #fff; }
+        .done-card .done-icon { font-size: 3rem; margin-bottom: 12px; }
+        .done-card h3 { color: #007d43; margin: 0 0 10px; font-size: 1.1em; }
+        .done-card p { font-size: .88em; color: #555; line-height: 1.8; margin: 0; }
+
+        @media (max-width: 767px) {
+            .submit-wrap { padding: 0 10px 40px; }
+            .check-card  { padding: 12px 14px; }
+            .form-card   { padding: 16px 14px; }
+        }
+    </style>
 </head>
 <body>
 <header class="site-header">
@@ -91,21 +113,14 @@
 
 <div class="section-title">買い目を送る</div>
 
-<p style="font-size:.9em;line-height:1.8;margin-bottom:8px;">
-    買い目の内容を確認し、コピーしてGoogleフォームに送信してください。
-</p>
-<div style="font-size:.85em;background:#f0f4ff;border-left:3px solid #003399;padding:8px 12px;margin-bottom:16px;line-height:1.7;">
-    📌 <strong>買い目の送信は必須です。</strong>印（◎○▲など）の入力は任意です。印なしでも参加できます。
-</div>
-
 <!-- 印の確認 -->
-<div class="check-section">
-    <h3>印の確認 <span style="font-size:.78em;color:#888;font-weight:normal;">（任意）</span> <a class="edit-link" href="marks.html">← 修正する</a></h3>
+<div class="check-card">
+    <h3>印の確認 <span style="font-size:.78em;color:#888;font-weight:normal;">（任意）</span><a class="edit-link" href="marks.html">← 修正する</a></h3>
     <div id="marks-check"></div>
 </div>
 
 <!-- 買い目の確認 -->
-<div class="check-section">
+<div class="check-card">
     <h3>買い目の確認 <a class="edit-link" href="odds.html">← 修正する</a></h3>
     <div id="bets-check"></div>
 </div>
@@ -113,30 +128,55 @@
 <!-- 警告 -->
 <div id="warn-box" class="warn-box" style="display:none;"></div>
 
-<!-- コピー・送信 -->
-<div class="copy-area">
-    <h3>📋 送信データをコピーする</h3>
-    <div class="copy-preview">
-        <pre id="copy-text"></pre>
+<!-- エラー -->
+<div id="error-box" class="error-box"></div>
+
+<!-- 入力フォーム -->
+<div class="form-card" id="form-card">
+    <h3>📝 送信情報を入力</h3>
+
+    <div class="form-row">
+        <label>表示名<span class="req">*</span></label>
+        <input type="text" id="input-name" maxlength="50" placeholder="予想者として表示される名前">
+        <div class="input-hint">50文字以内</div>
+        <div class="input-error-msg" id="err-name">表示名を入力してください</div>
     </div>
-    <div class="copy-actions">
-        <button class="odd_view" onclick="copyData()">📋 コピーする</button>
-        <span id="copy-feedback">✔ コピーしました！</span>
+
+    <div class="form-row">
+        <label>Xアカウント<span class="req">*</span></label>
+        <input type="text" id="input-x" maxlength="50" placeholder="@を含めて入力（例：@shadowverse_ps）">
+        <div class="input-hint">重複送信防止のキーになります。1アカウント1回のみ有効です</div>
+        <div class="input-error-msg" id="err-x">Xアカウントを入力してください</div>
     </div>
-    <div style="margin-top:10px;font-size:.85em;color:#555;">
-        コピーしたら、Googleフォームの「買い目・印」欄に貼り付けて送信してください。
+
+    <div class="form-row">
+        <label>コメント<span class="opt">任意</span></label>
+        <textarea id="input-comment" maxlength="200" placeholder="予想の根拠や一言コメントなど（200文字以内）"></textarea>
     </div>
-    <a id="form-open-btn-link" href="#"
-       target="_blank" class="form-open-btn">📝 Googleフォームを開く</a>
+
+    <div class="form-row">
+        <div class="checkbox-row">
+            <input type="checkbox" id="input-publish" checked>
+            <label for="input-publish">予想内容の掲載を許可する（結果発表時に予想が公開される場合があります）</label>
+        </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitPrediction()">予想を送信する</button>
+</div>
+
+<!-- 送信完了 -->
+<div class="done-card" id="done-card">
+    <div class="done-icon">🎉</div>
+    <h3>送信完了！</h3>
+    <p id="done-msg"></p>
 </div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/common.js"></script>
-<script>document.addEventListener("DOMContentLoaded",function(){ var b=document.getElementById("form-open-btn-link"); if(b) b.href=GOOGLE_FORM_URL; });</script>
 <script>document.addEventListener("DOMContentLoaded", renderCountdown);</script>
 <script>
-const UNIQUE_MARKS  = ['honmei','taikou','tanana','renka'];
 const MARK_LABELS   = { honmei:'◎', taikou:'○', tanana:'▲', renka:'⟁', osae:'△' };
 const MARK_FILES    = {
     honmei:'assets/marks/mark_honmei.svg',
@@ -145,10 +185,11 @@ const MARK_FILES    = {
     renka: 'assets/marks/mark_renka.svg',
     osae:  'assets/marks/mark_osae.svg',
 };
+const MARK_ORDER = ['honmei','taikou','tanana','renka','osae'];
 
-let teamsData = [];
+let teamsData     = [];
 let selectedMarks = JSON.parse(localStorage.getItem(MY_MARKS_KEY) || '{}');
-let cart = [];
+let cart          = [];
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -159,54 +200,58 @@ window.addEventListener('DOMContentLoaded', async () => {
     renderMarksCheck();
     renderBetsCheck();
     checkWarnings();
-    buildCopyText();
 });
 
+/* ── 印の確認 ── */
 function renderMarksCheck() {
     const el = document.getElementById('marks-check');
-    if (!teamsData.length) { el.innerHTML = '<span class="status-warn">読み込み中...</span>'; return; }
-    const hasHonmei = Object.values(selectedMarks).includes('honmei');
-    const hasAnyMark = Object.values(selectedMarks).some(v => v !== '');
-    const statusHtml = !hasAnyMark
-        ? '<span style="color:#888;font-size:.82em;">印なし（任意のため問題ありません）</span>'
-        : hasHonmei
-            ? '<span class="status-ok">✔ 印入力済み</span>'
-            : '<span class="status-warn">⚠️ ◎が付いていません（印を送る場合は◎必須）</span>';
-    // ◎○▲⟁△の順でソート
-    const MARK_ORDER = ['honmei','taikou','tanana','renka','osae'];
-    const chipsByMark = [];
+    const hasAnyMark = Object.values(selectedMarks).some(v => v);
+    if (!hasAnyMark) {
+        el.innerHTML = '<span style="color:#888;font-size:.82em;">印なし（任意のため問題ありません）</span>';
+        return;
+    }
+    const chips = [];
     MARK_ORDER.forEach(mk => {
         teamsData.forEach(team => {
             if (selectedMarks[String(team.id)] === mk) {
-                chipsByMark.push(`<div class="mark-chip"><img src="${MARK_FILES[mk]}" alt="${MARK_LABELS[mk]}">${team.tag}</div>`);
+                chips.push(`<div class="mark-chip"><img src="${MARK_FILES[mk]}" alt="${MARK_LABELS[mk]}">${team.tag}</div>`);
             }
         });
     });
-    el.innerHTML = `${statusHtml}<div class="mark-row">${chipsByMark.join('') || ''}</div>`;
+    el.innerHTML = `<span class="status-ok">✔ 印入力済み</span><div class="mark-row">${chips.join('')}</div>`;
 }
 
+/* ── 買い目の確認 ── */
 function renderBetsCheck() {
     const el = document.getElementById('bets-check');
     if (!cart.length) {
         el.innerHTML = '<span class="status-warn">⚠️ 買い目がありません</span><br><a href="odds.html" style="color:#003399;font-size:.85em;">オッズページで買い目を作成してください</a>';
         return;
     }
-    const total = cart.reduce((s, i) => s + i.combs.length * i.amountPerBet, 0);
-    let html = `<span class="status-ok">✔ ${cart.length}件 / 合計 ${total.toLocaleString()}pt</span><pre style="margin-top:6px;font-family:monospace;font-size:.82em;line-height:1.7;color:#333;">`;
-    cart.forEach(item => {
-        html += `[${item.displayType}] ${item.formation} / ${item.combs.length}点 / 各${item.amountPerBet}pt\n`;
-    });
-    el.innerHTML = html + '</pre>';
+    const total = calcTotal();
+    let rows = cart.map(item =>
+        `<tr><td>${item.displayType}</td><td>${item.formation}</td><td style="text-align:right;">${item.combs.length}点</td><td style="text-align:right;">${item.amountPerBet}pt</td><td style="text-align:right;">${(item.combs.length * item.amountPerBet).toLocaleString()}pt</td></tr>`
+    ).join('');
+    el.innerHTML = `
+        <span class="status-ok">✔ ${cart.length}件 / 合計 ${total.toLocaleString()}pt</span>
+        <table class="bets-table">
+            <thead><tr><th>券種</th><th>買い目</th><th>点数</th><th>単価</th><th>小計</th></tr></thead>
+            <tbody>${rows}</tbody>
+        </table>
+        <div class="bets-total">合計：${total.toLocaleString()} pt</div>`;
 }
 
+function calcTotal() {
+    return cart.reduce((s, i) => s + i.combs.length * i.amountPerBet, 0);
+}
+
+/* ── 警告チェック ── */
 function checkWarnings() {
     const warnBox = document.getElementById('warn-box');
     const warnings = [];
-    // 印は任意のため未入力は警告しない。ただし印を付けた場合は◎必須
-    const hasAnyMark = Object.values(selectedMarks).some(v => v !== '');
-    const hasHonmei = Object.values(selectedMarks).includes('honmei');
-    if (hasAnyMark && !hasHonmei) warnings.push('印を付ける場合は◎（本命）が必須です');
-    if (!cart.length) warnings.push('買い目がありません（買い目は送信必須です）');
+    if (!cart.length) warnings.push('買い目がありません（買い目の送信は必須です）');
+    const total = calcTotal();
+    if (total > 20000) warnings.push(`合計が20,000ptを超えています（現在：${total.toLocaleString()}pt）`);
     if (warnings.length) {
         warnBox.style.display = 'block';
         warnBox.innerHTML = warnings.map(w => `⚠️ ${w}`).join('<br>');
@@ -215,51 +260,114 @@ function checkWarnings() {
     }
 }
 
-function buildCopyText() {
-    const MARK_LABELS_JP = { honmei:'◎本命', taikou:'○対抗', tanana:'▲単穴', renka:'⟁連下', osae:'△抑え' };
-    // 印
-    let marksText = '';
-    if (teamsData.length) {
-        marksText = teamsData.map(team => {
-            const m = selectedMarks[String(team.id)];
-            return `${team.id}.${team.tag}: ${m ? MARK_LABELS_JP[m] : 'なし'}`;
-        }).join(' / ');
+/* ── 送信処理 ── */
+async function submitPrediction() {
+    const errorBox = document.getElementById('error-box');
+    errorBox.style.display = 'none';
+
+    // 入力検証
+    const name    = document.getElementById('input-name').value.trim();
+    const xAcct   = document.getElementById('input-x').value.trim();
+    const comment = document.getElementById('input-comment').value.trim();
+    const publish = document.getElementById('input-publish').checked;
+
+    let hasError = false;
+
+    if (!name) {
+        document.getElementById('input-name').classList.add('input-error');
+        document.getElementById('err-name').style.display = 'block';
+        hasError = true;
+    } else {
+        document.getElementById('input-name').classList.remove('input-error');
+        document.getElementById('err-name').style.display = 'none';
     }
-    // 買い目
-    let betsText = '';
-    if (cart.length) {
-        cart.forEach(item => {
-            betsText += `[${item.displayType}] ${item.formation} / ${item.combs.length}点 / 各${item.amountPerBet}pt / 計${item.combs.length * item.amountPerBet}pt\n`;
+
+    if (!xAcct) {
+        document.getElementById('input-x').classList.add('input-error');
+        document.getElementById('err-x').style.display = 'block';
+        hasError = true;
+    } else {
+        document.getElementById('input-x').classList.remove('input-error');
+        document.getElementById('err-x').style.display = 'none';
+    }
+
+    if (hasError) return;
+
+    if (!cart.length) {
+        await psAlert('買い目がありません。オッズページで買い目を作成してください。');
+        return;
+    }
+
+    // サーバー側で合計ptを再計算（改ざん防止）
+    const computedTotal = calcTotal();
+    if (computedTotal > 20000) {
+        await psAlert(`合計が20,000ptを超えています（${computedTotal.toLocaleString()}pt）。\n買い目を減らしてから送信してください。`);
+        return;
+    }
+
+    // 送信確認
+    const ok = await psConfirm(`以下の内容で送信します。よろしいですか？\n\n表示名：${name}\nXアカウント：${xAcct}\n買い目：${cart.length}件 / 合計${computedTotal.toLocaleString()}pt`);
+    if (!ok) return;
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = '送信中...';
+
+    try {
+        const db = getSupabase();
+
+        // 重複チェック（同一Xアカウント）
+        const { data: existing } = await db
+            .from('predictions')
+            .select('id, created_at')
+            .ilike('x_account', xAcct)
+            .maybeSingle();
+
+        if (existing) {
+            const date = new Date(existing.created_at).toLocaleString('ja-JP');
+            const overwrite = await psConfirm(`このXアカウント（${xAcct}）は既に送信済みです（${date}）。\n\n上書きしますか？最後の送信が有効になります。`);
+            if (!overwrite) {
+                btn.disabled = false;
+                btn.textContent = '予想を送信する';
+                return;
+            }
+            // 既存レコードを削除して再挿入
+            await db.from('predictions').delete().eq('id', existing.id);
+        }
+
+        // INSERT
+        const { error } = await db.from('predictions').insert({
+            display_name:  name,
+            x_account:     xAcct,
+            marks:         selectedMarks,
+            bets:          cart,
+            total_pt:      computedTotal,
+            comment:       comment || null,
+            allow_publish: publish,
         });
-        const total = cart.reduce((s, i) => s + i.combs.length * i.amountPerBet, 0);
-        betsText += `合計: ${total.toLocaleString()}pt`;
-    } else {
-        betsText = '（買い目なし）';
-    }
-    const full = `【Premier Series 26-27 予想】\n\n▼印\n${marksText}\n\n▼買い目\n${betsText}`;
-    document.getElementById('copy-text').textContent = full;
-}
 
-function copyData() {
-    const text = document.getElementById('copy-text').textContent;
-    const onSuccess = () => {
-        const fb = document.getElementById('copy-feedback');
-        fb.style.display = 'inline';
-        setTimeout(() => { fb.style.display = 'none'; }, 3000);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallbackCopy(text, onSuccess));
-    } else {
-        fallbackCopy(text, onSuccess);
-    }
-}
+        if (error) throw error;
 
-function fallbackCopy(text, onSuccess) {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    try { if (document.execCommand('copy')) onSuccess(); } catch(e) {}
-    document.body.removeChild(ta);
+        // 送信完了
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('warn-box').style.display  = 'none';
+        const doneCard = document.getElementById('done-card');
+        doneCard.style.display = 'block';
+        document.getElementById('done-msg').innerHTML =
+            `<strong>${name}</strong>（${xAcct}）の予想を受け付けました。<br>` +
+            `買い目：${cart.length}件 / 合計：${computedTotal.toLocaleString()}pt<br><br>` +
+            `結果発表をお楽しみに！`;
+
+        // localStorageのカートをクリア
+        localStorage.removeItem(CART_STORAGE_KEY);
+
+    } catch(e) {
+        console.error(e);
+        errorBox.style.display = 'block';
+        errorBox.textContent = `送信に失敗しました。時間をおいて再度お試しください。（${e.message}）`;
+        btn.disabled = false;
+        btn.textContent = '予想を送信する';
+    }
 }
 </script>
 </body>
