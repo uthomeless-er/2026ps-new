@@ -75,7 +75,9 @@
         .member-btn:hover { color: #e91e63; }
         .row-predictor .cell { height: calc(var(--mark-size) + 16px); background: #fff; }
         .row-predictor.even-row .cell { background: #f8f8f8; }
-        .row-odds .cell { font-weight: bold; font-size: 1em; background: #f4f4f4; height: 34px; }
+        .row-odds .cell { font-size: 1em; background: #f4f4f4; height: 52px; }
+        .odds-buy-btn { font-size: .68em; padding: 2px 8px; background: #003399; color: #fff; border-radius: 3px; text-decoration: none; white-space: nowrap; font-weight: 700; }
+        .odds-buy-btn:hover { background: #1a4fd6; }
         .odds-low { color: #d00; }
         .odds-dark { color: #111; }
         .mark-img { width: var(--mark-size); height: var(--mark-size); object-fit: contain; display: block; }
@@ -120,6 +122,7 @@
             .sp-card-info { flex: 1; padding: 0 10px; min-width: 0; }
             .sp-team-name { font-size: .84rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
             .sp-team-desc { font-size: .68rem; color: #8a9ab2; margin-top: 2px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .sp-buy-btn { font-size: .65rem; padding: 2px 7px; background: #003399; color: #fff; border-radius: 3px; text-decoration: none; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
             .sp-odds-row { display: flex; align-items: center; gap: 5px; margin-top: 2px; }
             .sp-odds-label { font-size: .65rem; color: #8a9ab2; }
             .sp-odds-val { font-size: .82rem; font-weight: 700; }
@@ -284,9 +287,20 @@ function renderPC() {
         const oddsVal = (oddsData.win || {})[String(team.id)] || '---';
         const oddsWrap = document.createElement('div'); oddsWrap.className = 'row-odds';
         const oddsCell = document.createElement('div'); oddsCell.className = 'cell';
+        oddsCell.style.flexDirection = 'column';
+        oddsCell.style.gap = '4px';
         const oddsNum = parseFloat(oddsVal);
-        oddsCell.textContent = oddsVal;
-        oddsCell.classList.add(!isNaN(oddsNum) && oddsNum <= 10 ? 'odds-low' : 'odds-dark');
+        const oddsSpan = document.createElement('span');
+        oddsSpan.textContent = oddsVal;
+        oddsSpan.className = !isNaN(oddsNum) && oddsNum <= 10 ? 'odds-low' : 'odds-dark';
+        oddsSpan.style.fontWeight = 'bold';
+        const buyBtn = document.createElement('a');
+        buyBtn.href = `odds.html?tab=win-place&highlight=${team.id}`;
+        buyBtn.textContent = '単勝を買う';
+        buyBtn.className = 'odds-buy-btn';
+        buyBtn.onclick = e => e.stopPropagation();
+        oddsCell.appendChild(oddsSpan);
+        oddsCell.appendChild(buyBtn);
         oddsWrap.appendChild(oddsCell); col.appendChild(oddsWrap);
         table.appendChild(col);
     });
@@ -315,6 +329,7 @@ function renderSP() {
                     <div class="sp-odds-row">
                         <span class="sp-odds-label">単勝</span>
                         <span class="sp-odds-val ${hot ? 'sp-odds-hot' : 'sp-odds-mid'}">${oddsVal}倍</span>
+                        <a href="odds.html?tab=win-place&highlight=${team.id}" class="sp-buy-btn" onclick="event.stopPropagation()">単勝</a>
                     </div>
                     ${team.description ? `<div class="sp-team-desc">${team.description}</div>` : ''}
                 </div>
