@@ -20,24 +20,48 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .help-wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 40px; }
-        .help-card { border: 1px solid #ddd; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; background: #fff; }
-        .help-card h2 { margin: 0 0 10px; font-size: 1.05em; color: #003399; }
+        .help-card { border: 1px solid #dde3ed; border-radius: 8px; padding: 20px 24px; margin-bottom: 14px; background: #fff; }
+        .help-card h2 { margin: 0 0 12px; font-size: 1em; color: #003399; display: flex; align-items: center; gap: 8px; }
         .help-card p { margin: 0 0 8px; line-height: 1.8; color: #333; font-size: .92em; }
         .help-card p:last-child { margin-bottom: 0; }
-        .btn-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #003399; color: #fff; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: .88em; }
-        .btn-link:hover { background: #0044cc; }
-        .btn-link + .btn-link { margin-left: 8px; }
+        /* ステップリスト */
         .step-list { list-style: none; padding: 0; margin: 10px 0 0; counter-reset: step; }
-        .step-list li { counter-increment: step; padding: 8px 0 8px 36px; position: relative; border-bottom: 1px solid #eee; line-height: 1.7; font-size: .92em; color: #333; }
+        .step-list li {
+            counter-increment: step;
+            padding: 10px 0 10px 40px;
+            position: relative;
+            border-bottom: 1px solid #eef0f4;
+            line-height: 1.7; font-size: .92em; color: #333;
+        }
         .step-list li:last-child { border-bottom: none; }
-        .step-list li::before { content: counter(step); position: absolute; left: 0; top: 9px; width: 24px; height: 24px; background: #003399; color: #fff; border-radius: 50%; font-size: .78em; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-        .rule-row { display: flex; gap: 8px; font-size: .92em; line-height: 1.7; color: #333; margin-bottom: 4px; }
-        .rule-label { font-weight: bold; white-space: nowrap; min-width: 90px; }
-        .note-box { margin-top: 12px; padding: 8px 12px; background: #f0f4ff; border-left: 3px solid #003399; font-size: .86em; line-height: 1.7; color: #333; }
+        .step-list li::before {
+            content: counter(step);
+            position: absolute; left: 0; top: 12px;
+            width: 26px; height: 26px;
+            background: #003399; color: #fff; border-radius: 50%;
+            font-size: .78em; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .step-list li a { color: #003399; }
+        /* ルール */
+        .rule-table { width: 100%; border-collapse: collapse; font-size: .9em; margin-top: 6px; }
+        .rule-table tr { border-bottom: 1px solid #eef0f4; }
+        .rule-table tr:last-child { border-bottom: none; }
+        .rule-table th { width: 100px; padding: 9px 10px; text-align: left; font-weight: 700; color: #003399; white-space: nowrap; vertical-align: top; }
+        .rule-table td { padding: 9px 10px; color: #333; line-height: 1.7; }
+        /* ノート */
+        .note-box { margin-top: 12px; padding: 10px 14px; background: #f0f4ff; border-left: 3px solid #003399; font-size: .86em; line-height: 1.7; color: #333; border-radius: 0 4px 4px 0; }
+        /* ボタン */
+        .btn-link { display: inline-block; margin-top: 10px; padding: 9px 20px; background: #003399; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: .88em; }
+        .btn-link:hover { background: #0044cc; }
+        .btn-link.green { background: #007d43; }
+        .btn-link.green:hover { background: #005f35; }
         @media (max-width: 767px) {
             .help-wrap { padding: 0 10px 40px; }
-            .help-card { padding: 16px; }
-            .btn-link + .btn-link { margin-left: 0; margin-top: 8px; display: block; width: fit-content; }
+            .help-card { padding: 14px 14px; }
+            .rule-table th { width: 80px; padding: 8px 8px; font-size: .85em; }
+            .rule-table td { padding: 8px 8px; font-size: .85em; }
+            .btn-link { display: block; margin-top: 8px; text-align: center; }
         }
     </style>
 </head>
@@ -69,35 +93,38 @@
 
 <div class="help-card">
     <h2>📋 この企画について</h2>
-    <p>Premier Series 26-27に出場する8チームの順位を予想する企画です。競馬の馬券のように券種・買い目・賭けポイントを決めて予想を送信してください。</p>
-    <p>参加は無料・誰でも可能です。予想は1人1回のみ有効です。</p>
+    <p>Premier Series 26-27に出場する8チームの順位を予想する企画です。競馬の馬券のように券種・買い目・賭けポイントを組み合わせて予想を送信してください。</p>
+    <p>参加は無料・誰でも可能です。Xアカウントを使って予想を登録します。</p>
 </div>
 
 <div class="help-card">
     <h2>🗓 参加の流れ</h2>
     <ol class="step-list">
-        <li>出馬表で出場チームとメンバーを確認する</li>
-        <li>オッズページで買い目を選び、購入予定リストに追加する</li>
-        <li>「買い目を確認・送る →」ボタンで送信ページに移動する</li>
-        <li>Googleフォームを開いて必要事項を入力・送信する</li>
+        <li><a href="index.html">出馬表</a>で出場チームとメンバーを確認する</li>
+        <li>（任意）<a href="marks.html">印ページ</a>で各チームへの予想印（◎○▲など）を入力する</li>
+        <li><a href="odds.html">オッズページ</a>で券種・買い目・ポイントを決めて購入予定リストに追加する</li>
+        <li><a href="submit.html">買い目を送るページ</a>で内容を確認し、表示名・Xアカウントを入力して送信する</li>
     </ol>
+    <div class="note-box">📌 <strong>買い目の送信は必須です。</strong>印の入力は任意です。印なしでも参加できます。</div>
 </div>
 
 <div class="help-card">
     <h2>📌 ルール</h2>
-    <div class="rule-row"><span class="rule-label">締め切り</span><span>Premier Series開幕戦の試合開始時間</span></div>
-    <div class="rule-row"><span class="rule-label">予算上限</span><span>合計 20,000pt まで</span></div>
-    <div class="rule-row"><span class="rule-label">投票回数</span><span>1人1回のみ（複数回送信した場合は最後の送信を有効とします）</span></div>
-    <div class="rule-row"><span class="rule-label">的中計算</span><span>賭けたpt × オッズ（複勝・ワイドは主催者が計算）</span></div>
-    <div class="rule-row"><span class="rule-label">結果発表</span><span>シーズン終了時（途中経過の発表なし）</span></div>
-    <div class="note-box">📌 <strong>買い目の送信は必須です。</strong>印（◎○▲など）の入力は任意です。印なしでも参加できます。</div>
+    <table class="rule-table">
+        <tr><th>締め切り</th><td>Premier Series開幕戦の試合開始時間</td></tr>
+        <tr><th>予算上限</th><td>合計 20,000pt まで</td></tr>
+        <tr><th>参加回数</th><td>1人1回のみ有効。同じXアカウントで再送信した場合は最後の送信が有効になります</td></tr>
+        <tr><th>的中計算</th><td>賭けたpt × オッズ。複勝・ワイドはオッズに幅があるため、主催者が結果をもとに計算します</td></tr>
+        <tr><th>結果発表</th><td>シーズン終了時。途中経過の発表は行いません</td></tr>
+        <tr><th>掲載</th><td>送信時に掲載許可にチェックした方の予想は、結果発表時に公開される場合があります</td></tr>
+    </table>
 </div>
 
 <div class="help-card">
     <h2>📖 詳しいガイド</h2>
-    <p>券種（単勝・複勝・ワイドなど）が初めての方は、まず券種の説明をご覧ください。</p>
+    <p>券種（単勝・複勝・ワイドなど）が初めての方は券種の説明を、操作の手順が分からない方は操作手順をご覧ください。</p>
     <a class="btn-link" href="guide-basic.html">券種の説明を読む</a>
-    <a class="btn-link" style="background:#007d43;" href="guide-how.html">操作手順を読む</a>
+    <a class="btn-link green" href="guide-how.html">操作手順を読む</a>
 </div>
 
 </div>

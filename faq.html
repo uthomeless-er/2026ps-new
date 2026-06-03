@@ -20,18 +20,31 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .faq-wrap { max-width: 800px; margin: 0 auto; padding: 0 16px 40px; }
-        .faq-category { font-size: .78em; font-weight: bold; color: #fff; background: #003399; display: inline-block; padding: 3px 12px; border-radius: 10px; margin: 24px 0 10px; }
-        .faq-category:first-of-type { margin-top: 8px; }
-        .faq-item { border-bottom: 1px solid #eee; padding: 14px 0; }
-        .faq-item:last-child { border-bottom: none; }
-        .faq-q { font-weight: bold; color: #003399; margin: 0 0 6px; font-size: .93em; display: flex; gap: 10px; }
+        .faq-block { background: #fff; border: 1px solid #dde3ed; border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
+        .faq-category {
+            font-size: .8em; font-weight: 700; color: #fff;
+            background: #003399; padding: 6px 16px;
+            letter-spacing: .06em;
+        }
+        .faq-item { border-top: 1px solid #eef0f4; padding: 14px 18px; }
+        .faq-item:first-child { border-top: none; }
+        .faq-q {
+            font-weight: 700; color: #003399;
+            margin: 0 0 6px; font-size: .92em;
+            display: flex; gap: 10px;
+        }
         .faq-q::before { content: 'Q.'; flex-shrink: 0; }
-        .faq-a { color: #333; line-height: 1.8; font-size: .9em; display: flex; gap: 10px; margin: 0; }
-        .faq-a::before { content: 'A.'; flex-shrink: 0; font-weight: bold; color: #007d43; }
+        .faq-a {
+            color: #444; line-height: 1.8; font-size: .88em;
+            display: flex; gap: 10px; margin: 0;
+        }
+        .faq-a::before { content: 'A.'; flex-shrink: 0; font-weight: 700; color: #007d43; }
+        .faq-a a { color: #003399; }
         @media (max-width: 767px) {
             .faq-wrap { padding: 0 10px 40px; }
-            .faq-q { font-size: .88em; }
-            .faq-a { font-size: .86em; }
+            .faq-item { padding: 12px 14px; }
+            .faq-q { font-size: .87em; }
+            .faq-a { font-size: .84em; }
         }
     </style>
 </head>
@@ -61,72 +74,114 @@
 
 <div class="section-title">Q&A</div>
 
-<div class="faq-category">参加について</div>
+<!-- 参加について -->
+<div class="faq-block">
+    <div class="faq-category">参加について</div>
 
-<div class="faq-item">
-    <p class="faq-q">誰でも参加できますか？</p>
-    <p class="faq-a">はい、どなたでも参加いただけます。</p>
+    <div class="faq-item">
+        <p class="faq-q">誰でも参加できますか？</p>
+        <p class="faq-a">はい、どなたでも参加いただけます。Xアカウントがあれば参加できます。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">何回でも予想を送れますか？</p>
+        <p class="faq-a">同じXアカウントで複数回送信した場合は、最後の送信が有効になります。意図しない二重送信は上書き確認が表示されます。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">締め切りはいつですか？</p>
+        <p class="faq-a">Premier Series開幕戦の試合開始時間が締め切りです。それ以降の送信は無効となります。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">印は必須ですか？</p>
+        <p class="faq-a">印の入力は任意です。買い目の送信のみでも参加できます。</p>
+    </div>
 </div>
 
-<div class="faq-item">
-    <p class="faq-q">何回でも予想を送れますか？</p>
-    <p class="faq-a">1人1回のみ有効です。複数回送信された場合は最後の送信を有効とします。</p>
+<!-- ポイントについて -->
+<div class="faq-block">
+    <div class="faq-category">ポイントについて</div>
+
+    <div class="faq-item">
+        <p class="faq-q">ポイントは実際のお金と関係ありますか？</p>
+        <p class="faq-a">いいえ、この企画のポイントは純粋な予想ゲーム用のスコアです。換金・賞品とは一切関係ありません。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">1回の投票で使えるポイントの上限は？</p>
+        <p class="faq-a">合計20,000ptまでです。上限を超える場合は送信が拒否されます。オッズページの購入予定リストで残り予算を確認しながら買い目を組んでください。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">的中したときの計算方法は？</p>
+        <p class="faq-a">賭けたpt × オッズで計算します。例えば200ptを賭けてオッズ5.7なら1,140ptが返ってきます。複勝・ワイドはオッズに幅があるため、主催者が実際の結果をもとに確定オッズを計算します。</p>
+    </div>
 </div>
 
-<div class="faq-item">
-    <p class="faq-q">締め切りはいつですか？</p>
-    <p class="faq-a">Premier Series開幕戦の試合開始時間が締め切りです。それ以降の送信は無効となります。</p>
+<!-- 操作について -->
+<div class="faq-block">
+    <div class="faq-category">操作について</div>
+
+    <div class="faq-item">
+        <p class="faq-q">買い目を間違えて追加してしまいました</p>
+        <p class="faq-a">購入予定リストの「✕」ボタンで取り消せます。送信前であれば何度でも修正できます。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">送信ページに移動したら入力内容が消えていました</p>
+        <p class="faq-a">表示名・Xアカウント・コメントは前回入力した内容が自動で復元されます。買い目はオッズページに戻っても保持されています。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">「番号順」と「人気順」の違いは？</p>
+        <p class="faq-a">番号順はチームの番号（1〜8）の順に表示します。人気順はオッズが低い（支持率が高い）買い目から順に表示します。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">フォーメーションとボックスの違いは？</p>
+        <p class="faq-a">フォーメーションは「1列目 × 2列目」という形で組み合わせを絞れます。ボックスは選んだチームすべての組み合わせを網羅します。詳しくは<a href="guide-basic.html">券種の説明ページ</a>をご覧ください。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">ポイントを変更するにはどうすればいいですか？</p>
+        <p class="faq-a">購入予定リストの金額部分（例：[1]00pt）をタップ・クリックするとテンキーが表示されます。そこで金額を変更できます。</p>
+    </div>
 </div>
 
-<div class="faq-category">ポイントについて</div>
+<!-- 送信について -->
+<div class="faq-block">
+    <div class="faq-category">送信について</div>
 
-<div class="faq-item">
-    <p class="faq-q">ポイントは実際のお金と関係ありますか？</p>
-    <p class="faq-a">いいえ、この企画のポイントは純粋な予想ゲーム用のスコアです。換金や賞品とは一切関係ありません。</p>
+    <div class="faq-item">
+        <p class="faq-q">送信が完了したか確認する方法は？</p>
+        <p class="faq-a">送信が完了すると「送信完了」の画面が表示されます。表示されない場合はエラーメッセージを確認して再度お試しください。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">「このXアカウントは既に送信済みです」と表示されました</p>
+        <p class="faq-a">同じXアカウントで以前に送信済みです。上書きする場合は確認ダイアログで「OK」を押してください。上書きすると最新の送信が有効になります。</p>
+    </div>
+
+    <div class="faq-item">
+        <p class="faq-q">「合計が20,000ptを超えています」と表示されました</p>
+        <p class="faq-a">買い目の合計が上限を超えているため送信できません。<a href="odds.html">オッズページ</a>に戻って買い目を減らすか、ポイントを下げてください。</p>
+    </div>
 </div>
 
-<div class="faq-item">
-    <p class="faq-q">1回の投票で使えるポイントの上限は？</p>
-    <p class="faq-a">合計20,000ptまでです。サイト上の購入予定リストで残り予算を確認しながら買い目を組んでください。</p>
-</div>
+<!-- 結果について -->
+<div class="faq-block">
+    <div class="faq-category">結果について</div>
 
-<div class="faq-item">
-    <p class="faq-q">的中したときの計算方法は？</p>
-    <p class="faq-a">賭けたpt × オッズで計算します。例えば200ptを賭けてオッズ5.7なら1,140ptが返ってきます。複勝・ワイドはオッズに幅があるため、主催者が実際の結果をもとに計算します。</p>
-</div>
+    <div class="faq-item">
+        <p class="faq-q">結果はいつ発表されますか？</p>
+        <p class="faq-a">シーズン終了後に発表します。途中経過の発表は行いません。</p>
+    </div>
 
-<div class="faq-category">操作について</div>
-
-<div class="faq-item">
-    <p class="faq-q">買い目を間違えて追加してしまいました</p>
-    <p class="faq-a">購入予定リストの「削除」ボタンで取り消せます。フォームを送信する前であれば何度でも修正できます。</p>
-</div>
-
-<div class="faq-item">
-    <p class="faq-q">コピーボタンを押しても上手くコピーできません</p>
-    <p class="faq-a">テキストエリアを長押しして手動で全選択→コピーしてください。ブラウザの設定によっては自動コピーが機能しない場合があります。</p>
-</div>
-
-<div class="faq-item">
-    <p class="faq-q">「番号順」と「人気順」の違いは？</p>
-    <p class="faq-a">番号順はチームの番号（1〜8）の順に表示します。人気順はオッズが低い（的中しやすい）買い目から順に表示します。</p>
-</div>
-
-<div class="faq-item">
-    <p class="faq-q">フォーメーションとボックスの違いは？</p>
-    <p class="faq-a">フォーメーションは「1列目のチーム × 2列目のチーム」という形で組み合わせを絞れます。ボックスは選んだチームすべての組み合わせを網羅します。詳しくは券種の説明ページをご覧ください。</p>
-</div>
-
-<div class="faq-category">結果について</div>
-
-<div class="faq-item">
-    <p class="faq-q">結果はいつ発表されますか？</p>
-    <p class="faq-a">シーズン終了後に発表します。途中経過の発表は行いません。</p>
-</div>
-
-<div class="faq-item">
-    <p class="faq-q">予想内容はどこかに掲載されますか？</p>
-    <p class="faq-a">フォームで掲載許可にチェックいただいた方の予想は、結果発表時などに掲載する場合があります。許可しない場合は掲載しません。</p>
+    <div class="faq-item">
+        <p class="faq-q">予想内容はどこかに掲載されますか？</p>
+        <p class="faq-a">送信時に掲載許可にチェックいただいた方の予想は、結果発表時などに掲載する場合があります。チェックを外した場合は掲載しません。</p>
+    </div>
 </div>
 
 </div>
