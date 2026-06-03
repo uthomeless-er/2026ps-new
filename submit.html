@@ -58,7 +58,7 @@
         .form-row input.input-error { border-color: #d00; }
         .form-row .input-hint { font-size: .78em; color: #888; margin-top: 3px; }
         .form-row .input-error-msg { font-size: .78em; color: #d00; margin-top: 3px; display: none; }
-        .form-row textarea { resize: vertical; min-height: 70px; }
+        .form-row textarea { resize: vertical; min-height: 100px; }
         .checkbox-row { display: flex; align-items: flex-start; gap: 10px; }
         .checkbox-row input[type="checkbox"] { margin-top: 2px; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
         .checkbox-row label { font-size: .86em; color: #333; cursor: pointer; font-weight: 400; line-height: 1.6; }
@@ -156,8 +156,13 @@
     </div>
 
     <div class="form-row">
-        <label>コメント<span class="opt">任意</span></label>
-        <textarea id="input-comment" maxlength="200" oninput="saveFormInputs()" placeholder="予想の根拠や一言コメントなど（200文字以内）"></textarea>
+        <label>予想についてのコメント<span class="opt">任意</span></label>
+        <textarea id="input-comment" maxlength="500" rows="4" oninput="saveFormInputs()" placeholder="予想の根拠や一言コメントなど（500文字以内）"></textarea>
+    </div>
+
+    <div class="form-row">
+        <label>企画への感想・要望<span class="opt">任意</span></label>
+        <textarea id="input-feedback" maxlength="500" rows="4" oninput="saveFormInputs()" placeholder="企画への感想や要望など（500文字以内）"></textarea>
     </div>
 
     <div class="form-row">
@@ -284,7 +289,8 @@ function saveFormInputs() {
     const data = {
         name:    document.getElementById('input-name').value,
         x:       document.getElementById('input-x').value,
-        comment: document.getElementById('input-comment').value,
+        comment:  document.getElementById('input-comment').value,
+        feedback: document.getElementById('input-feedback').value,
         publish: document.getElementById('input-publish').checked,
     };
     localStorage.setItem(SUBMIT_FORM_KEY, JSON.stringify(data));
@@ -297,7 +303,8 @@ function restoreFormInputs() {
         const data = JSON.parse(saved);
         if (data.name)    document.getElementById('input-name').value    = data.name;
         if (data.x)       document.getElementById('input-x').value       = data.x;
-        if (data.comment) document.getElementById('input-comment').value = data.comment;
+        if (data.comment)  document.getElementById('input-comment').value  = data.comment;
+        if (data.feedback) document.getElementById('input-feedback').value = data.feedback;
         document.getElementById('input-publish').checked = data.publish !== false;
     } catch(e) {}
 }
@@ -309,7 +316,8 @@ async function submitPrediction() {
     // 入力検証
     const name    = document.getElementById('input-name').value.trim();
     const xAcct   = document.getElementById('input-x').value.trim();
-    const comment = document.getElementById('input-comment').value.trim();
+    const comment  = document.getElementById('input-comment').value.trim();
+    const feedback = document.getElementById('input-feedback').value.trim();
     const publish = document.getElementById('input-publish').checked;
 
     let hasError = false;
@@ -383,7 +391,8 @@ async function submitPrediction() {
             marks:         selectedMarks,
             bets:          cart,
             total_pt:      computedTotal,
-            comment:       comment || null,
+            comment:       comment  || null,
+            feedback:      feedback || null,
             allow_publish: publish,
         });
 
