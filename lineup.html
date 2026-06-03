@@ -53,7 +53,7 @@
         .seimai-outer { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 20px; display: flex; justify-content: center; }
         .seimai-table { display: flex; flex-direction: row-reverse; width: max-content; border: 2px solid #222; background: var(--white); flex-shrink: 0; }
         .label-col { width: var(--label-width); display: flex; flex-direction: column; background: #f4f4f4; border-left: 2px solid #222; flex-shrink: 0; }
-        .label-col .cell { font-size: .78em; font-weight: bold; color: #333; justify-content: center; text-align: center; background: #f4f4f4; }
+        .label-col .cell { font-size: .78em; font-weight: bold; color: #333; justify-content: center; align-items: center; text-align: center; background: #f4f4f4; }
         .team-col { width: var(--col-width); border-left: 1px solid #bbb; display: flex; flex-direction: column; }
         .team-col:last-child { border-left: none; }
         .cell { border-bottom: 1px solid #ccc; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; font-size: .82em; height: 32px; box-sizing: border-box; width: 100%; overflow: hidden; }
@@ -82,6 +82,8 @@
         .odds-dark { color: #111; }
         .mark-img { width: var(--mark-size); height: var(--mark-size); object-fit: contain; display: block; }
         .row-desc .cell { font-size: .75em; color: #555; height: 72px; background: #fafafa; padding: 4px 6px; line-height: 1.5; text-align: left; align-items: flex-start; overflow: hidden; }
+        .label-col .row-desc .cell { text-align: center; align-items: center; justify-content: center; }
+        
 
         /* メンバーポップアップ */
         #member-popup { position: fixed; background: #fff; border: 2px solid var(--blue); border-radius: 8px; padding: 14px 18px; box-shadow: 0 4px 20px rgba(0,0,0,.2); z-index: 3000; min-width: 200px; max-width: 280px; user-select: none; }
