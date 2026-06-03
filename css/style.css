@@ -227,7 +227,7 @@ table.list-table { width: 100%; border-collapse: collapse; }
 .btn-delete:hover { background: #ffd0d0; }
 
 /* ── テンキー ── */
-#numpad-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 2000; display: flex; align-items: center; }
+#numpad-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 2000; display: flex; align-items: center; justify-content: center; }
 #numpad-box { background: #fff; border-radius: 10px; padding: 18px; width: 220px; box-shadow: 0 6px 30px rgba(0,0,0,.35); }
 #numpad-preview { font-size: 1.4em; font-weight: bold; text-align: right; color: var(--jra-blue); margin-bottom: 10px; border-bottom: 2px solid var(--jra-blue); padding-bottom: 6px; }
 .np-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
@@ -284,17 +284,3 @@ table.odds-list tr.odds_row td[data-clickable]:hover { background: #ffe082 !impo
     #btn-copy { width: 100%; padding: 12px; font-size: 1em; }
     #btn-open-form { display: block !important; width: 100%; box-sizing: border-box; text-align: center; padding: 12px !important; font-size: 1em !important; margin-top: 4px; }
 }
-
-/* ── ブレイクポイント同期用変数（JS の isSP() と合わせること） ── */
-:root { --is-sp: 0; }
-@media (max-width: 767px) { :root { --is-sp: 1; } }
-
-/* ── SP枠番カラー（共通） ── */
-.sp-frame-1 { background: var(--frame-1); color: var(--frame-1-text); }
-.sp-frame-2 { background: var(--frame-2); color: var(--frame-2-text); }
-.sp-frame-3 { background: var(--frame-3); color: var(--frame-3-text); }
-.sp-frame-4 { background: var(--frame-4); color: var(--frame-4-text); }
-.sp-frame-5 { background: var(--frame-5); color: var(--frame-5-text); }
-.sp-frame-6 { background: var(--frame-6); color: var(--frame-6-text); }
-.sp-frame-7 { background: var(--frame-7); color: var(--frame-7-text); }
-.sp-frame-8 { background: var(--frame-8); color: var(--frame-8-text); }

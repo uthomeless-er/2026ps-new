@@ -137,26 +137,26 @@
 
     <div class="form-row">
         <label>表示名<span class="req">*</span></label>
-        <input type="text" id="input-name" maxlength="50" placeholder="予想者として表示される名前">
+        <input type="text" id="input-name" maxlength="50" oninput="saveFormInputs()" placeholder="予想者として表示される名前">
         <div class="input-hint">50文字以内</div>
         <div class="input-error-msg" id="err-name">表示名を入力してください</div>
     </div>
 
     <div class="form-row">
         <label>Xアカウント<span class="req">*</span></label>
-        <input type="text" id="input-x" maxlength="50" placeholder="@を含めて入力（例：@shadowverse_ps）">
+        <input type="text" id="input-x" maxlength="50" oninput="saveFormInputs()" placeholder="@を含めて入力（例：@shadowverse_ps）">
         <div class="input-hint">重複送信防止のキーになります。1アカウント1回のみ有効です</div>
         <div class="input-error-msg" id="err-x">Xアカウントを入力してください</div>
     </div>
 
     <div class="form-row">
         <label>コメント<span class="opt">任意</span></label>
-        <textarea id="input-comment" maxlength="200" placeholder="予想の根拠や一言コメントなど（200文字以内）"></textarea>
+        <textarea id="input-comment" maxlength="200" oninput="saveFormInputs()" placeholder="予想の根拠や一言コメントなど（200文字以内）"></textarea>
     </div>
 
     <div class="form-row">
         <div class="checkbox-row">
-            <input type="checkbox" id="input-publish" checked>
+            <input type="checkbox" id="input-publish" checked onchange="saveFormInputs()">
             <label for="input-publish">予想内容の掲載を許可する（結果発表時に予想が公開される場合があります）</label>
         </div>
     </div>
@@ -200,6 +200,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     renderMarksCheck();
     renderBetsCheck();
     checkWarnings();
+    restoreFormInputs();
 });
 
 /* ── 印の確認 ── */
@@ -261,6 +262,31 @@ function checkWarnings() {
 }
 
 /* ── 送信処理 ── */
+// フォーム入力の保存・復元
+const SUBMIT_FORM_KEY = 'submit_form_ps2627';
+
+function saveFormInputs() {
+    const data = {
+        name:    document.getElementById('input-name').value,
+        x:       document.getElementById('input-x').value,
+        comment: document.getElementById('input-comment').value,
+        publish: document.getElementById('input-publish').checked,
+    };
+    localStorage.setItem(SUBMIT_FORM_KEY, JSON.stringify(data));
+}
+
+function restoreFormInputs() {
+    try {
+        const saved = localStorage.getItem(SUBMIT_FORM_KEY);
+        if (!saved) return;
+        const data = JSON.parse(saved);
+        if (data.name)    document.getElementById('input-name').value    = data.name;
+        if (data.x)       document.getElementById('input-x').value       = data.x;
+        if (data.comment) document.getElementById('input-comment').value = data.comment;
+        document.getElementById('input-publish').checked = data.publish !== false;
+    } catch(e) {}
+}
+
 async function submitPrediction() {
     const errorBox = document.getElementById('error-box');
     errorBox.style.display = 'none';
@@ -360,6 +386,7 @@ async function submitPrediction() {
 
         // localStorageのカートをクリア
         localStorage.removeItem(CART_STORAGE_KEY);
+        localStorage.removeItem('submit_form_ps2627');
 
     } catch(e) {
         console.error(e);
