@@ -3,91 +3,206 @@
     "id": 1,
     "name": "Crazy Raccoon",
     "tag": "CR",
-    "logo": "assets/images/cr_logo.png",
+    "logo": "assets/images/cr_logo.svg",
     "members": [
-      { "name": "Atom",   "x": "https://x.com/Atomu_sv",     "youtube": "https://www.youtube.com/channel/UC8yvw5d2_e--XXt8uw0aMTg" },
-      { "name": "ふえた", "x": "https://x.com/saboten_sv",   "youtube": "https://www.youtube.com/channel/UCNnIhUQILBeaABXyzVQMq_w" },
-      { "name": "Winter", "x": "https://x.com/msfsv",        "youtube": "https://www.youtube.com/@Winter-r5o" },
-      { "name": "空白",   "x": "https://x.com/Kuhaku_sv",    "youtube": "https://www.youtube.com/@Kuhaku-q7c" }
-    ]
+      {
+        "name": "Atom",
+        "x": "https://x.com/Atomu_sv",
+        "youtube": "https://www.youtube.com/channel/UC8yvw5d2_e--XXt8uw0aMTg"
+      },
+      {
+        "name": "ふえた",
+        "x": "https://x.com/saboten_sv",
+        "youtube": "https://www.youtube.com/channel/UCNnIhUQILBeaABXyzVQMq_w"
+      },
+      {
+        "name": "Winter",
+        "x": "https://x.com/msfsv",
+        "youtube": "https://www.youtube.com/@Winter-r5o"
+      },
+      {
+        "name": "空白",
+        "x": "https://x.com/Kuhaku_sv",
+        "youtube": "https://www.youtube.com/@Kuhaku-q7c"
+      }
+    ],
+    "description": "Shadowverse競技シーンの強豪。安定した実力と豊富な大会経験を持つ。"
   },
   {
     "id": 2,
     "name": "ZETA DIVISION",
     "tag": "ZETA",
-    "logo": "assets/images/zeta_logo.png",
+    "logo": "assets/images/zeta_logo.svg",
     "members": [
-      { "name": "CQCQ",  "x": "https://x.com/cqcq_sv",      "youtube": "https://www.youtube.com/@cqcqshadowverse" },
-      { "name": "ヘイム", "x": "https://x.com/heimu_v0122v", "youtube": "https://www.youtube.com/@heim_sv" },
-      { "name": "TBT",   "x": "https://x.com/tabe_tter",    "youtube": "https://www.youtube.com/@tabe_tter" }
-    ]
+      {
+        "name": "CQCQ",
+        "x": "https://x.com/cqcq_sv",
+        "youtube": "https://www.youtube.com/@cqcqshadowverse"
+      },
+      {
+        "name": "ヘイム",
+        "x": "https://x.com/heimu_v0122v",
+        "youtube": "https://www.youtube.com/@heim_sv"
+      },
+      {
+        "name": "TBT",
+        "x": "https://x.com/tabe_tter",
+        "youtube": "https://www.youtube.com/@tabe_tter"
+      }
+    ],
+    "description": "国内トップクラスの実力を誇るeスポーツ組織。多彩な戦術で相手を翻弄する。"
   },
   {
     "id": 3,
     "name": "DetonatioN FocusMe",
     "tag": "DFM",
-    "logo": "assets/images/dfm_logo.png",
+    "logo": "assets/images/dfm_logo.svg",
     "members": [
-      { "name": "ミル",   "x": "https://x.com/bbq_mill",   "youtube": "https://www.youtube.com/@bbq_mill39" },
-      { "name": "ユーリ", "x": "https://x.com/yuuri8540",  "youtube": "https://www.youtube.com/@ch-dq9dh" },
-      { "name": "かなで", "x": "https://x.com/komeizi_sv", "youtube": "https://www.youtube.com/@%E3%81%8B%E3%81%AA%E3%81%A7-s2m" }
-    ]
+      {
+        "name": "ミル",
+        "x": "https://x.com/bbq_mill",
+        "youtube": "https://www.youtube.com/@bbq_mill39"
+      },
+      {
+        "name": "ユーリ",
+        "x": "https://x.com/yuuri8540",
+        "youtube": "https://www.youtube.com/@ch-dq9dh"
+      },
+      {
+        "name": "かなで",
+        "x": "https://x.com/komeizi_sv",
+        "youtube": "https://www.youtube.com/@%E3%81%8B%E3%81%AA%E3%81%A7-s2m"
+      }
+    ],
+    "description": "長年にわたりShadowverse競技シーンを牽引してきた名門チーム。"
   },
   {
     "id": 4,
     "name": "VARREL",
     "tag": "VRL",
-    "logo": "assets/images/varrel_logo.png",
+    "logo": "assets/images/varrel_logo.svg",
     "members": [
-      { "name": "Mishadow51", "x": "https://x.com/Mishadow51",        "bilibili": "https://space.bilibili.com/169172902?spm_id_from=333.1007.0.0" },
-      { "name": "Terarina",   "x": "https://x.com/tera_rina",         "youtube": "https://www.youtube.com/@terarina7187" },
-      { "name": "monakawan",  "x": "https://x.com/9baPooKS9w14337" }
-    ]
+      {
+        "name": "Mishadow51",
+        "x": "https://x.com/Mishadow51",
+        "bilibili": "https://space.bilibili.com/169172902?spm_id_from=333.1007.0.0"
+      },
+      {
+        "name": "Terarina",
+        "x": "https://x.com/tera_rina",
+        "youtube": "https://www.youtube.com/@terarina7187"
+      },
+      {
+        "name": "monakawan",
+        "x": "https://x.com/9baPooKS9w14337"
+      }
+    ],
+    "description": "独自の戦略と緻密なプレイングで上位を狙う。"
   },
   {
     "id": 5,
     "name": "MURASH GAMING",
     "tag": "MRG",
-    "logo": "assets/images/mrg_logo.png",
+    "logo": "assets/images/mrg_logo.svg",
     "members": [
-      { "name": "マイト",  "x": "https://x.com/maito_2626",  "youtube": "https://www.youtube.com/@%E3%83%9E%E3%82%A4%E3%83%88" },
-      { "name": "glory",   "x": "https://x.com/glory__2020", "youtube": "https://www.youtube.com/@glory_2020" },
-      { "name": "Toby",    "x": "https://x.com/toby_24ss",   "youtube": "https://www.youtube.com/@toby6968" },
-      { "name": "Spicies", "x": "https://x.com/Spicies_",    "youtube": "https://www.youtube.com/@Spicies" }
-    ]
+      {
+        "name": "マイト",
+        "x": "https://x.com/maito_2626",
+        "youtube": "https://www.youtube.com/@%E3%83%9E%E3%82%A4%E3%83%88"
+      },
+      {
+        "name": "glory",
+        "x": "https://x.com/glory__2020",
+        "youtube": "https://www.youtube.com/@glory_2020"
+      },
+      {
+        "name": "Toby",
+        "x": "https://x.com/toby_24ss",
+        "youtube": "https://www.youtube.com/@toby6968"
+      },
+      {
+        "name": "Spicies",
+        "x": "https://x.com/Spicies_",
+        "youtube": "https://www.youtube.com/@Spicies"
+      }
+    ],
+    "description": "勢いのある若手プレイヤーを中心に構成されたチーム。"
   },
   {
     "id": 6,
     "name": "REJECT",
     "tag": "RC",
-    "logo": "assets/images/reject_logo.png",
+    "logo": "assets/images/reject_logo.svg",
     "members": [
-      { "name": "あぐのむ",   "x": "https://x.com/agunomomoclo", "youtube": "https://www.youtube.com/@%E3%81%82%E3%81%90%E3%81%AE%E3%82%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB" },
-      { "name": "たばた",     "x": "https://x.com/tbt_sv12",     "youtube": "https://www.youtube.com/@tbtsv12" },
-      { "name": "ぱらちゃん", "x": "https://x.com/para_chan_",   "youtube": "https://www.youtube.com/@para_channel" },
-      { "name": "拓海",       "x": "https://x.com/harkpokepoke", "youtube": "https://www.youtube.com/@takumi-x6s" }
-    ]
+      {
+        "name": "あぐのむ",
+        "x": "https://x.com/agunomomoclo",
+        "youtube": "https://www.youtube.com/@%E3%81%82%E3%81%90%E3%81%AE%E3%82%80%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB"
+      },
+      {
+        "name": "たばた",
+        "x": "https://x.com/tbt_sv12",
+        "youtube": "https://www.youtube.com/@tbtsv12"
+      },
+      {
+        "name": "ぱらちゃん",
+        "x": "https://x.com/para_chan_",
+        "youtube": "https://www.youtube.com/@para_channel"
+      },
+      {
+        "name": "拓海",
+        "x": "https://x.com/harkpokepoke",
+        "youtube": "https://www.youtube.com/@takumi-x6s"
+      }
+    ],
+    "description": "常に挑戦者として戦い続ける実力派チーム。"
   },
   {
     "id": 7,
-    "name": "RIDDLE ORDER",
+    "name": "RIDDLE",
     "tag": "RDL",
-    "logo": "assets/images/riddle_logo.png",
+    "logo": "assets/images/riddle_logo.svg",
     "members": [
-      { "name": "折り紙",   "x": "https://x.com/Origami_sv",   "youtube": "https://www.youtube.com/@%E6%8A%98%E3%82%8A%E7%B4%99-c6m" },
-      { "name": "メンバー2","x": "", "youtube": "" },
-      { "name": "メンバー3","x": "", "youtube": "" }
-    ]
+      {
+        "name": "折り紙",
+        "x": "https://x.com/Origami_sv",
+        "youtube": "https://www.youtube.com/@%E6%8A%98%E3%82%8A%E7%B4%99-c6m"
+      },
+      {
+        "name": "メンバー2",
+        "x": "",
+        "youtube": ""
+      },
+      {
+        "name": "メンバー3",
+        "x": "",
+        "youtube": ""
+      }
+    ],
+    "description": "独特のプレイスタイルで相手を驚かせる戦術家集団。"
   },
   {
     "id": 8,
     "name": "レバンガ北海道",
     "tag": "LVH",
-    "logo": "assets/images/levanga_logo.png",
+    "logo": "assets/images/levanga_logo.svg",
     "members": [
-      { "name": "Era53",   "x": "https://x.com/garbage_er",    "youtube": "https://www.youtube.com/@era5380" },
-      { "name": "rikka",   "x": "https://x.com/karakuri1646",  "youtube": "https://www.youtube.com/@rikka1646" },
-      { "name": "だーよね","x": "https://x.com/dayone_sha723", "youtube": "https://www.youtube.com/@daaayone_sv" }
-    ]
+      {
+        "name": "Era53",
+        "x": "https://x.com/garbage_er",
+        "youtube": "https://www.youtube.com/@era5380"
+      },
+      {
+        "name": "rikka",
+        "x": "https://x.com/karakuri1646",
+        "youtube": "https://www.youtube.com/@rikka1646"
+      },
+      {
+        "name": "だーよね",
+        "x": "https://x.com/dayone_sha723",
+        "youtube": "https://www.youtube.com/@daaayone_sv"
+      }
+    ],
+    "description": "北海道を拠点とするチーム。地元の期待を背負い戦う。"
   }
 ]

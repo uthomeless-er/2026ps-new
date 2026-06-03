@@ -100,7 +100,8 @@
     </div>
 </header>
 <nav class="page-nav">
-    <a href="index.html">出馬表</a>
+    <a href="index.html">トップ</a>
+    <a href="lineup.html">出馬表</a>
     <a href="marks.html">印</a>
     <a href="odds.html">オッズ</a>
     <a href="submit.html" class="active">買い目を送る</a>
@@ -132,6 +133,11 @@
 <div id="error-box" class="error-box"></div>
 
 <!-- 入力フォーム -->
+<div id="closed-card" style="display:none;border:2px solid #d00;border-radius:8px;padding:24px 20px;text-align:center;background:#fff;margin-bottom:14px;">
+    <div style="font-size:2rem;margin-bottom:10px;">🔒</div>
+    <h3 style="color:#d00;margin:0 0 8px;font-size:1em;">受付終了</h3>
+    <p style="font-size:.88em;color:#555;line-height:1.8;margin:0;">Premier Series開幕戦の試合開始をもって予想の受付を終了しました。<br>たくさんのご参加ありがとうございました。</p>
+</div>
 <div class="form-card" id="form-card">
     <h3>📝 送信情報を入力</h3>
 
@@ -197,6 +203,15 @@ window.addEventListener('DOMContentLoaded', async () => {
         const saved = localStorage.getItem(CART_STORAGE_KEY);
         cart = saved ? JSON.parse(saved) : [];
     } catch(e) { console.error(e); }
+
+    // 締め切りチェック
+    if (KICKOFF && new Date() >= KICKOFF) {
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('warn-box').style.display = 'none';
+        const closed = document.getElementById('closed-card');
+        if (closed) closed.style.display = 'block';
+    }
+
     renderMarksCheck();
     renderBetsCheck();
     checkWarnings();

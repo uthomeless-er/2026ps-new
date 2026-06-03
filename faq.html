@@ -31,14 +31,20 @@
         .faq-q {
             font-weight: 700; color: #003399;
             margin: 0 0 6px; font-size: .92em;
-            display: flex; gap: 10px;
+            padding-left: 28px; position: relative;
         }
-        .faq-q::before { content: 'Q.'; flex-shrink: 0; }
+        .faq-q::before {
+            content: 'Q.'; position: absolute; left: 0;
+            font-weight: 700; color: #003399;
+        }
         .faq-a {
             color: #444; line-height: 1.8; font-size: .88em;
-            display: flex; gap: 10px; margin: 0;
+            margin: 0; padding-left: 28px; position: relative;
         }
-        .faq-a::before { content: 'A.'; flex-shrink: 0; font-weight: 700; color: #007d43; }
+        .faq-a::before {
+            content: 'A.'; position: absolute; left: 0;
+            font-weight: 700; color: #007d43;
+        }
         .faq-a a { color: #003399; }
         @media (max-width: 767px) {
             .faq-wrap { padding: 0 10px 40px; }
@@ -61,7 +67,8 @@
     </div>
 </header>
 <nav class="page-nav">
-    <a href="index.html">出馬表</a>
+    <a href="index.html">トップ</a>
+    <a href="lineup.html">出馬表</a>
     <a href="marks.html">印</a>
     <a href="odds.html">オッズ</a>
     <a href="submit.html">買い目を送る</a>
@@ -165,7 +172,7 @@
 
     <div class="faq-item">
         <p class="faq-q">「合計が20,000ptを超えています」と表示されました</p>
-        <p class="faq-a">買い目の合計が上限を超えているため送信できません。<a href="odds.html">オッズページ</a>に戻って買い目を減らすか、ポイントを下げてください。</p>
+        <p class="faq-a"><a href="odds.html">オッズページ</a>に戻って買い目を減らすか、ポイントを下げてください。合計が20,000ptを超える場合は送信が拒否されます。</p>
     </div>
 </div>
 
