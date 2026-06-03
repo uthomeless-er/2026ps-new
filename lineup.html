@@ -56,8 +56,8 @@
         .label-col .cell { font-size: .78em; font-weight: bold; color: #333; justify-content: center; text-align: center; background: #f4f4f4; }
         .team-col { width: var(--col-width); border-left: 1px solid #bbb; display: flex; flex-direction: column; }
         .team-col:last-child { border-left: none; }
-        .cell { border-bottom: 1px solid #ccc; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; font-size: .82em; min-height: 32px; box-sizing: border-box; width: 100%; }
-        .row-num .cell { font-size: 1.15em; font-weight: 900; min-height: 36px; border-bottom: 2px solid #222; }
+        .cell { border-bottom: 1px solid #ccc; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4px; font-size: .82em; height: 32px; box-sizing: border-box; width: 100%; overflow: hidden; }
+        .row-num .cell { font-size: 1.15em; font-weight: 900; height: 36px; border-bottom: 2px solid #222; }
         .frame-1 .row-num .cell { background: var(--frame-1); color: var(--frame-1-text); border-bottom: 2px solid #888; }
         .frame-2 .row-num .cell { background: var(--frame-2); color: var(--frame-2-text); }
         .frame-3 .row-num .cell { background: var(--frame-3); color: var(--frame-3-text); }
@@ -66,20 +66,20 @@
         .frame-6 .row-num .cell { background: var(--frame-6); color: var(--frame-6-text); }
         .frame-7 .row-num .cell { background: var(--frame-7); color: var(--frame-7-text); }
         .frame-8 .row-num .cell { background: var(--frame-8); color: var(--frame-8-text); }
-        .row-logo .cell { min-height: 72px; background: #fff; }
+        .row-logo .cell { height: 72px; background: #fff; }
         .row-logo .cell img { width: 56px; height: 56px; object-fit: contain; }
         .logo-placeholder { width: 56px; height: 56px; background: #ddd; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: .75em; font-weight: bold; color: #555; }
-        .row-name .cell { font-weight: bold; font-size: .8em; min-height: 40px; line-height: 1.4; background: #fff; white-space: normal; padding: 4px 6px; word-break: keep-all; overflow-wrap: break-word; }
-        .row-members .cell { flex-direction: column; gap: 3px; min-height: 120px; background: #fafafa; padding: 5px 3px; align-items: center; }
+        .row-name .cell { font-weight: bold; font-size: .8em; height: 40px; line-height: 1.4; background: #fff; padding: 4px 6px; overflow: hidden; }
+        .row-members .cell { flex-direction: column; gap: 3px; height: 130px; background: #fafafa; padding: 5px 3px; align-items: center; overflow: hidden; }
         .member-btn { background: none; border: none; cursor: pointer; font-size: 1.1em; color: #003399; padding: 1px 3px; text-decoration: underline; max-width: calc(var(--col-width) - 8px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .member-btn:hover { color: #e91e63; }
-        .row-predictor .cell { height: calc(var(--mark-size) + 16px); min-height: calc(var(--mark-size) + 16px); background: #fff; }
+        .row-predictor .cell { height: calc(var(--mark-size) + 16px); background: #fff; }
         .row-predictor.even-row .cell { background: #f8f8f8; }
-        .row-odds .cell { font-weight: bold; font-size: 1em; background: #f4f4f4; min-height: 34px; }
+        .row-odds .cell { font-weight: bold; font-size: 1em; background: #f4f4f4; height: 34px; }
         .odds-low { color: #d00; }
         .odds-dark { color: #111; }
         .mark-img { width: var(--mark-size); height: var(--mark-size); object-fit: contain; display: block; }
-        .row-desc .cell { font-size: .75em; color: #555; min-height: 44px; background: #fafafa; padding: 4px 6px; line-height: 1.5; text-align: left; white-space: normal; overflow-wrap: break-word; }
+        .row-desc .cell { font-size: .75em; color: #555; height: 72px; background: #fafafa; padding: 4px 6px; line-height: 1.5; text-align: left; align-items: flex-start; overflow: hidden; }
 
         /* メンバーポップアップ */
         #member-popup { position: fixed; background: #fff; border: 2px solid var(--blue); border-radius: 8px; padding: 14px 18px; box-shadow: 0 4px 20px rgba(0,0,0,.2); z-index: 3000; min-width: 200px; max-width: 280px; user-select: none; }
