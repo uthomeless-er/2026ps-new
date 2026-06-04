@@ -188,13 +188,6 @@
     .vote-mode-bar, .marksheet-area, #main-view, #bet-management,
     #numpad-overlay, #form-export-area { display: none !important; }
 
-    .sp-cart-wrap {
-        display: block;
-        position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-        background: #222; color: #fff;
-        box-shadow: 0 -2px 10px rgba(0,0,0,.3);
-    }
-
     .sp-odds-ui { display: block; padding: 0 0 130px; }
 
     /* 券種タブ */
@@ -291,7 +284,9 @@
 
     /* SP カート */
     .sp-cart-wrap {
-        display: none;
+        position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+        background: #222; color: #fff;
+        box-shadow: 0 -2px 10px rgba(0,0,0,.3);
     }
     .sp-cart-bar {
         display: flex; align-items: center; justify-content: space-between;
