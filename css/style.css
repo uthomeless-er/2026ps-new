@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
 :root {
+    --is-sp: 0;
     --navy: #0a1628;
     --navy-mid: #1a2d4a;
     --blue: #1a4fd6;
@@ -253,6 +254,7 @@ table.odds-list tr.odds_row td[data-clickable]:hover { background: #ffe082 !impo
    スマホ専用スタイル（767px以下）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media (max-width: 767px) {
+    :root { --is-sp: 1; }
     body { font-size: 13px; margin: 0; }
 
     .site-header { padding: 0 12px; }

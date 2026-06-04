@@ -4,8 +4,7 @@
 //       odds-init.js で宣言される oddsData グローバル変数
 //       psAlert / psConfirm（dialog.js など別途定義）
 // cart.js — カート管理・テンキー・予算分配
-
-const BUDGET_LIMIT = 20000;
+// BUDGET_LIMIT は common.js で宣言済み
 
 let cart       = [];
 let _idCounter = 1;

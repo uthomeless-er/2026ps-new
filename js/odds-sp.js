@@ -193,12 +193,12 @@ function spRenderWinPlace(container) {
                 <div class="sp-odds-team">${item.name}</div>
             </div>
             <div style="display:flex;gap:6px;padding:0 8px;align-items:center;">
-                <div style="text-align:center;cursor:pointer;padding:6px 10px;border:1.5px solid #ddd;border-radius:6px;background:#fff;" onclick="spAddBet('win','${item.no}','単勝')">
+                <div style="text-align:center;cursor:pointer;padding:6px 0;border:1.5px solid #ddd;border-radius:6px;background:#fff;width:58px;flex-shrink:0;" onclick="spAddBet('win','${item.no}','単勝')">
                     <div class="sp-odds-val ${getOddsClass(item.win, 'win')}">${item.win || '---'}</div>
                     <div style="font-size:.62rem;color:#aaa;">単勝</div>
                 </div>
                 <div style="text-align:center;cursor:pointer;padding:6px 10px;border:1.5px solid #ddd;border-radius:6px;background:#fff;" onclick="spAddBet('place','${item.no}','複勝')">
-                    <div class="sp-odds-val" style="font-size:.82rem;color:#333;">${item.place || '---'}</div>
+                    <div class="sp-odds-val">${item.place || '---'}</div>
                     <div style="font-size:.62rem;color:#aaa;">複勝</div>
                 </div>
             </div>
@@ -213,9 +213,36 @@ function spApplyMs() {
     spRender();
 }
 
+// ── SP: 追加トースト通知 ──
+let _spToastTimer = null;
+function spToast(msg) {
+    let toast = document.getElementById('sp-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'sp-toast';
+        toast.style.cssText = 'position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);background:rgba(0,125,67,.96);color:#fff;padding:14px 26px;border-radius:10px;font-size:1rem;font-weight:700;z-index:9500;box-shadow:0 6px 24px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .15s;text-align:center;';
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = msg;
+    toast.style.opacity = '1';
+    if (_spToastTimer) clearTimeout(_spToastTimer);
+    _spToastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 900);
+}
+
+// 予算超過チェック（追加予定額を渡す）
+async function spCheckBudget(addAmount) {
+    const total = calcCartTotal(cart);
+    if (total + addAmount > BUDGET_LIMIT) {
+        await psAlert(`予算超過：合計が${BUDGET_LIMIT.toLocaleString()}ptを超えるため追加できません。\n（残り利用可能：${(BUDGET_LIMIT - total).toLocaleString()}pt）`);
+        return false;
+    }
+    return true;
+}
+
 async function spSetMs() {
     const combs = spGetCombinations();
     if (!combs.length) { await psAlert('買い目を選択してください'); return; }
+    if (!await spCheckBudget(combs.length * 100)) return;
     const formation = spMsRows
         .map(r => [...r].sort((a, b) => a - b).join(','))
         .filter(s => s)
@@ -228,18 +255,23 @@ async function spSetMs() {
         amountPerBet: 100,
     });
     spRenderCart();
+    spToast(`✓ ${TYPE_LABELS[spType] || spType} ${combs.length}点 を追加`);
 }
 
 // ── 買い目追加 ───────────────────────────────────────
 
-function spAddBet(type, formation, label) {
+async function spAddBet(type, formation, label) {
+    if (!await spCheckBudget(100)) return;
     addToCart({ displayType: label, type, formation, combs: [formation], amountPerBet: 100 });
     spRenderCart();
+    spToast(`✓ ${label} ${formation} を追加`);
 }
 
-function spAddComb(key) {
+async function spAddComb(key) {
+    if (!await spCheckBudget(100)) return;
+    const label = TYPE_LABELS[spType] || spType;
     addToCart({
-        displayType: TYPE_LABELS[spType] || spType,
+        displayType: label,
         type: spType,
         formation: key,
         combs: [key],
@@ -248,6 +280,7 @@ function spAddComb(key) {
     spRenderCart();
     const el = document.querySelector(`.sp-odds-item[data-comb="${key}"]`);
     if (el) { el.classList.add('added'); setTimeout(() => el.classList.remove('added'), 600); }
+    spToast(`✓ ${label} ${key} を追加`);
 }
 
 // ── SPカート描画 ─────────────────────────────────────
@@ -257,6 +290,8 @@ function spRenderCart() {
     const rem   = 20000 - total;
 
     document.getElementById('sp-cart-count').textContent = cart.length;
+    const countMini = document.getElementById('sp-cart-count-mini');
+    if (countMini) countMini.textContent = cart.length;
     document.getElementById('sp-cart-total').textContent = total.toLocaleString();
     const remEl = document.getElementById('sp-budget-rem');
     remEl.textContent = rem.toLocaleString() + ' pt';
@@ -277,20 +312,37 @@ function spRenderCart() {
 }
 
 function spToggleCart() {
+    const wrap = document.getElementById('sp-cart-wrap');
+    // 最小化状態ならまず解除（バータップで通常に戻す）
+    if (wrap && wrap.classList.contains('minimized')) {
+        wrap.classList.remove('minimized');
+        const mb = document.getElementById('sp-minimize-btn');
+        if (mb) mb.textContent = '最小化';
+        return;
+    }
     spCartOpen = !spCartOpen;
     document.getElementById('sp-cart-detail').classList.toggle('open', spCartOpen);
     document.getElementById('sp-cart-toggle').textContent = spCartOpen ? '▼ 閉じる' : '▲ 開く';
+}
+
+// カートを最小化（細いバーのみ表示）
+function spToggleMinimize() {
+    const wrap = document.getElementById('sp-cart-wrap');
+    if (!wrap) return;
+    wrap.classList.add('minimized');
+    spCartOpen = false;
+    document.getElementById('sp-cart-detail').classList.remove('open');
+    const tg = document.getElementById('sp-cart-toggle');
+    if (tg) tg.textContent = '▲ 開く';
+    const countMini = document.getElementById('sp-cart-count-mini');
+    if (countMini) countMini.textContent = cart.length;
 }
 
 async function spClearCart() {
     await clearCart();
 }
 
+// テンキーは cart.js の npConfirm 内で spRenderCart を呼ぶため、ここでは開くだけ
 function spOpenNumpad(id) {
     openNumpad(id);
-    if (!window._spNumpadHooked) {
-        window._spNumpadHooked = true;
-        const orig = window.npConfirm;
-        window.npConfirm = function () { orig(); spRenderCart(); };
-    }
 }
