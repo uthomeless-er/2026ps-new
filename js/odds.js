@@ -1044,11 +1044,29 @@ async function spSetMs() {
     cart.push({ id: genId(), displayType: label, type: spType, formation, combs, amountPerBet: 100 });
     saveCart();
     spRenderCart();
+    spToast(`✓ ${label} ${combs.length}点 を追加`);
 }
 
 // ── 買い目追加 ──
 function spAddWinPlace(no) {
     spAddBet('win', String(no), '単勝');
+}
+
+// ── SP: 追加トースト通知 ──
+let _spToastTimer = null;
+function spToast(msg) {
+    let toast = document.getElementById('sp-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'sp-toast';
+        toast.style.cssText = 'position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);background:rgba(0,125,67,.96);color:#fff;padding:14px 26px;border-radius:10px;font-size:1rem;font-weight:700;z-index:9500;box-shadow:0 6px 24px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .15s;text-align:center;';
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = msg;
+    toast.style.transform = 'translate(-50%,-50%)';
+    toast.style.opacity = '1';
+    if (_spToastTimer) clearTimeout(_spToastTimer);
+    _spToastTimer = setTimeout(() => { toast.style.opacity = '0'; }, 900);
 }
 
 async function spAddBet(type, formation, label) {
@@ -1060,6 +1078,7 @@ async function spAddBet(type, formation, label) {
     cart.push({ id: genId(), displayType: label, type, formation, combs: [formation], amountPerBet: 100 });
     saveCart();
     spRenderCart();
+    spToast(`✓ ${label} ${formation} を追加`);
 }
 
 async function spAddComb(key) {
@@ -1074,6 +1093,7 @@ async function spAddComb(key) {
     spRenderCart();
     const el = document.querySelector(`.sp-odds-item[data-comb="${key}"]`);
     if (el) { el.classList.add('added'); setTimeout(() => el.classList.remove('added'), 600); }
+    spToast(`✓ ${label} ${key} を追加`);
 }
 
 function spFlashItem(no) {

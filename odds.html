@@ -25,27 +25,10 @@
 </head>
 <body>
 
-<header class="site-header">
-    <div class="header-inner">
-        <a href="index.html" class="site-logo">
-            <img src="assets/images/logo.png" alt="PS予想企画" class="site-logo-img">
-            <div class="site-logo-text">
-                <span class="site-logo-main">PS予想企画</span>
-                <span class="site-logo-sub">PREMIER SERIES 26-27</span>
-            </div>
-        </a>
-    </div>
-</header>
-<nav class="page-nav">
-    <a href="index.html">トップ</a>
-    <a href="lineup.html">出馬表</a>
-    <a href="marks.html">印</a>
-    <a href="odds.html" class="active">オッズ</a>
-    <a href="submit.html">買い目を送る</a>
-    <a href="help.html">使い方</a>
-    <a href="faq.html">Q&A</a>
-</nav>
-<div id="countdown-bar"><div id="countdown-bar-inner"></div></div>
+<div id="site-header"></div>
+<div id="page-nav"></div>
+<div id="countdown-bar-mount"></div>
+
 <div class="odds-page-wrap">
 
 <div class="section-title">出場チーム一覧</div>
@@ -162,9 +145,10 @@
     </div>
 </div>
 
+<div id="site-footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/common.js"></script>
-<script>document.addEventListener("DOMContentLoaded", renderCountdown);</script>
+<script>document.addEventListener("DOMContentLoaded", function(){ renderLayout(); });</script>
 <script src="js/odds.js"></script>
 </div>
 
@@ -280,7 +264,7 @@
     .sp-odds-comb { font-size: .8rem; color: #555; font-family: monospace; }
     .sp-odds-team { font-size: .84rem; font-weight: 700; color: #111; margin-top: 1px; }
     .sp-odds-val-wrap { padding: 0 12px; text-align: right; flex-shrink: 0; }
-    .sp-odds-val { font-size: 1rem; font-weight: 900; }
+    .sp-odds-val { font-size: .88rem; font-weight: 900; }
 
     /* SP カート */
     .sp-cart-wrap {

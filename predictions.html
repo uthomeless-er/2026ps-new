@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みんなの予想 — Premier Series 26-27予想企画</title>
+    <meta name="description" content="Premier Series 26-27 予想企画。参加者の予想一覧。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="みんなの予想 — Premier Series 26-27 予想企画">
+    <meta property="og:description" content="参加者の予想一覧">
+    <meta property="og:image" content="https://uthomeless-test.github.io/2026ps-new/assets/images/ogp.png">
+    <meta property="og:url" content="https://uthomeless-test.github.io/2026ps-new/predictions.html">
+    <meta property="og:site_name" content="Premier Series 26-27 予想企画">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="みんなの予想 — Premier Series 26-27 予想企画">
+    <meta name="twitter:description" content="参加者の予想一覧">
+    <meta name="twitter:image" content="https://uthomeless-test.github.io/2026ps-new/assets/images/ogp.png">
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .preds-wrap { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
+        .preds-intro { font-size: .88rem; color: #5a6a82; line-height: 1.8; margin-bottom: 8px; }
+        .preds-stats { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+        .preds-stat { background: #fff; border: 1px solid #dde3ed; border-radius: 8px; padding: 10px 18px; }
+        .preds-stat .ps-label { font-size: .72rem; color: #5a6a82; }
+        .preds-stat .ps-value { font-size: 1.3rem; font-weight: 900; color: #1a4fd6; }
+        /* フィルタ */
+        .preds-filter { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+        .preds-filter input { flex: 1; min-width: 180px; padding: 9px 12px; border: 1.5px solid #ccc; border-radius: 6px; font-size: .9rem; font-family: inherit; }
+        .preds-filter input:focus { outline: none; border-color: #1a4fd6; }
+        .preds-filter select { padding: 9px 10px; border: 1.5px solid #ccc; border-radius: 6px; font-size: .88rem; font-family: inherit; }
+        /* 予想カード */
+        .pred-card { background: #fff; border: 1px solid #dde3ed; border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
+        .pred-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .pred-name { font-weight: 700; font-size: .95rem; color: #0a1628; }
+        .pred-x { font-size: .78rem; color: #5a6a82; text-decoration: none; }
+        .pred-x:hover { color: #1a4fd6; text-decoration: underline; }
+        .pred-total { margin-left: auto; font-size: .82rem; color: #5a6a82; }
+        .pred-total strong { color: #1a4fd6; font-size: 1.05rem; }
+        /* 印表示 */
+        .pred-marks { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+        .pred-mark-chip { display: inline-flex; align-items: center; gap: 4px; background: #f0f4ff; border-radius: 4px; padding: 3px 9px; font-size: .8rem; }
+        .pred-mark-chip .pm-sym { font-weight: 900; color: #1a4fd6; }
+        /* 買い目 */
+        .pred-bets { font-size: .82rem; color: #444; }
+        .pred-bets summary { cursor: pointer; color: #1a4fd6; font-weight: 700; font-size: .82rem; }
+        .pred-bets table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        .pred-bets th { background: #f0f4ff; padding: 4px 8px; text-align: left; font-size: .76rem; border-bottom: 1px solid #dde3ed; }
+        .pred-bets td { padding: 4px 8px; font-size: .78rem; border-bottom: 1px solid #eef0f4; }
+        .pred-comment { margin-top: 10px; padding: 8px 12px; background: #fafbfd; border-left: 3px solid #1a4fd6; font-size: .82rem; line-height: 1.7; color: #333; border-radius: 0 4px 4px 0; }
+        /* 状態表示 */
+        .preds-msg { text-align: center; padding: 40px 20px; color: #8a9ab2; font-size: .9rem; }
+        .preds-loading { text-align: center; padding: 40px; color: #5a6a82; }
+        @media (max-width: 767px) {
+            .preds-wrap { padding: 0 10px 40px; }
+            .pred-card { padding: 12px 14px; }
+            .pred-total { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div id="site-header"></div>
+<div id="page-nav"></div>
+<div id="countdown-bar-mount"></div>
+
+<div class="preds-wrap">
+    <div class="section-title">みんなの予想</div>
+    <p class="preds-intro">参加者の予想一覧です。掲載を許可した方の予想のみ表示しています。</p>
+
+    <div class="preds-stats" id="preds-stats"></div>
+
+    <div class="preds-filter">
+        <input type="text" id="filter-text" placeholder="表示名・Xアカウントで検索" oninput="applyFilter()">
+        <select id="filter-sort" onchange="applyFilter()">
+            <option value="new">新しい順</option>
+            <option value="old">古い順</option>
+            <option value="total-desc">合計pt多い順</option>
+            <option value="total-asc">合計pt少ない順</option>
+        </select>
+    </div>
+
+    <div id="preds-list">
+        <div class="preds-loading">読み込み中...</div>
+    </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/common.js"></script>
+<script>
+const MARK_SYM = { honmei:'◎', taikou:'○', tanana:'▲', renka:'⟁', osae:'△' };
+const MARK_LABEL = { honmei:'本命', taikou:'対抗', tanana:'単穴', renka:'連下', osae:'抑え' };
+let teamsData = [];
+let allPreds  = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    renderLayout();
+    try {
+        teamsData = await loadJSON('data/teams.json');
+    } catch(e) { console.error(e); }
+    await loadPredictions();
+});
+
+function teamTag(id) {
+    const t = teamsData.find(t => String(t.id) === String(id));
+    return t ? t.tag : id;
+}
+
+async function loadPredictions() {
+    const listEl = document.getElementById('preds-list');
+    try {
+        const db = getSupabase();
+        const { data, error } = await db
+            .from('predictions')
+            .select('display_name, x_account, marks, bets, total_pt, comment, created_at')
+            .eq('allow_publish', true)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        allPreds = data || [];
+
+        renderStats();
+        applyFilter();
+    } catch(e) {
+        console.error(e);
+        listEl.innerHTML = '<div class="preds-msg">予想の読み込みに失敗しました。時間をおいて再度お試しください。</div>';
+    }
+}
+
+function renderStats() {
+    const total = allPreds.length;
+    const avgPt = total ? Math.round(allPreds.reduce((s,p)=>s+(p.total_pt||0),0)/total) : 0;
+    document.getElementById('preds-stats').innerHTML = `
+        <div class="preds-stat"><div class="ps-label">公開予想数</div><div class="ps-value">${total}<span style="font-size:.6em;color:#888;"> 件</span></div></div>
+        <div class="preds-stat"><div class="ps-label">平均投資pt</div><div class="ps-value">${avgPt.toLocaleString()}<span style="font-size:.6em;color:#888;"> pt</span></div></div>
+    `;
+}
+
+function applyFilter() {
+    const q = document.getElementById('filter-text').value.trim().toLowerCase();
+    const sort = document.getElementById('filter-sort').value;
+
+    let filtered = allPreds.filter(p => {
+        if (!q) return true;
+        return (p.display_name||'').toLowerCase().includes(q) || (p.x_account||'').toLowerCase().includes(q);
+    });
+
+    filtered.sort((a,b) => {
+        if (sort === 'new')        return new Date(b.created_at) - new Date(a.created_at);
+        if (sort === 'old')        return new Date(a.created_at) - new Date(b.created_at);
+        if (sort === 'total-desc') return (b.total_pt||0) - (a.total_pt||0);
+        if (sort === 'total-asc')  return (a.total_pt||0) - (b.total_pt||0);
+        return 0;
+    });
+
+    renderList(filtered);
+}
+
+function renderList(preds) {
+    const listEl = document.getElementById('preds-list');
+    if (!preds.length) {
+        listEl.innerHTML = '<div class="preds-msg">該当する予想がありません。</div>';
+        return;
+    }
+
+    listEl.innerHTML = preds.map(p => {
+        // 印
+        let marksHtml = '';
+        const marks = p.marks || {};
+        const order = ['honmei','taikou','tanana','renka','osae'];
+        const chips = [];
+        order.forEach(mk => {
+            Object.keys(marks).forEach(teamId => {
+                if (marks[teamId] === mk) {
+                    chips.push(`<span class="pred-mark-chip"><span class="pm-sym">${MARK_SYM[mk]}</span>${escapeHtml(teamTag(teamId))}</span>`);
+                }
+            });
+        });
+        if (chips.length) marksHtml = `<div class="pred-marks">${chips.join('')}</div>`;
+
+        // 買い目
+        const bets = p.bets || [];
+        const betRows = bets.map(b =>
+            `<tr><td>${escapeHtml(b.displayType||'')}</td><td>${escapeHtml(b.formation||'')}</td><td style="text-align:right;">${(b.combs?b.combs.length:0)}点</td><td style="text-align:right;">${((b.combs?b.combs.length:0)*(b.amountPerBet||0)).toLocaleString()}pt</td></tr>`
+        ).join('');
+
+        const commentHtml = p.comment
+            ? `<div class="pred-comment">${escapeHtml(p.comment)}</div>`
+            : '';
+
+        const xLink = p.x_account
+            ? `<a class="pred-x" href="https://x.com/${encodeURIComponent(String(p.x_account).replace(/^@/,''))}" target="_blank" rel="noopener">${escapeHtml(p.x_account)}</a>`
+            : '';
+
+        return `
+        <div class="pred-card">
+            <div class="pred-head">
+                <span class="pred-name">${escapeHtml(p.display_name||'名無し')}</span>
+                ${xLink}
+                <span class="pred-total">合計 <strong>${(p.total_pt||0).toLocaleString()}</strong> pt</span>
+            </div>
+            ${marksHtml}
+            <div class="pred-bets">
+                <details>
+                    <summary>買い目を見る（${bets.length}件）</summary>
+                    <table>
+                        <thead><tr><th>券種</th><th>買い目</th><th>点数</th><th>小計</th></tr></thead>
+                        <tbody>${betRows}</tbody>
+                    </table>
+                </details>
+            </div>
+            ${commentHtml}
+        </div>`;
+    }).join('');
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+</script>
+</body>
+</html>

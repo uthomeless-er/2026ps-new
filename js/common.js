@@ -1,9 +1,10 @@
-// common.js — データ読み込み・共通ユーティリティ
+// common.js — データ読み込み・共通ユーティリティ・共通パーツ生成
 
 // ── 共通定数 ──────────────────────────────────────────
 const CART_STORAGE_KEY  = 'cart_ps2627';
 const MY_MARKS_KEY      = 'mymarks_ps2627';
 const TAB_STORAGE_KEY   = 'tab_ps2627';
+const BUDGET_LIMIT      = 20000;
 
 // ── Supabase設定 ───────────────────────────────────────
 const SUPABASE_URL      = 'https://bshhqybvrxqlinnlmyng.supabase.co';
@@ -17,6 +18,77 @@ function getSupabase() {
 
 // ── 開幕カウントダウン ────────────────────────────────
 const KICKOFF = new Date('2026-07-07T13:00:00+09:00');
+
+// 締め切りを過ぎたか
+function isClosed() {
+    return KICKOFF && new Date() >= KICKOFF;
+}
+
+// ── 共通: サイトヘッダー生成 ──────────────────────────
+// opts.title    : ロゴ横の主タイトル（省略時 'PS予想企画'）
+// opts.subtitle : サブタイトル（省略時 'PREMIER SERIES 26-27'）
+// opts.logoHref : ロゴのリンク先（省略時 'index.html'）
+function renderHeader(opts) {
+    opts = opts || {};
+    const title    = opts.title    || 'PS予想企画';
+    const subtitle = opts.subtitle || 'PREMIER SERIES 26-27';
+    const logoHref = opts.logoHref || 'index.html';
+    const mount = document.getElementById('site-header');
+    if (!mount) return;
+    mount.outerHTML = `
+<header class="site-header">
+    <div class="header-inner">
+        <a href="${logoHref}" class="site-logo">
+            <img src="assets/images/logo.png" alt="${title}" class="site-logo-img">
+            <div class="site-logo-text">
+                <span class="site-logo-main">${title}</span>
+                <span class="site-logo-sub">${subtitle}</span>
+            </div>
+        </a>
+    </div>
+</header>`;
+}
+
+// ── 共通: ナビ生成（現在ページを自動でactive判定）──────
+// guide-basic / guide-how は「使い方」をactive扱い
+const NAV_ITEMS = [
+    { href: 'index.html',       label: 'トップ' },
+    { href: 'lineup.html',      label: '出馬表' },
+    { href: 'marks.html',       label: '印' },
+    { href: 'odds.html',        label: 'オッズ' },
+    { href: 'submit.html',      label: '買い目を送る' },
+    { href: 'predictions.html', label: 'みんなの予想' },
+    { href: 'help.html',        label: '使い方' },
+    { href: 'faq.html',         label: 'Q&A' },
+];
+
+function renderNav(activeHrefOverride) {
+    const mount = document.getElementById('page-nav');
+    if (!mount) return;
+    // 現在のファイル名を取得
+    let current = location.pathname.split('/').pop() || 'index.html';
+    if (current === '') current = 'index.html';
+    // guideページは使い方をactiveに
+    if (current === 'guide-basic.html' || current === 'guide-how.html') current = 'help.html';
+    // 明示指定があれば優先
+    if (activeHrefOverride) current = activeHrefOverride;
+
+    const links = NAV_ITEMS.map(item => {
+        const cls = item.href === current ? ' class="active"' : '';
+        return `    <a href="${item.href}"${cls}>${item.label}</a>`;
+    }).join('\n');
+
+    mount.outerHTML = `<nav class="page-nav">\n${links}\n</nav>`;
+}
+
+// ── 共通: カウントダウンバー生成 ──────────────────────
+function renderCountdownBar() {
+    const mount = document.getElementById('countdown-bar-mount');
+    if (mount) {
+        mount.outerHTML = '<div id="countdown-bar"><div id="countdown-bar-inner"></div></div>';
+    }
+    renderCountdown();
+}
 
 function renderCountdown() {
     const bar = document.getElementById('countdown-bar');
@@ -50,7 +122,37 @@ function renderCountdown() {
     el.innerHTML = `<span class="cd-label">Premier Series開幕まで：</span><span class="cd-value">${text}</span>`;
 }
 
-document.addEventListener('DOMContentLoaded', renderCountdown);
+// ── 共通: フッター生成 ────────────────────────────────
+function renderFooter() {
+    const mount = document.getElementById('site-footer');
+    if (!mount) return;
+    const year = new Date().getFullYear();
+    mount.outerHTML = `
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="index.html">トップ</a>
+            <a href="lineup.html">出馬表</a>
+            <a href="odds.html">オッズ</a>
+            <a href="help.html">使い方</a>
+            <a href="faq.html">Q&A</a>
+        </div>
+        <div class="footer-note">
+            本企画は非公式のファン企画です。Shadowverse および Premier Series の名称・ロゴ等の権利は各権利者に帰属します。
+        </div>
+        <div class="footer-copy">© ${year} PS予想企画</div>
+    </div>
+</footer>`;
+}
+
+// ── 共通レイアウト一括描画 ────────────────────────────
+// 各ページの DOMContentLoaded で renderLayout() を呼ぶだけでヘッダー/ナビ/カウントダウン/フッターが入る
+function renderLayout(opts) {
+    renderHeader(opts && opts.header);
+    renderNav(opts && opts.activeNav);
+    renderCountdownBar();
+    renderFooter();
+}
 
 // ── データ読み込み ─────────────────────────────────────
 async function loadJSON(path) {
