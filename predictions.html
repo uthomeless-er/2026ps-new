@@ -3,59 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>みんなの予想 — Premier Series 26-27予想企画</title>
-    <meta name="description" content="Premier Series 26-27 予想企画。参加者の予想一覧。">
+    <title>予想家の見解 — Premier Series 26-27予想企画</title>
+    <meta name="description" content="Premier Series 26-27 予想企画。認定予想家による予想・見解一覧。">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="みんなの予想 — Premier Series 26-27 予想企画">
-    <meta property="og:description" content="参加者の予想一覧">
+    <meta property="og:title" content="予想家の見解 — Premier Series 26-27 予想企画">
+    <meta property="og:description" content="認定予想家による予想・見解一覧">
     <meta property="og:image" content="https://uthomeless-test.github.io/2026ps-new/assets/images/ogp.png">
     <meta property="og:url" content="https://uthomeless-test.github.io/2026ps-new/predictions.html">
     <meta property="og:site_name" content="Premier Series 26-27 予想企画">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="みんなの予想 — Premier Series 26-27 予想企画">
-    <meta name="twitter:description" content="参加者の予想一覧">
-    <meta name="twitter:image" content="https://uthomeless-test.github.io/2026ps-new/assets/images/ogp.png">
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .preds-wrap { max-width: 900px; margin: 0 auto; padding: 0 16px 40px; }
-        .preds-intro { font-size: .88rem; color: #5a6a82; line-height: 1.8; margin-bottom: 8px; }
-        .preds-stats { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-        .preds-stat { background: #fff; border: 1px solid #dde3ed; border-radius: 8px; padding: 10px 18px; }
-        .preds-stat .ps-label { font-size: .72rem; color: #5a6a82; }
-        .preds-stat .ps-value { font-size: 1.3rem; font-weight: 900; color: #1a4fd6; }
-        /* フィルタ */
-        .preds-filter { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
-        .preds-filter input { flex: 1; min-width: 180px; padding: 9px 12px; border: 1.5px solid #ccc; border-radius: 6px; font-size: .9rem; font-family: inherit; }
-        .preds-filter input:focus { outline: none; border-color: #1a4fd6; }
-        .preds-filter select { padding: 9px 10px; border: 1.5px solid #ccc; border-radius: 6px; font-size: .88rem; font-family: inherit; }
-        /* 予想カード */
-        .pred-card { background: #fff; border: 1px solid #dde3ed; border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
-        .pred-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-        .pred-name { font-weight: 700; font-size: .95rem; color: #0a1628; }
-        .pred-x { font-size: .78rem; color: #5a6a82; text-decoration: none; }
-        .pred-x:hover { color: #1a4fd6; text-decoration: underline; }
-        .pred-total { margin-left: auto; font-size: .82rem; color: #5a6a82; }
-        .pred-total strong { color: #1a4fd6; font-size: 1.05rem; }
-        /* 印表示 */
-        .pred-marks { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-        .pred-mark-chip { display: inline-flex; align-items: center; gap: 4px; background: #f0f4ff; border-radius: 4px; padding: 3px 9px; font-size: .8rem; }
-        .pred-mark-chip .pm-sym { font-weight: 900; color: #1a4fd6; }
-        /* 買い目 */
-        .pred-bets { font-size: .82rem; color: #444; }
-        .pred-bets summary { cursor: pointer; color: #1a4fd6; font-weight: 700; font-size: .82rem; }
-        .pred-bets table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        .pred-bets th { background: #f0f4ff; padding: 4px 8px; text-align: left; font-size: .76rem; border-bottom: 1px solid #dde3ed; }
-        .pred-bets td { padding: 4px 8px; font-size: .78rem; border-bottom: 1px solid #eef0f4; }
-        .pred-comment { margin-top: 10px; padding: 8px 12px; background: #fafbfd; border-left: 3px solid #1a4fd6; font-size: .82rem; line-height: 1.7; color: #333; border-radius: 0 4px 4px 0; }
-        /* 状態表示 */
-        .preds-msg { text-align: center; padding: 40px 20px; color: #8a9ab2; font-size: .9rem; }
-        .preds-loading { text-align: center; padding: 40px; color: #5a6a82; }
+        .pred-wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
+        .pred-intro { font-size: .88rem; color: #5a6a82; line-height: 1.8; margin-bottom: 28px; }
+
+        /* ── カード全体 ── */
+        .fc-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            border: 1px solid #dde3ed;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 28px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,.07);
+        }
+        /* 偶数カードは左右反転 */
+        .fc-card.reverse {
+            grid-template-columns: 2fr 1fr;
+        }
+        .fc-card.reverse .fc-profile { order: 2; }
+        .fc-card.reverse .fc-main    { order: 1; }
+
+        /* ── 左パネル（プロフィール） ── */
+        .fc-profile {
+            background: linear-gradient(160deg, #0a1628 0%, #1a2d4a 100%);
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+        .fc-avatar-wrap { position: relative; }
+        .fc-avatar {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,.25);
+            object-fit: cover;
+            background: #1a4fd6;
+        }
+        .fc-badge {
+            position: absolute; bottom: -4px; right: -4px;
+            background: #1a4fd6; color: #fff;
+            font-size: .62rem; font-weight: 700;
+            padding: 2px 7px; border-radius: 10px;
+            white-space: nowrap;
+        }
+        .fc-name { font-size: 1.05rem; font-weight: 900; color: #fff; margin: 0; }
+        .fc-title { font-size: .72rem; color: rgba(255,255,255,.55); }
+        .fc-desc { font-size: .75rem; color: rgba(255,255,255,.7); line-height: 1.6; }
+        .fc-stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+            width: 100%; margin-top: 4px;
+        }
+        .fc-stat {
+            background: rgba(255,255,255,.07);
+            border-radius: 6px; padding: 8px 6px; text-align: center;
+        }
+        .fc-stat-label { font-size: .62rem; color: rgba(255,255,255,.5); margin-bottom: 3px; }
+        .fc-stat-value { font-size: 1.1rem; font-weight: 900; color: #5b9aff; }
+
+        /* ── 右パネル（予想本文） ── */
+        .fc-main { padding: 24px 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+        .fc-pred-title {
+            font-size: 1rem; font-weight: 900; color: #0a1628;
+            line-height: 1.4; margin: 0;
+            border-left: 4px solid #1a4fd6;
+            padding-left: 12px;
+        }
+        .fc-honmei-row { display: flex; align-items: center; gap: 10px; }
+        .fc-honmei-label { font-size: .72rem; color: #5a6a82; }
+        .fc-honmei-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #fff9c4; border: 1.5px solid #f5d000;
+            border-radius: 6px; padding: 4px 12px;
+            font-size: .84rem; font-weight: 700; color: #7a5000;
+        }
+        .fc-honmei-chip .hm-sym { font-size: 1rem; }
+        .fc-body {
+            font-size: .86rem; color: #333;
+            line-height: 1.85; flex: 1;
+        }
+        .fc-bets {
+            background: #f0f4ff; border-radius: 6px;
+            padding: 10px 14px; font-size: .82rem;
+            color: #1a4fd6; font-weight: 700;
+            line-height: 1.7; font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .fc-bets-label {
+            font-size: .7rem; color: #5a6a82;
+            font-weight: 400; font-family: inherit;
+            margin-bottom: 3px; display: block;
+        }
+
+        /* ── 読み込み中・空状態 ── */
+        .pred-msg { text-align: center; padding: 60px 20px; color: #8a9ab2; font-size: .9rem; }
+
+        /* ── SP対応 ── */
         @media (max-width: 767px) {
-            .preds-wrap { padding: 0 10px 40px; }
-            .pred-card { padding: 12px 14px; }
-            .pred-total { margin-left: 0; width: 100%; }
+            .pred-wrap { padding: 0 10px 48px; }
+            .fc-card, .fc-card.reverse {
+                grid-template-columns: 1fr;
+            }
+            .fc-card.reverse .fc-profile { order: 1; }
+            .fc-card.reverse .fc-main    { order: 2; }
+            .fc-profile { flex-direction: row; text-align: left; padding: 16px; gap: 14px; flex-wrap: wrap; }
+            .fc-avatar { width: 64px; height: 64px; flex-shrink: 0; }
+            .fc-name { font-size: .95rem; }
+            .fc-stats { grid-template-columns: repeat(2, 1fr); }
+            .fc-main { padding: 16px; }
+            .fc-pred-title { font-size: .92rem; }
         }
     </style>
 </head>
@@ -64,159 +136,98 @@
 <div id="page-nav"></div>
 <div id="countdown-bar-mount"></div>
 
-<div class="preds-wrap">
-    <div class="section-title">みんなの予想</div>
-    <p class="preds-intro">参加者の予想一覧です。掲載を許可した方の予想のみ表示しています。</p>
-
-    <div class="preds-stats" id="preds-stats"></div>
-
-    <div class="preds-filter">
-        <input type="text" id="filter-text" placeholder="表示名・Xアカウントで検索" oninput="applyFilter()">
-        <select id="filter-sort" onchange="applyFilter()">
-            <option value="new">新しい順</option>
-            <option value="old">古い順</option>
-            <option value="total-desc">合計pt多い順</option>
-            <option value="total-asc">合計pt少ない順</option>
-        </select>
-    </div>
-
-    <div id="preds-list">
-        <div class="preds-loading">読み込み中...</div>
-    </div>
+<div class="pred-wrap">
+    <div class="section-title">予想家の見解</div>
+    <p class="pred-intro">認定予想家による公式見解です。各予想家の分析・本命・買い目をご参照ください。</p>
+    <div id="fc-list"><div class="pred-msg">読み込み中...</div></div>
 </div>
 
 <div id="site-footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/common.js"></script>
 <script>
-const MARK_SYM = { honmei:'◎', taikou:'○', tanana:'▲', renka:'⟁', osae:'△' };
-const MARK_LABEL = { honmei:'本命', taikou:'対抗', tanana:'単穴', renka:'連下', osae:'抑え' };
-let teamsData = [];
-let allPreds  = [];
+const TEAM_TAGS = {
+    1:'CR', 2:'ZETA', 3:'DFM', 4:'VRL', 5:'MRG', 6:'RC', 7:'RDL', 8:'LVH'
+};
+const TEAM_NAMES = {
+    1:'Crazy Raccoon', 2:'ZETA DIVISION', 3:'DetonatioN FocusMe', 4:'VARREL',
+    5:'MURASH GAMING', 6:'REJECT', 7:'RIDDLE', 8:'レバンガ北海道'
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
     renderLayout();
     try {
-        teamsData = await loadJSON('data/teams.json');
-    } catch(e) { console.error(e); }
-    await loadPredictions();
-});
-
-function teamTag(id) {
-    const t = teamsData.find(t => String(t.id) === String(id));
-    return t ? t.tag : id;
-}
-
-async function loadPredictions() {
-    const listEl = document.getElementById('preds-list');
-    try {
-        const db = getSupabase();
-        const { data, error } = await db
-            .from('predictions')
-            .select('display_name, x_account, marks, bets, total_pt, comment, created_at')
-            .eq('allow_publish', true)
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        allPreds = data || [];
-
-        renderStats();
-        applyFilter();
+        const forecasters = await loadJSON('data/forecasters.json');
+        renderForecasters(forecasters);
     } catch(e) {
         console.error(e);
-        listEl.innerHTML = '<div class="preds-msg">予想の読み込みに失敗しました。時間をおいて再度お試しください。</div>';
+        document.getElementById('fc-list').innerHTML =
+            '<div class="pred-msg">データの読み込みに失敗しました。</div>';
     }
-}
+});
 
-function renderStats() {
-    const total = allPreds.length;
-    const avgPt = total ? Math.round(allPreds.reduce((s,p)=>s+(p.total_pt||0),0)/total) : 0;
-    document.getElementById('preds-stats').innerHTML = `
-        <div class="preds-stat"><div class="ps-label">公開予想数</div><div class="ps-value">${total}<span style="font-size:.6em;color:#888;"> 件</span></div></div>
-        <div class="preds-stat"><div class="ps-label">平均投資pt</div><div class="ps-value">${avgPt.toLocaleString()}<span style="font-size:.6em;color:#888;"> pt</span></div></div>
-    `;
-}
-
-function applyFilter() {
-    const q = document.getElementById('filter-text').value.trim().toLowerCase();
-    const sort = document.getElementById('filter-sort').value;
-
-    let filtered = allPreds.filter(p => {
-        if (!q) return true;
-        return (p.display_name||'').toLowerCase().includes(q) || (p.x_account||'').toLowerCase().includes(q);
-    });
-
-    filtered.sort((a,b) => {
-        if (sort === 'new')        return new Date(b.created_at) - new Date(a.created_at);
-        if (sort === 'old')        return new Date(a.created_at) - new Date(b.created_at);
-        if (sort === 'total-desc') return (b.total_pt||0) - (a.total_pt||0);
-        if (sort === 'total-asc')  return (a.total_pt||0) - (b.total_pt||0);
-        return 0;
-    });
-
-    renderList(filtered);
-}
-
-function renderList(preds) {
-    const listEl = document.getElementById('preds-list');
-    if (!preds.length) {
-        listEl.innerHTML = '<div class="preds-msg">該当する予想がありません。</div>';
+function renderForecasters(list) {
+    if (!list.length) {
+        document.getElementById('fc-list').innerHTML =
+            '<div class="pred-msg">現在公開中の予想はありません。</div>';
         return;
     }
 
-    listEl.innerHTML = preds.map(p => {
-        // 印
-        let marksHtml = '';
-        const marks = p.marks || {};
-        const order = ['honmei','taikou','tanana','renka','osae'];
-        const chips = [];
-        order.forEach(mk => {
-            Object.keys(marks).forEach(teamId => {
-                if (marks[teamId] === mk) {
-                    chips.push(`<span class="pred-mark-chip"><span class="pm-sym">${MARK_SYM[mk]}</span>${escapeHtml(teamTag(teamId))}</span>`);
-                }
-            });
-        });
-        if (chips.length) marksHtml = `<div class="pred-marks">${chips.join('')}</div>`;
-
-        // 買い目
-        const bets = p.bets || [];
-        const betRows = bets.map(b =>
-            `<tr><td>${escapeHtml(b.displayType||'')}</td><td>${escapeHtml(b.formation||'')}</td><td style="text-align:right;">${(b.combs?b.combs.length:0)}点</td><td style="text-align:right;">${((b.combs?b.combs.length:0)*(b.amountPerBet||0)).toLocaleString()}pt</td></tr>`
-        ).join('');
-
-        const commentHtml = p.comment
-            ? `<div class="pred-comment">${escapeHtml(p.comment)}</div>`
-            : '';
-
-        const xLink = p.x_account
-            ? `<a class="pred-x" href="https://x.com/${encodeURIComponent(String(p.x_account).replace(/^@/,''))}" target="_blank" rel="noopener">${escapeHtml(p.x_account)}</a>`
-            : '';
+    document.getElementById('fc-list').innerHTML = list.map((fc, i) => {
+        const isReverse = i % 2 === 1;
+        const honmeiTeam = fc.prediction.honmei;
+        const honmeiTag  = TEAM_TAGS[honmeiTeam]  || String(honmeiTeam);
+        const honmeiName = TEAM_NAMES[honmeiTeam] || String(honmeiTeam);
 
         return `
-        <div class="pred-card">
-            <div class="pred-head">
-                <span class="pred-name">${escapeHtml(p.display_name||'名無し')}</span>
-                ${xLink}
-                <span class="pred-total">合計 <strong>${(p.total_pt||0).toLocaleString()}</strong> pt</span>
+        <div class="fc-card${isReverse ? ' reverse' : ''}">
+            <div class="fc-profile">
+                <div class="fc-avatar-wrap">
+                    <img class="fc-avatar" src="${escHtml(fc.avatar)}"
+                         alt="${escHtml(fc.name)}"
+                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect width=%22120%22 height=%22120%22 rx=%2260%22 fill=%22%231a4fd6%22/><text x=%2260%22 y=%2276%22 text-anchor=%22middle%22 font-size=%2252%22 fill=%22white%22>${escHtml(fc.name.charAt(0))}</text></svg>'">
+                    <span class="fc-badge">${escHtml(fc.badge || '')}</span>
+                </div>
+                <div>
+                    <div class="fc-name">${escHtml(fc.name)}</div>
+                    <div class="fc-title">${escHtml(fc.title || '')}</div>
+                </div>
+                <div class="fc-desc">${escHtml(fc.description || '')}</div>
+                ${fc.stats ? `
+                <div class="fc-stats">
+                    <div class="fc-stat">
+                        <div class="fc-stat-label">${escHtml(fc.stats.label1)}</div>
+                        <div class="fc-stat-value">${escHtml(fc.stats.value1)}</div>
+                    </div>
+                    <div class="fc-stat">
+                        <div class="fc-stat-label">${escHtml(fc.stats.label2)}</div>
+                        <div class="fc-stat-value">${escHtml(fc.stats.value2)}</div>
+                    </div>
+                </div>` : ''}
             </div>
-            ${marksHtml}
-            <div class="pred-bets">
-                <details>
-                    <summary>買い目を見る（${bets.length}件）</summary>
-                    <table>
-                        <thead><tr><th>券種</th><th>買い目</th><th>点数</th><th>小計</th></tr></thead>
-                        <tbody>${betRows}</tbody>
-                    </table>
-                </details>
+            <div class="fc-main">
+                <p class="fc-pred-title">${escHtml(fc.prediction.title)}</p>
+                <div class="fc-honmei-row">
+                    <span class="fc-honmei-label">◎ 本命</span>
+                    <span class="fc-honmei-chip">
+                        <span class="hm-sym">◎</span>
+                        ${escHtml(honmeiTag)} ${escHtml(honmeiName)}
+                    </span>
+                </div>
+                <p class="fc-body">${escHtml(fc.prediction.body).replace(/\n/g,'<br>')}</p>
+                ${fc.prediction.bets ? `
+                <div class="fc-bets">
+                    <span class="fc-bets-label">買い目</span>${escHtml(fc.prediction.bets)}
+                </div>` : ''}
             </div>
-            ${commentHtml}
         </div>`;
     }).join('');
 }
 
-function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function escHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
+    );
 }
 </script>
 </body>
