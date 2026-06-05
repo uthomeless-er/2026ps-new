@@ -27,6 +27,8 @@ const FRAME_COLORS = {
 function isSP() { return window.innerWidth <= 767; }
 
 function initSP() {
+    const msWrap = document.getElementById('sp-ms-wrap');
+    if (msWrap) msWrap.style.display = 'none';
     spRenderMs();
     spRender();
     spRenderCart();
@@ -47,7 +49,7 @@ function spSwitchType(type, el) {
     document.querySelectorAll('.sp-type-tab').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
 
-    document.getElementById('sp-ms-wrap').style.display = type === 'win-place' ? 'none' : '';
+    document.getElementById('sp-ms-wrap').style.display = type === 'win-place' ? 'none' : 'block';
 
     const axis1 = document.getElementById('sp-btn-axis1');
     const axis2 = document.getElementById('sp-btn-axis2');
