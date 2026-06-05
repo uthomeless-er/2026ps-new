@@ -27,16 +27,13 @@ const FRAME_COLORS = {
 function isSP() { return window.innerWidth <= 767; }
 
 function initSP() {
-    // 初期タブはwin-placeなのでマークシートを非表示
-    const msWrap = document.getElementById('sp-ms-wrap');
-    if (msWrap) msWrap.style.display = 'none';
     spRenderMs();
     spRender();
     spRenderCart();
 }
 
 function initSPAfterLoad() {
-    if (isSP()) initSP();
+    initSP();
 }
 
 // ── 券種切り替え ─────────────────────────────────────
