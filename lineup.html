@@ -196,7 +196,6 @@
 async function addWinBetFromLineup(teamId, oddsVal) {
     let cart = [];
     try { const s = localStorage.getItem(CART_STORAGE_KEY); if (s) cart = JSON.parse(s); } catch(e) {}
-    const BUDGET_LIMIT = 20000;
     const total = cart.reduce((s,i) => s + i.combs.length * i.amountPerBet, 0);
     if (total + 100 > BUDGET_LIMIT) {
         await psAlert(`予算超過：残り${(BUDGET_LIMIT-total).toLocaleString()}ptのため追加できません。`);
@@ -205,14 +204,8 @@ async function addWinBetFromLineup(teamId, oddsVal) {
     const id = Date.now();
     cart.push({ id, displayType:'単勝', type:'win', formation: String(teamId), combs:[String(teamId)], amountPerBet:100 });
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
-    // フラッシュ表示
-    const cells = document.querySelectorAll('.row-odds .cell');
-    cells.forEach(cell => {
-        if (cell.closest('.team-col') && cell.closest('.team-col').classList.contains(`frame-${teamId}`)) {
-            cell.style.background = '#ffe082';
-            setTimeout(() => { cell.style.background = ''; }, 600);
-        }
-    });
+    // カートに追加してodds.htmlの単複タブへ遷移
+    window.location.href = 'odds.html?tab=win-place';
 }
 
 const MARKS = [

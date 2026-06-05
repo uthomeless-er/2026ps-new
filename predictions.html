@@ -45,6 +45,7 @@
             align-items: center;
             text-align: center;
             gap: 8px;
+            justify-content: center;
         }
         .fc-avatar-wrap { position: relative; margin-bottom: 4px; }
         .fc-avatar {
@@ -95,16 +96,14 @@
             font-size: .9rem; font-weight: 900; color: #d00;
         }
         .fc-honmei-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: #fff9c4; border: 1.5px solid #e6c200;
-            border-radius: 6px; padding: 5px 12px;
-            font-size: .88rem; font-weight: 700; color: #7a5000;
+            display: inline-flex; align-items: center; gap: 8px;
+            border-radius: 6px; padding: 4px 0;
         }
         .fc-honmei-logo {
-            width: 28px; height: 28px; object-fit: contain;
+            width: 32px; height: 32px; object-fit: contain;
             vertical-align: middle;
         }
-        .fc-honmei-tag { font-size: 1rem; font-weight: 900; }
+        .fc-honmei-name { font-size: 1.05rem; font-weight: 900; color: #0a1628; }
 
         /* 本文 */
         .fc-body {
@@ -225,10 +224,9 @@ function renderForecasters(list) {
             <span class="fc-honmei-label">本命</span>
             <div class="fc-honmei-chip">
                 <img class="fc-honmei-logo" src="${escHtml(team.logo)}"
-                     alt="${escHtml(team.tag)}"
+                     alt="${escHtml(team.name)}"
                      onerror="this.style.display='none'">
-                <span class="fc-honmei-tag">${escHtml(team.tag)}</span>
-                <span style="font-size:.8rem;color:#a07020;">${escHtml(team.name)}</span>
+                <span class="fc-honmei-name">${escHtml(team.name)}</span>
             </div>
         </div>` : '';
 
