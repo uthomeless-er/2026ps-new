@@ -24,9 +24,12 @@ const FRAME_COLORS = {
 };
 
 // ブレイクポイントはCSSと同期（style.cssの--is-spで管理するのが理想）
-function isSP() { return getComputedStyle(document.documentElement).getPropertyValue('--is-sp').trim() === '1'; }
+function isSP() { return window.innerWidth <= 767; }
 
 function initSP() {
+    // 初期タブはwin-placeなのでマークシートを非表示
+    const msWrap = document.getElementById('sp-ms-wrap');
+    if (msWrap) msWrap.style.display = 'none';
     spRenderMs();
     spRender();
     spRenderCart();
@@ -302,13 +305,24 @@ function spRenderCart() {
         detail.innerHTML = '<div style="padding:12px 14px;color:#888;font-size:.82rem;">買い目がありません</div>';
         return;
     }
-    detail.innerHTML = cart.map(item => `
+    detail.innerHTML = cart.map(item => {
+        const isMulti = item.combs.length > 1;
+        const expandBtns = isMulti ? `
+            <div style="display:flex;gap:4px;margin-top:4px;">
+                <button class="sp-cart-sub-btn" onclick="expandBet(${item.id})">展開</button>
+                <button class="sp-cart-sub-btn" onclick="openExpandBudgetNumpad(${item.id})">予算分配</button>
+            </div>` : '';
+        return `
         <div class="sp-cart-item">
-            <span class="sp-cart-item-type">${item.displayType}</span>
-            <span class="sp-cart-item-comb">${item.formation} ${item.combs.length > 1 ? `(${item.combs.length}点)` : ''}</span>
+            <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0;">
+                <span class="sp-cart-item-type">${item.displayType}</span>
+                <span class="sp-cart-item-comb">${item.formation}${isMulti ? ` (${item.combs.length}点)` : ''}</span>
+            </div>
             <span class="sp-cart-item-amt" onclick="spOpenNumpad(${item.id})">[${item.amountPerBet / 100}]00pt</span>
             <button class="sp-cart-item-del" onclick="removeFromCart(${item.id})">✕</button>
-        </div>`).join('');
+            ${expandBtns}
+        </div>`;
+    }).join('');
 }
 
 function spToggleCart() {
