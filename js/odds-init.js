@@ -49,9 +49,5 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     } catch (e) {
         console.error('データ読み込み失敗:', e);
-        document.body.insertAdjacentHTML('afterbegin',
-            `<div style="background:#fdd;padding:10px;border:1px solid #d00;margin-bottom:10px;">
-             ⚠️ データの読み込みに失敗しました。ローカルでの直接ファイル開きには対応していません。
-             Live Serverなどのローカルサーバー経由で開いてください。</div>`);
     }
 });

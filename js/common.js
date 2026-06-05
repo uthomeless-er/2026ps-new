@@ -137,10 +137,7 @@ function renderFooter() {
             <a href="help.html">使い方</a>
             <a href="faq.html">Q&A</a>
         </div>
-        <div class="footer-note">
-            本企画は非公式のファン企画です。Shadowverse および Premier Series の名称・ロゴ等の権利は各権利者に帰属します。
-        </div>
-        <div class="footer-copy">© ${year} PS予想企画</div>
+<div class="footer-copy">© ${year} PS予想企画</div>
     </div>
 </footer>`;
 }
