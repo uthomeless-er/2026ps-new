@@ -58,6 +58,7 @@ const NAV_ITEMS = [
     { href: 'odds.html',        label: 'オッズ' },
     { href: 'submit.html',      label: '買い目' },
     { href: 'predictions.html', label: '予想家の見解' },
+    { href: 'result.html',      label: '結果' },
     { href: 'help.html',        label: '使い方' },
     { href: 'faq.html',         label: 'Q&A' },
 ];
@@ -139,12 +140,11 @@ async function loadJSON(path) {
 }
 
 async function loadAllData() {
-    const [teams, odds, results] = await Promise.all([
+    const [teams, odds] = await Promise.all([
         loadJSON('data/teams.json'),
         loadJSON('data/odds.json'),
-        loadJSON('data/results.json'),
     ]);
-    return { teams, odds, results };
+    return { teams, odds };
 }
 
 // ── カスタムダイアログ ─────────────────────────────────
