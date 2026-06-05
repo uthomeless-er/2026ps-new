@@ -19,11 +19,10 @@
         .pred-wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
         .pred-intro { font-size: .88rem; color: #5a6a82; line-height: 1.8; margin-bottom: 28px; }
 
-        /* ── カード全体 ── */
+        /* ── カード ── */
         .fc-card {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 0;
+            grid-template-columns: 200px 1fr;
             border: 1px solid #dde3ed;
             border-radius: 12px;
             overflow: hidden;
@@ -31,90 +30,112 @@
             background: #fff;
             box-shadow: 0 2px 10px rgba(0,0,0,.07);
         }
-        /* 偶数カードは左右反転 */
         .fc-card.reverse {
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr 200px;
         }
         .fc-card.reverse .fc-profile { order: 2; }
         .fc-card.reverse .fc-main    { order: 1; }
 
-        /* ── 左パネル（プロフィール） ── */
+        /* ── プロフィールパネル ── */
         .fc-profile {
             background: linear-gradient(160deg, #0a1628 0%, #1a2d4a 100%);
-            padding: 28px 20px;
+            padding: 24px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 10px;
+            gap: 8px;
         }
-        .fc-avatar-wrap { position: relative; }
+        .fc-avatar-wrap { position: relative; margin-bottom: 4px; }
         .fc-avatar {
-            width: 90px; height: 90px;
+            width: 84px; height: 84px;
             border-radius: 50%;
-            border: 3px solid rgba(255,255,255,.25);
+            border: 3px solid rgba(255,255,255,.2);
             object-fit: cover;
-            background: #1a4fd6;
+            display: block;
         }
         .fc-badge {
             position: absolute; bottom: -4px; right: -4px;
             background: #1a4fd6; color: #fff;
-            font-size: .62rem; font-weight: 700;
+            font-size: .6rem; font-weight: 700;
             padding: 2px 7px; border-radius: 10px;
             white-space: nowrap;
         }
-        .fc-name { font-size: 1.05rem; font-weight: 900; color: #fff; margin: 0; }
-        .fc-title { font-size: .72rem; color: rgba(255,255,255,.55); }
-        .fc-desc { font-size: .75rem; color: rgba(255,255,255,.7); line-height: 1.6; }
-        .fc-stats {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-            width: 100%; margin-top: 4px;
-        }
-        .fc-stat {
-            background: rgba(255,255,255,.07);
-            border-radius: 6px; padding: 8px 6px; text-align: center;
-        }
-        .fc-stat-label { font-size: .62rem; color: rgba(255,255,255,.5); margin-bottom: 3px; }
-        .fc-stat-value { font-size: 1.1rem; font-weight: 900; color: #5b9aff; }
+        .fc-name  { font-size: 1rem; font-weight: 900; color: #fff; margin: 0; line-height: 1.3; }
+        .fc-title-sub { font-size: .7rem; color: rgba(255,255,255,.5); }
+        .fc-desc  { font-size: .73rem; color: rgba(255,255,255,.7); line-height: 1.6; text-align: left; width: 100%; }
 
-        /* ── 右パネル（予想本文） ── */
-        .fc-main { padding: 24px 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+        /* リンクボタン */
+        .fc-links { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: 4px; }
+        .fc-link-btn {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 6px 10px; border-radius: 6px; text-decoration: none;
+            font-size: .75rem; font-weight: 700; transition: opacity .15s;
+            width: 100%; box-sizing: border-box;
+        }
+        .fc-link-btn:hover { opacity: .8; }
+        .fc-link-btn.type-x    { background: #000; color: #fff; }
+        .fc-link-btn.type-note { background: #41c9b4; color: #fff; }
+        .fc-link-btn.type-other { background: rgba(255,255,255,.15); color: #fff; }
+        .fc-link-icon { font-size: .9rem; }
+
+        /* ── 見解パネル ── */
+        .fc-main { padding: 22px 22px 16px; display: flex; flex-direction: column; gap: 10px; }
+
         .fc-pred-title {
-            font-size: 1rem; font-weight: 900; color: #0a1628;
+            font-size: .98rem; font-weight: 900; color: #0a1628;
             line-height: 1.4; margin: 0;
             border-left: 4px solid #1a4fd6;
             padding-left: 12px;
         }
-        .fc-honmei-row { display: flex; align-items: center; gap: 10px; }
-        .fc-honmei-label { font-size: .72rem; color: #5a6a82; }
+
+        /* 本命 */
+        .fc-honmei-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .fc-honmei-label {
+            font-size: .9rem; font-weight: 900; color: #d00;
+        }
         .fc-honmei-chip {
             display: inline-flex; align-items: center; gap: 6px;
-            background: #fff9c4; border: 1.5px solid #f5d000;
-            border-radius: 6px; padding: 4px 12px;
-            font-size: .84rem; font-weight: 700; color: #7a5000;
+            background: #fff9c4; border: 1.5px solid #e6c200;
+            border-radius: 6px; padding: 5px 12px;
+            font-size: .88rem; font-weight: 700; color: #7a5000;
         }
-        .fc-honmei-chip .hm-sym { font-size: 1rem; }
+        .fc-honmei-logo {
+            width: 28px; height: 28px; object-fit: contain;
+            vertical-align: middle;
+        }
+        .fc-honmei-tag { font-size: 1rem; font-weight: 900; }
+
+        /* 本文 */
         .fc-body {
-            font-size: .86rem; color: #333;
-            line-height: 1.85; flex: 1;
+            font-size: .87rem; color: #333;
+            line-height: 1.85; flex: 1; margin: 0;
         }
-        .fc-bets {
-            background: #f0f4ff; border-radius: 6px;
-            padding: 10px 14px; font-size: .82rem;
-            color: #1a4fd6; font-weight: 700;
-            line-height: 1.7; font-family: monospace;
-            white-space: pre-wrap;
+
+        /* 買い目 */
+        .fc-bets-wrap {
+            background: #f0f4ff;
+            border-radius: 6px;
+            padding: 10px 14px 12px;
         }
         .fc-bets-label {
             font-size: .7rem; color: #5a6a82;
-            font-weight: 400; font-family: inherit;
-            margin-bottom: 3px; display: block;
+            display: block; margin-bottom: 4px;
         }
+        .fc-bets-text {
+            font-size: .84rem; color: #1a4fd6; font-weight: 700;
+            font-family: monospace; white-space: pre-wrap;
+            line-height: 1.7; margin: 0;
+        }
+        .fc-bets-total {
+            text-align: right; font-size: .78rem;
+            color: #5a6a82; margin-top: 6px;
+        }
+        .fc-bets-total strong { color: #1a4fd6; font-size: .9rem; }
 
-        /* ── 読み込み中・空状態 ── */
         .pred-msg { text-align: center; padding: 60px 20px; color: #8a9ab2; font-size: .9rem; }
 
-        /* ── SP対応 ── */
+        /* SP */
         @media (max-width: 767px) {
             .pred-wrap { padding: 0 10px 48px; }
             .fc-card, .fc-card.reverse {
@@ -122,12 +143,16 @@
             }
             .fc-card.reverse .fc-profile { order: 1; }
             .fc-card.reverse .fc-main    { order: 2; }
-            .fc-profile { flex-direction: row; text-align: left; padding: 16px; gap: 14px; flex-wrap: wrap; }
-            .fc-avatar { width: 64px; height: 64px; flex-shrink: 0; }
-            .fc-name { font-size: .95rem; }
-            .fc-stats { grid-template-columns: repeat(2, 1fr); }
-            .fc-main { padding: 16px; }
-            .fc-pred-title { font-size: .92rem; }
+            .fc-profile {
+                flex-direction: row; text-align: left;
+                padding: 14px 16px; flex-wrap: wrap; gap: 12px;
+            }
+            .fc-avatar { width: 60px; height: 60px; flex-shrink: 0; }
+            .fc-avatar-wrap { margin-bottom: 0; }
+            .fc-links { flex-direction: row; flex-wrap: wrap; }
+            .fc-link-btn { width: auto; flex: 1; min-width: 80px; }
+            .fc-desc { display: none; }
+            .fc-main { padding: 14px 16px 14px; }
         }
     </style>
 </head>
@@ -146,13 +171,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/common.js"></script>
 <script>
-const TEAM_TAGS = {
-    1:'CR', 2:'ZETA', 3:'DFM', 4:'VRL', 5:'MRG', 6:'RC', 7:'RDL', 8:'LVH'
+const TEAM_DATA = {
+    1: { tag:'CR',   name:'Crazy Raccoon',        logo:'assets/images/cr_logo.png' },
+    2: { tag:'ZETA', name:'ZETA DIVISION',         logo:'assets/images/zeta_logo.png' },
+    3: { tag:'DFM',  name:'DetonatioN FocusMe',    logo:'assets/images/dfm_logo.png' },
+    4: { tag:'VRL',  name:'VARREL',                logo:'assets/images/varrel_logo.png' },
+    5: { tag:'MRG',  name:'MURASH GAMING',         logo:'assets/images/mrg_logo.png' },
+    6: { tag:'RC',   name:'REJECT',                logo:'assets/images/reject_logo.png' },
+    7: { tag:'RDL',  name:'RIDDLE',                logo:'assets/images/riddle_logo.png' },
+    8: { tag:'LVH',  name:'レバンガ北海道',         logo:'assets/images/levanga_logo.png' },
 };
-const TEAM_NAMES = {
-    1:'Crazy Raccoon', 2:'ZETA DIVISION', 3:'DetonatioN FocusMe', 4:'VARREL',
-    5:'MURASH GAMING', 6:'REJECT', 7:'RIDDLE', 8:'レバンガ北海道'
-};
+
+const LINK_ICON = { x: '𝕏', note: '📝', other: '🔗' };
 
 document.addEventListener('DOMContentLoaded', async () => {
     renderLayout();
@@ -175,9 +205,41 @@ function renderForecasters(list) {
 
     document.getElementById('fc-list').innerHTML = list.map((fc, i) => {
         const isReverse = i % 2 === 1;
-        const honmeiTeam = fc.prediction.honmei;
-        const honmeiTag  = TEAM_TAGS[honmeiTeam]  || String(honmeiTeam);
-        const honmeiName = TEAM_NAMES[honmeiTeam] || String(honmeiTeam);
+        const team = TEAM_DATA[fc.prediction.honmei] || {};
+
+        // リンクボタン
+        const links = (fc.links || []);
+        const linksHtml = links.length ? `
+        <div class="fc-links">
+            ${links.map(lk => `
+            <a class="fc-link-btn type-${escHtml(lk.type || 'other')}"
+               href="${escHtml(lk.url)}" target="_blank" rel="noopener">
+                <span class="fc-link-icon">${LINK_ICON[lk.type] || '🔗'}</span>
+                ${escHtml(lk.label)}
+            </a>`).join('')}
+        </div>` : '';
+
+        // 本命チップ
+        const honmeiHtml = team.tag ? `
+        <div class="fc-honmei-row">
+            <span class="fc-honmei-label">本命</span>
+            <div class="fc-honmei-chip">
+                <img class="fc-honmei-logo" src="${escHtml(team.logo)}"
+                     alt="${escHtml(team.tag)}"
+                     onerror="this.style.display='none'">
+                <span class="fc-honmei-tag">${escHtml(team.tag)}</span>
+                <span style="font-size:.8rem;color:#a07020;">${escHtml(team.name)}</span>
+            </div>
+        </div>` : '';
+
+        // 買い目
+        const totalPt = fc.prediction.total_pt;
+        const betsHtml = fc.prediction.bets ? `
+        <div class="fc-bets-wrap">
+            <span class="fc-bets-label">買い目</span>
+            <p class="fc-bets-text">${escHtml(fc.prediction.bets)}</p>
+            ${totalPt ? `<div class="fc-bets-total">合計 <strong>${Number(totalPt).toLocaleString()} pt</strong></div>` : ''}
+        </div>` : '';
 
         return `
         <div class="fc-card${isReverse ? ' reverse' : ''}">
@@ -185,40 +247,21 @@ function renderForecasters(list) {
                 <div class="fc-avatar-wrap">
                     <img class="fc-avatar" src="${escHtml(fc.avatar)}"
                          alt="${escHtml(fc.name)}"
-                         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><rect width=%22120%22 height=%22120%22 rx=%2260%22 fill=%22%231a4fd6%22/><text x=%2260%22 y=%2276%22 text-anchor=%22middle%22 font-size=%2252%22 fill=%22white%22>${escHtml(fc.name.charAt(0))}</text></svg>'">
-                    <span class="fc-badge">${escHtml(fc.badge || '')}</span>
+                         onerror="this.style.display='none'">
+                    ${fc.badge ? `<span class="fc-badge">${escHtml(fc.badge)}</span>` : ''}
                 </div>
                 <div>
                     <div class="fc-name">${escHtml(fc.name)}</div>
-                    <div class="fc-title">${escHtml(fc.title || '')}</div>
+                    ${fc.title ? `<div class="fc-title-sub">${escHtml(fc.title)}</div>` : ''}
                 </div>
-                <div class="fc-desc">${escHtml(fc.description || '')}</div>
-                ${fc.stats ? `
-                <div class="fc-stats">
-                    <div class="fc-stat">
-                        <div class="fc-stat-label">${escHtml(fc.stats.label1)}</div>
-                        <div class="fc-stat-value">${escHtml(fc.stats.value1)}</div>
-                    </div>
-                    <div class="fc-stat">
-                        <div class="fc-stat-label">${escHtml(fc.stats.label2)}</div>
-                        <div class="fc-stat-value">${escHtml(fc.stats.value2)}</div>
-                    </div>
-                </div>` : ''}
+                ${fc.description ? `<div class="fc-desc">${escHtml(fc.description)}</div>` : ''}
+                ${linksHtml}
             </div>
             <div class="fc-main">
                 <p class="fc-pred-title">${escHtml(fc.prediction.title)}</p>
-                <div class="fc-honmei-row">
-                    <span class="fc-honmei-label">◎ 本命</span>
-                    <span class="fc-honmei-chip">
-                        <span class="hm-sym">◎</span>
-                        ${escHtml(honmeiTag)} ${escHtml(honmeiName)}
-                    </span>
-                </div>
-                <p class="fc-body">${escHtml(fc.prediction.body).replace(/\n/g,'<br>')}</p>
-                ${fc.prediction.bets ? `
-                <div class="fc-bets">
-                    <span class="fc-bets-label">買い目</span>${escHtml(fc.prediction.bets)}
-                </div>` : ''}
+                ${honmeiHtml}
+                <p class="fc-body">${escHtml(fc.prediction.body).replace(/\n/g, '<br>')}</p>
+                ${betsHtml}
             </div>
         </div>`;
     }).join('');

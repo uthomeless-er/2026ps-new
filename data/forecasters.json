@@ -6,17 +6,16 @@
     "description": "過去成績と支持率データを徹底分析。堅実な本命サイドで勝負する。",
     "avatar": "assets/images/forecasters/forecaster_1.png",
     "badge": "本命派",
-    "stats": {
-      "label1": "的中率",
-      "value1": "38%",
-      "label2": "回収率",
-      "value2": "112%"
-    },
+    "links": [
+      { "type": "x", "url": "https://x.com/", "label": "@yosouka_a" },
+      { "type": "note", "url": "https://note.com/", "label": "note" }
+    ],
     "prediction": {
       "title": "盤石の本命から手広く！2連単5点勝負",
       "honmei": 1,
       "body": "CRの安定感は今シーズン随一。開幕戦という舞台でも崩れる要素が見当たらない。相手はZETA・DFMの上位2チームに絞り、2連単でまとめる。",
-      "bets": "[2連単] 1→2 / 1→3 各1,000pt"
+      "bets": "[2連単] 1→2 / 1→3 各1,000pt",
+      "total_pt": 2000
     }
   },
   {
@@ -26,17 +25,15 @@
     "description": "人気薄を狙い撃ちにする穴党。高配当を狙った大胆な予想が持ち味。",
     "avatar": "assets/images/forecasters/forecaster_2.png",
     "badge": "穴党",
-    "stats": {
-      "label1": "最高配当",
-      "value1": "8,420pt",
-      "label2": "的中率",
-      "value2": "12%"
-    },
+    "links": [
+      { "type": "x", "url": "https://x.com/", "label": "@yosouka_b" }
+    ],
     "prediction": {
       "title": "大穴VARRELから3連単一撃狙い！",
       "honmei": 4,
       "body": "VARRELの単勝オッズは過大評価されすぎ。メンバー構成的に上位進出の可能性は十分ある。ここは思い切って軸に据え、3連単で高配当を狙いに行く。",
-      "bets": "[3連単] 4→1→2 / 4→1→3 / 4→2→1 各500pt"
+      "bets": "[3連単] 4→1→2 / 4→1→3 / 4→2→1 各500pt",
+      "total_pt": 1500
     }
   },
   {
@@ -46,17 +43,16 @@
     "description": "緻密なフォーメーション組み立てで点数を絞り込む職人気質の予想スタイル。",
     "avatar": "assets/images/forecasters/forecaster_3.png",
     "badge": "連複派",
-    "stats": {
-      "label1": "連複的中率",
-      "value1": "45%",
-      "label2": "回収率",
-      "value2": "98%"
-    },
+    "links": [
+      { "type": "x", "url": "https://x.com/", "label": "@yosouka_c" },
+      { "type": "note", "url": "https://note.com/", "label": "note" }
+    ],
     "prediction": {
       "title": "3連複フォーメーション14点勝負",
       "honmei": 2,
       "body": "ZETAを軸に、上位争いが濃厚な4チームをフォーメーションで包む。14点とやや多めだが、的中率を優先したい一戦。",
-      "bets": "[3連複] 2→1,3,5,8→1,3,5,8 / 14点 各200pt"
+      "bets": "[3連複] 2→1,3,5,8→1,3,5,8 / 14点 各200pt",
+      "total_pt": 2800
     }
   }
 ]
