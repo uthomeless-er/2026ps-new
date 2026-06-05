@@ -261,8 +261,20 @@ table.odds-list tr.odds_row td[data-clickable]:hover { background: #ffe082 !impo
     .header-inner { height: 46px; }
     .site-logo-main { font-size: .82rem; }
 
-    .page-nav { padding: 6px 8px; gap: 4px; flex-wrap: nowrap; margin-bottom: 0; }
-    .page-nav a { padding: 6px 10px; font-size: .78em; border-width: 1.5px; }
+    .page-nav {
+        padding: 5px 8px;
+        gap: 3px;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+        overflow-x: visible;
+        justify-content: center;
+    }
+    .page-nav a {
+        padding: 4px 8px;
+        font-size: .72em;
+        border-width: 1.5px;
+        flex-shrink: 0;
+    }
 
     #countdown-bar { padding: 6px 12px; font-size: .75rem; }
 
@@ -287,16 +299,3 @@ table.odds-list tr.odds_row td[data-clickable]:hover { background: #ffe082 !impo
     #btn-open-form { display: block !important; width: 100%; box-sizing: border-box; text-align: center; padding: 12px !important; font-size: 1em !important; margin-top: 4px; }
 }
 
-
-/* ── フッター ── */
-.site-footer { background: #0a1628; color: rgba(255,255,255,.6); margin-top: 40px; padding: 28px 20px; }
-.footer-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
-.footer-links { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
-.footer-links a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .82rem; }
-.footer-links a:hover { color: #fff; text-decoration: underline; }
-.footer-note { font-size: .72rem; line-height: 1.7; color: rgba(255,255,255,.45); margin-bottom: 12px; max-width: 600px; margin-left: auto; margin-right: auto; }
-.footer-copy { font-size: .72rem; color: rgba(255,255,255,.4); }
-@media (max-width: 767px) {
-    .site-footer { padding: 22px 14px; }
-    .footer-links { gap: 12px; }
-}

@@ -56,7 +56,7 @@ const NAV_ITEMS = [
     { href: 'lineup.html',      label: '出馬表' },
     { href: 'marks.html',       label: '印' },
     { href: 'odds.html',        label: 'オッズ' },
-    { href: 'submit.html',      label: '買い目を送る' },
+    { href: 'submit.html',      label: '買い目' },
     { href: 'predictions.html', label: '予想家の見解' },
     { href: 'help.html',        label: '使い方' },
     { href: 'faq.html',         label: 'Q&A' },
@@ -122,25 +122,6 @@ function renderCountdown() {
     el.innerHTML = `<span class="cd-label">Premier Series開幕まで：</span><span class="cd-value">${text}</span>`;
 }
 
-// ── 共通: フッター生成 ────────────────────────────────
-function renderFooter() {
-    const mount = document.getElementById('site-footer');
-    if (!mount) return;
-    const year = new Date().getFullYear();
-    mount.outerHTML = `
-<footer class="site-footer">
-    <div class="footer-inner">
-        <div class="footer-links">
-            <a href="index.html">トップ</a>
-            <a href="lineup.html">出馬表</a>
-            <a href="odds.html">オッズ</a>
-            <a href="help.html">使い方</a>
-            <a href="faq.html">Q&A</a>
-        </div>
-<div class="footer-copy">© ${year} PS予想企画</div>
-    </div>
-</footer>`;
-}
 
 // ── 共通レイアウト一括描画 ────────────────────────────
 // 各ページの DOMContentLoaded で renderLayout() を呼ぶだけでヘッダー/ナビ/カウントダウン/フッターが入る
@@ -148,7 +129,6 @@ function renderLayout(opts) {
     renderHeader(opts && opts.header);
     renderNav(opts && opts.activeNav);
     renderCountdownBar();
-    renderFooter();
 }
 
 // ── データ読み込み ─────────────────────────────────────
