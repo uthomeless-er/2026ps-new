@@ -193,7 +193,7 @@ function spRenderWinPlace(container) {
                 <div class="sp-odds-team">${item.name}</div>
             </div>
             <div style="display:flex;gap:6px;padding:0 8px;align-items:center;">
-                <div style="text-align:center;cursor:pointer;padding:6px 0;border:1.5px solid #ddd;border-radius:6px;background:#fff;width:72px;flex-shrink:0;" onclick="spAddBet('win','${item.no}','単勝')">
+                <div style="text-align:center;cursor:pointer;padding:6px 0;border:1.5px solid #ddd;border-radius:6px;background:#fff;width:62px;flex-shrink:0;" onclick="spAddBet('win','${item.no}','単勝')">
                     <div class="sp-odds-val ${getOddsClass(item.win, 'win')}">${item.win || '---'}</div>
                     <div style="font-size:.62rem;color:#aaa;">単勝</div>
                 </div>

@@ -7,8 +7,16 @@
     "avatar": "assets/images/forecasters/forecaster_1.png",
     "badge": "本命派",
     "links": [
-      { "type": "x", "url": "https://x.com/", "label": "@yosouka_a" },
-      { "type": "note", "url": "https://note.com/", "label": "note" }
+      {
+        "type": "x",
+        "url": "https://x.com/",
+        "label": "@yosouka_a"
+      },
+      {
+        "type": "note",
+        "url": "https://note.com/",
+        "label": "note"
+      }
     ],
     "prediction": {
       "title": "盤石の本命から手広く！2連単5点勝負",
@@ -26,7 +34,11 @@
     "avatar": "assets/images/forecasters/forecaster_2.png",
     "badge": "穴党",
     "links": [
-      { "type": "x", "url": "https://x.com/", "label": "@yosouka_b" }
+      {
+        "type": "x",
+        "url": "https://x.com/",
+        "label": "@yosouka_b"
+      }
     ],
     "prediction": {
       "title": "大穴VARRELから3連単一撃狙い！",
@@ -44,8 +56,16 @@
     "avatar": "assets/images/forecasters/forecaster_3.png",
     "badge": "連複派",
     "links": [
-      { "type": "x", "url": "https://x.com/", "label": "@yosouka_c" },
-      { "type": "note", "url": "https://note.com/", "label": "note" }
+      {
+        "type": "x",
+        "url": "https://x.com/",
+        "label": "@yosouka_c"
+      },
+      {
+        "type": "youtube",
+        "url": "https://www.youtube.com/",
+        "label": "YouTube"
+      }
     ],
     "prediction": {
       "title": "3連複フォーメーション14点勝負",
