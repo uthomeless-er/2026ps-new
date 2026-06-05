@@ -18,85 +18,79 @@
     <style>
         .result-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
 
-        /* 待機中 */
-        .result-waiting {
-            text-align: center; padding: 80px 20px;
-            background: #fff; border: 1px solid #dde3ed;
-            border-radius: 12px; margin-top: 8px;
-        }
-        .result-waiting .w-icon { font-size: 3rem; margin-bottom: 16px; }
-        .result-waiting h2 { font-size: 1.2rem; color: #0a1628; margin: 0 0 10px; }
-        .result-waiting p  { font-size: .9rem; color: #5a6a82; line-height: 1.8; margin: 0; }
-
         /* ステータスバッジ */
         .status-badge {
-            display: inline-block; padding: 4px 14px; border-radius: 20px;
-            font-size: .78rem; font-weight: 700; margin-bottom: 16px;
+            display: inline-block; padding: 4px 16px; border-radius: 20px;
+            font-size: .8rem; font-weight: 700; margin-bottom: 16px;
         }
-        .status-badge.interim { background:#fff3cd; color:#856404; border:1px solid #ffc107; }
-        .status-badge.final   { background:#d4edda; color:#155724; border:1px solid #28a745; }
+        .status-badge.interim { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
+        .status-badge.final   { background: #d4edda; color: #155724; border: 1px solid #28a745; }
 
         /* 着順表 */
-        .ranking-table-wrap { overflow-x: auto; margin-bottom: 28px; }
+        .ranking-table-wrap { overflow-x: auto; margin-bottom: 32px; }
         .ranking-table {
-            width: 100%; border-collapse: collapse;
-            background: #fff; border: 1px solid #dde3ed;
-            border-radius: 8px; overflow: hidden; white-space: nowrap;
+            width: 100%; border-collapse: collapse; background: #fff;
+            border: 1px solid #dde3ed; border-radius: 8px; overflow: hidden;
+            white-space: nowrap;
         }
         .ranking-table th {
             background: #0a1628; color: #fff;
-            padding: 9px 12px; font-size: .82rem; text-align: center;
+            padding: 10px 14px; font-size: .83rem; text-align: center;
         }
         .ranking-table td {
-            padding: 10px 12px; border-bottom: 1px solid #eef0f4;
-            font-size: .88rem; text-align: center; vertical-align: middle;
+            padding: 11px 14px; border-bottom: 1px solid #eef0f4;
+            font-size: .9rem; text-align: center; vertical-align: middle;
         }
         .ranking-table tr:last-child td { border-bottom: none; }
-        .ranking-table tr:nth-child(1) td { background: #fffbe6; }
-        .ranking-table tr:nth-child(2) td { background: #f8f8f8; }
-        .ranking-table tr:nth-child(3) td { background: #fff5ee; }
-        .rank-pos { font-weight: 900; font-size: 1.05rem; }
-        .rank-pos.p1 { color: #c09000; }
-        .rank-pos.p2 { color: #666; }
-        .rank-pos.p3 { color: #a06030; }
+        .rank-pos { font-weight: 900; font-size: 1rem; color: #0a1628; }
         .frame-badge {
             display: inline-flex; align-items: center; justify-content: center;
             width: 26px; height: 26px; border-radius: 5px;
             font-size: .8rem; font-weight: 900;
         }
         .team-logo-sm { width: 32px; height: 32px; object-fit: contain; vertical-align: middle; }
-        .team-name-cell { text-align: left; font-weight: 700; padding-left: 8px !important; }
-        .medal { font-size: 1.1rem; }
+        .team-name-cell { text-align: left; font-weight: 700; }
+        .points-cell { font-weight: 900; color: #1a4fd6; font-size: 1rem; }
 
-        /* 注意書き */
-        .note-interim {
-            background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px;
-            padding: 10px 14px; font-size: .82rem; color: #856404;
-            margin-bottom: 20px; line-height: 1.7;
+        /* 払い戻し表（スクリーンショット参考：2列グリッド） */
+        .payout-wrap { margin-bottom: 28px; }
+        .payout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid #dde3ed;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
         }
-
-        /* 払い戻し表 */
-        .payout-table-wrap { overflow-x: auto; margin-bottom: 28px; }
-        .payout-table {
-            width: 100%; border-collapse: collapse; background: #fff;
-            border: 1px solid #dde3ed; border-radius: 8px; overflow: hidden;
+        .payout-section-title {
+            grid-column: 1 / -1;
+            background: #f5f7fa;
+            border-bottom: 1px solid #dde3ed;
+            padding: 8px 14px;
+            font-size: .78rem;
+            font-weight: 700;
+            color: #5a6a82;
         }
-        .payout-table th {
-            background: #0a1628; color: #fff;
-            padding: 9px 14px; font-size: .82rem; text-align: center;
+        .payout-row {
+            display: flex;
+            align-items: center;
+            padding: 9px 14px;
+            border-bottom: 1px solid #eef0f4;
+            gap: 10px;
         }
-        .payout-table td { padding: 9px 14px; border-bottom: 1px solid #eef0f4; font-size: .88rem; }
-        .payout-table tr:last-child td { border-bottom: none; }
-        .payout-table .col-type { font-weight: 700; text-align: center; white-space: nowrap; }
-        .payout-table .col-comb { font-family: monospace; color: #1a4fd6; font-weight: 700; }
-        .payout-table .col-odds { text-align: right; font-weight: 700; color: #d00; white-space: nowrap; }
-        .payout-table .estimated { color: #888; font-size: .8rem; font-weight: 400; }
-        .payout-table .confirmed-val { color: #007d43; }
+        .payout-row:nth-child(even) { border-left: 1px solid #eef0f4; }
+        .payout-row:last-child, .payout-row:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+        .payout-type { font-weight: 700; font-size: .82rem; color: #0a1628; min-width: 44px; flex-shrink: 0; }
+        .payout-comb { font-family: monospace; color: #1a4fd6; font-weight: 700; font-size: .88rem; flex: 1; }
+        .payout-odds { font-weight: 900; color: #d00; font-size: .95rem; flex-shrink: 0; white-space: nowrap; }
 
         @media (max-width: 767px) {
             .result-wrap { padding: 0 10px 48px; }
-            .ranking-table th, .ranking-table td { padding: 8px 8px; font-size: .8rem; }
-            .team-logo-sm { width: 24px; height: 24px; }
+            .ranking-table th, .ranking-table td { padding: 9px 10px; font-size: .82rem; }
+            .team-logo-sm { width: 26px; height: 26px; }
+            .payout-grid { grid-template-columns: 1fr; }
+            .payout-row:nth-child(even) { border-left: none; }
         }
     </style>
 </head>
@@ -117,18 +111,15 @@ const FRAME_BG = {1:'#f0f0f0',2:'#111',3:'#cc2200',4:'#1a4fd6',5:'#d4a000',6:'#1
 const FRAME_FG = {1:'#111',2:'#fff',3:'#fff',4:'#fff',5:'#111',6:'#fff',7:'#fff',8:'#fff'};
 
 let teamsData = [];
-let oddsData  = {};
 
 document.addEventListener('DOMContentLoaded', async () => {
     renderLayout();
     try {
-        const [teams, odds, result] = await Promise.all([
+        const [teams, result] = await Promise.all([
             loadJSON('data/teams.json'),
-            loadJSON('data/odds.json'),
             loadJSON('data/result.json'),
         ]);
         teamsData = teams;
-        oddsData  = odds;
         render(result);
     } catch(e) {
         console.error(e);
@@ -139,124 +130,122 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function team(id) { return teamsData.find(t => t.id === id) || {}; }
 
-function getOddsMidpoint(valStr) {
-    if (!valStr || valStr === '---') return null;
-    const s = String(valStr);
-    if (s.includes(' - ')) {
-        const [lo, hi] = s.split(' - ').map(parseFloat);
-        return Math.floor(((lo + hi) / 2) * 10) / 10;
-    }
-    const v = parseFloat(s);
-    return isNaN(v) ? null : v;
-}
-
 function render(result) {
     const el = document.getElementById('result-content');
-    const { status, ranks, confirmed_odds } = result;
-
-    // 待機中
-    if (status === 'waiting' || !ranks || !ranks[0]) {
-        el.innerHTML = `
-        <div class="result-waiting">
-            <div class="w-icon">⏳</div>
-            <h2>結果が出るまでお待ちください</h2>
-            <p>Premier Seriesシーズン終了後に結果を発表します。<br>しばらくお待ちください。</p>
-        </div>`;
-        return;
-    }
-
+    const { status, teams, confirmed_odds } = result;
     const isFinal = status === 'final';
-    const medals  = ['🥇','🥈','🥉','','','','',''];
-    const posCls  = ['p1','p2','p3','','','','',''];
+
+    // 点数で降順ソート、同点は同順位
+    const sorted = [...teams].sort((a, b) => b.points - a.points);
+    let rank = 1;
+    const ranked = sorted.map((item, i) => {
+        if (i > 0 && item.points < sorted[i - 1].points) rank = i + 1;
+        return { ...item, rank };
+    });
+
+    const badge = isFinal
+        ? '<span class="status-badge final">最終結果</span>'
+        : '<span class="status-badge interim">途中経過</span>';
 
     // 着順表
-    const rankRows = ranks.map((id, i) => {
-        if (!id) return '';
-        const t  = team(id);
-        const bg = FRAME_BG[id] || '#999';
-        const fg = FRAME_FG[id] || '#fff';
+    const rankRows = ranked.map(item => {
+        const t  = team(item.id);
+        const bg = FRAME_BG[item.id] || '#999';
+        const fg = FRAME_FG[item.id] || '#fff';
         return `<tr>
-            <td class="rank-pos ${posCls[i]}">${medals[i]}${i + 1}</td>
-            <td><span class="frame-badge" style="background:${bg};color:${fg}">${id}</span></td>
+            <td class="rank-pos">${item.rank}</td>
+            <td><span class="frame-badge" style="background:${bg};color:${fg}">${item.id}</span></td>
             <td><img class="team-logo-sm" src="${t.logo||''}" alt="${t.tag||''}" onerror="this.style.display='none'"></td>
-            <td class="team-name-cell">${t.name || String(id)}</td>
-            <td style="color:#5a6a82;font-size:.82rem;">${t.tag||''}</td>
+            <td class="team-name-cell">${t.name || String(item.id)}</td>
+            <td class="points-cell">${item.points} pt</td>
         </tr>`;
     }).join('');
 
-    // 払い戻し
-    const payoutRows = buildPayoutRows(ranks, isFinal, confirmed_odds);
-
-    const badge = isFinal
-        ? '<span class="status-badge final">✅ 最終結果</span>'
-        : '<span class="status-badge interim">📊 途中経過（推定配当）</span>';
-
-    const note = isFinal ? '' : `
-    <div class="note-interim">
-        ⚠️ 現在表示されているオッズは推定値です。複勝・ワイドなどはオッズの中央値を使用しています。最終的な払い戻し額はシーズン終了後に確定します。
-    </div>`;
+    // 払い戻し（最終結果のみ）
+    const payoutHtml = isFinal && confirmed_odds
+        ? buildPayoutHtml(confirmed_odds, ranked)
+        : '';
 
     el.innerHTML = `
     ${badge}
     <div class="ranking-table-wrap">
         <table class="ranking-table">
-            <thead><tr><th>着順</th><th>枠</th><th>ロゴ</th><th>チーム名</th><th>略称</th></tr></thead>
+            <thead><tr><th>順位</th><th>枠</th><th>ロゴ</th><th>チーム名</th><th>獲得pt</th></tr></thead>
             <tbody>${rankRows}</tbody>
         </table>
     </div>
-    ${note}
-    <div class="section-title" style="margin-bottom:12px;">払い戻し</div>
-    <div class="payout-table-wrap">
-        <table class="payout-table">
-            <thead><tr><th>券種</th><th>的中組合せ</th><th>オッズ</th></tr></thead>
-            <tbody>${payoutRows}</tbody>
-        </table>
-    </div>`;
+    ${payoutHtml}`;
 }
 
-function buildPayoutRows(ranks, isFinal, confirmed) {
-    const r1 = ranks[0], r2 = ranks[1], r3 = ranks[2];
-    if (!r1 || !r2 || !r3) return '<tr><td colspan="3" style="text-align:center;color:#888;">上位3チーム確定後に表示されます</td></tr>';
-
+function buildPayoutHtml(confirmed, ranked) {
+    const r1 = ranked[0].id;
+    const r2 = ranked[1] ? ranked[1].id : null;
+    const r3 = ranked[2] ? ranked[2].id : null;
+    const t  = id => team(id).tag || String(id);
     const sp = (a,b) => [a,b].sort((x,y)=>x-y).join('-');
 
-    function getOdds(type, key) {
-        if (isFinal && confirmed && confirmed[type] !== undefined) {
-            const raw = typeof confirmed[type] === 'object' ? confirmed[type][key] : confirmed[type];
-            if (raw == null) return null;
-            return { val: Number(raw).toFixed(1), cls: 'confirmed-val', tag: '確定' };
-        }
-        const raw = (oddsData[type] || {})[key];
-        if (!raw) return null;
-        const mid = getOddsMidpoint(raw);
-        return mid ? { val: mid.toFixed(1), cls: '', tag: '推定' } : null;
+    function val(type, key) {
+        const v = (confirmed[type] || {})[key] || confirmed[type];
+        return v != null ? String(v) : null;
     }
 
-    const defs = [
-        { type:'win',      key:String(r1),                     label:'単勝',  comb:`${r1}` },
-        { type:'place',    key:String(r1),                     label:'複勝',  comb:`${r1}` },
-        { type:'place',    key:String(r2),                     label:'複勝',  comb:`${r2}` },
-        { type:'place',    key:String(r3),                     label:'複勝',  comb:`${r3}` },
-        { type:'wide',     key:sp(r1,r2),                      label:'ワイド', comb:sp(r1,r2) },
-        { type:'wide',     key:sp(r1,r3),                      label:'ワイド', comb:sp(r1,r3) },
-        { type:'wide',     key:sp(r2,r3),                      label:'ワイド', comb:sp(r2,r3) },
-        { type:'quinella', key:sp(r1,r2),                      label:'2連複',  comb:sp(r1,r2) },
-        { type:'exacta',   key:`${r1}-${r2}`,                  label:'2連単',  comb:`${r1}-${r2}` },
-        { type:'trio',     key:[r1,r2,r3].sort((a,b)=>a-b).join('-'), label:'3連複', comb:[r1,r2,r3].sort((a,b)=>a-b).join('-') },
-        { type:'trifecta', key:`${r1}-${r2}-${r3}`,            label:'3連単',  comb:`${r1}-${r2}-${r3}` },
-    ];
+    // 左列：単勝・複勝、右列：ワイド・各連
+    const left = [];
+    const right = [];
 
-    const rows = [];
-    defs.forEach(d => {
-        const o = getOdds(d.type, d.key);
-        if (!o) return;
-        rows.push(`<tr>
-            <td class="col-type">${d.label}</td>
-            <td class="col-comb">${d.comb}</td>
-            <td class="col-odds"><span class="${o.cls}">${o.val}</span><span class="estimated"> (${o.tag})</span></td>
-        </tr>`);
+    // 単勝
+    const w = val('win', String(r1));
+    if (w) left.push({ type:'単勝', comb:`${r1}（${t(r1)}）`, odds:w });
+
+    // 複勝
+    [r1, r2, r3].filter(Boolean).forEach(id => {
+        const v = val('place', String(id));
+        if (v) left.push({ type:'複勝', comb:`${id}（${t(id)}）`, odds:v });
     });
-    return rows.join('') || '<tr><td colspan="3" style="text-align:center;color:#888;">データなし</td></tr>';
+
+    // ワイド
+    if (r2) {
+        [[r1,r2],[r1,r3],[r2,r3]].filter(([a,b])=>a&&b).forEach(([a,b]) => {
+            const v = val('wide', sp(a,b));
+            if (v) right.push({ type:'ワイド', comb:sp(a,b), odds:v });
+        });
+    }
+
+    // 2連複・2連単・3連複・3連単
+    if (r1 && r2) {
+        const q = val('quinella', sp(r1,r2));
+        if (q) right.push({ type:'2連複', comb:sp(r1,r2), odds:q });
+        const e = val('exacta', `${r1}-${r2}`);
+        if (e) right.push({ type:'2連単', comb:`${r1}-${r2}`, odds:e });
+    }
+    if (r1 && r2 && r3) {
+        const tr = val('trio', [r1,r2,r3].sort((a,b)=>a-b).join('-'));
+        if (tr) right.push({ type:'3連複', comb:[r1,r2,r3].sort((a,b)=>a-b).join('-'), odds:tr });
+        const tf = val('trifecta', `${r1}-${r2}-${r3}`);
+        if (tf) right.push({ type:'3連単', comb:`${r1}-${r2}-${r3}`, odds:tf });
+    }
+
+    const maxLen = Math.max(left.length, right.length);
+    const rows = [];
+    for (let i = 0; i < maxLen; i++) {
+        const l = left[i]  || null;
+        const r = right[i] || null;
+        rows.push(`
+        <div class="payout-row">
+            ${l ? `<span class="payout-type">${l.type}</span><span class="payout-comb">${l.comb}</span><span class="payout-odds">${l.odds}</span>` : '<span style="flex:1"></span>'}
+        </div>
+        <div class="payout-row">
+            ${r ? `<span class="payout-type">${r.type}</span><span class="payout-comb">${r.comb}</span><span class="payout-odds">${r.odds}</span>` : '<span style="flex:1"></span>'}
+        </div>`);
+    }
+
+    return `
+    <div class="payout-wrap">
+        <div class="section-title" style="margin-bottom:12px;">払い戻し</div>
+        <div class="payout-grid">
+            ${rows.join('')}
+        </div>
+    </div>`;
 }
 </script>
 </body>
