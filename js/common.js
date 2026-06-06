@@ -3,7 +3,6 @@
 // ── 共通定数 ──────────────────────────────────────────
 const CART_STORAGE_KEY  = 'cart_ps2627';
 const MY_MARKS_KEY      = 'mymarks_ps2627';
-const TAB_STORAGE_KEY   = 'tab_ps2627';
 const BUDGET_LIMIT      = 20000;
 
 // ── Supabase設定 ───────────────────────────────────────

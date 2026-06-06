@@ -48,6 +48,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         }
 
     } catch (e) {
-        console.error('データ読み込み失敗:', e);
+        const errEl = document.getElementById('main-view');
+        if (errEl) errEl.innerHTML = '<div style="padding:20px;color:#d00;font-size:.9rem;">データの読み込みに失敗しました。ページを再読み込みしてください。</div>';
     }
 });
