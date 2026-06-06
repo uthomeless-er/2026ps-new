@@ -95,6 +95,7 @@
 <div class="submit-wrap">
 
 <div class="section-title">買い目</div>
+<p style="font-size:.84rem;color:#5a6a82;line-height:1.8;margin-bottom:16px;">送信後も同じXアカウントで再送信すれば上書きできます。締め切りは開幕戦の配信開始時間です。</p>
 
 <!-- 印の確認 -->
 <div class="check-card">
@@ -388,6 +389,8 @@ async function submitPrediction() {
         document.getElementById('done-msg').innerHTML =
             `<strong>${name}</strong>（${xAcct}）の予想を受け付けました。<br>` +
             `買い目：${cart.length}件 / 合計：${computedTotal.toLocaleString()}pt<br><br>` +
+            `このページをスクリーンショットで保存しておくことをおすすめします。<br>` +
+            `同じXアカウントで再送信すると上書きできます。<br><br>` +
             `結果発表をお楽しみに！`;
 
         // localStorageのカートをクリア

@@ -72,7 +72,7 @@
             position: relative;
             margin-bottom: 28px;
         }
-        .hero-countdown strong { color: #5b9aff; font-size: 1.6rem; vertical-align: middle; margin: 0 4px; }
+        .hero-countdown strong { color: #5b9aff; font-size: 1.6rem; vertical-align: baseline; margin: 0 4px; line-height: 1; }
         .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
         .hero-btn-primary {
             padding: 13px 32px;
@@ -256,7 +256,7 @@
     <div class="hero">
         <div class="hero-label">Shadowverse: World Beyond</div>
         <div class="hero-title">Premier Series 26-27<br><span>予想企画</span></div>
-        <div class="hero-sub">出場8チームの順位を予想して楽しもう。参加無料。</div>
+        <div class="hero-sub">出場8チームの順位を競馬スタイルで予想する企画です。仮想ポイント20,000ptを使って買い目を作り、送信するだけ。参加無料・景品なし。</div>
         <div class="hero-countdown" id="hero-countdown">読み込み中...</div>
         <div class="hero-btns">
             <a href="odds.html" class="hero-btn-primary">予想する →</a>
@@ -328,10 +328,10 @@
     <div class="top-section-title">📌 ルール概要</div>
     <div class="rule-chips">
         <div class="rule-chip">
-            <div><span class="rc-label">締め切り</span><span class="rc-value">開幕戦 試合開始時</span></div>
+            <div><span class="rc-label">⏰ 締め切り</span><span class="rc-value" style="color:#d00;">開幕戦 配信開始時間</span></div>
         </div>
         <div class="rule-chip">
-            <div><span class="rc-label">予算上限</span><span class="rc-value">20,000 pt</span></div>
+            <div><span class="rc-label">予算上限</span><span class="rc-value">20,000 pt <span style="font-weight:400;font-size:.8em;color:#5a6a82;">（企画内の仮想ポイント）</span></span></div>
         </div>
         <div class="rule-chip">
             <div><span class="rc-label">参加回数</span><span class="rc-value">1アカウント1回</span></div>
