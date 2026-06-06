@@ -57,7 +57,7 @@ const NAV_ITEMS = [
     { href: 'odds.html',        label: 'オッズ' },
     { href: 'submit.html',      label: '買い目' },
     { href: 'predictions.html', label: '予想家の見解' },
-    { href: 'result.html',      label: '結果' },
+    { href: 'result.html',      label: '途中経過' },
     { href: 'help.html',        label: '使い方' },
     { href: 'faq.html',         label: 'Q&A' },
 ];
