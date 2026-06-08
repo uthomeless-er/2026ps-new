@@ -106,8 +106,8 @@ function spRenderMs() {
         return `<div class="sp-ms-row">
             <div class="sp-ms-row-label">${label}</div>
             <div class="sp-ms-btns">${btns}
-                <button class="sp-ms-btn" style="background:#e8f5e9;color:#1a7a3a;border-color:#1a7a3a;font-size:.65rem;" onclick="spBulkMs(${ri},true)">全</button>
-                <button class="sp-ms-btn" style="background:#fff0f0;color:#d00;border-color:#d00;font-size:.65rem;" onclick="spBulkMs(${ri},false)">消</button>
+                <button class="sp-ms-btn" class="sp-ms-btn sp-ms-btn-all" onclick="spBulkMs(${ri},true)">全</button>
+                <button class="sp-ms-btn" class="sp-ms-btn sp-ms-btn-clr" onclick="spBulkMs(${ri},false)">消</button>
             </div>
         </div>`;
     }).join('');
@@ -176,7 +176,7 @@ function spRender() {
                 <div class="sp-odds-val ${getOddsClass(d.val, spType)}">${d.val}</div>
             </div>
         </div>`;
-    }).join('') || '<div style="padding:20px;text-align:center;color:#aaa;font-size:.88rem;">該当する買い目がありません</div>';
+    }).join('') || '<div class="sp-odds-empty">該当する買い目がありません</div>';
 }
 
 function spRenderWinPlace(container) {
@@ -194,12 +194,12 @@ function spRenderWinPlace(container) {
             <div class="sp-odds-item-body">
                 <div class="sp-odds-team">${item.name}</div>
             </div>
-            <div style="display:flex;gap:6px;padding:0 8px;align-items:center;">
-                <div style="text-align:center;cursor:pointer;padding:6px 0;border:1.5px solid #ddd;border-radius:6px;background:#fff;width:62px;flex-shrink:0;" onclick="spAddBet('win','${item.no}','単勝')">
+            <div class="sp-wp-btn-row">
+                <div class="sp-win-btn" onclick="spAddBet('win','${item.no}','単勝')">
                     <div class="sp-odds-val ${getOddsClass(item.win, 'win')}">${item.win || '---'}</div>
                     <div style="font-size:.62rem;color:#aaa;">単勝</div>
                 </div>
-                <div style="text-align:center;cursor:pointer;padding:6px 10px;border:1.5px solid #ddd;border-radius:6px;background:#fff;" onclick="spAddBet('place','${item.no}','複勝')">
+                <div class="sp-place-btn" onclick="spAddBet('place','${item.no}','複勝')">
                     <div class="sp-odds-val">${item.place || '---'}</div>
                     <div style="font-size:.62rem;color:#aaa;">複勝</div>
                 </div>
@@ -301,7 +301,7 @@ function spRenderCart() {
 
     const detail = document.getElementById('sp-cart-detail');
     if (!cart.length) {
-        detail.innerHTML = '<div style="padding:12px 14px;color:#888;font-size:.82rem;">買い目がありません</div>';
+        detail.innerHTML = '<div class="sp-cart-empty">買い目がありません</div>';
         return;
     }
     detail.innerHTML = cart.map(item => {
@@ -313,7 +313,7 @@ function spRenderCart() {
             </div>` : '';
         return `
         <div class="sp-cart-item">
-            <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0;">
+            <div class="sp-cart-item-body">
                 <span class="sp-cart-item-type">${item.displayType}</span>
                 <span class="sp-cart-item-comb">${item.formation}${isMulti ? ` (${item.combs.length}点)` : ''}</span>
             </div>

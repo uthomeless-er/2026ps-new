@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const forecasters = await loadJSON('data/forecasters.json');
         renderForecasters(forecasters);
     } catch(e) {
-        console.error(e);
         document.getElementById('fc-list').innerHTML =
             '<div class="pred-msg">データの読み込みに失敗しました。</div>';
     }

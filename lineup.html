@@ -228,7 +228,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         renderPC();
         renderSP();
     } catch(e) {
-        console.error(e);
         document.getElementById('seimai-table').innerHTML = '<p style="padding:20px;color:#d00;">データの読み込みに失敗しました。</p>';
         document.getElementById('sp-list').innerHTML = '<p style="padding:20px;color:#d00;">データの読み込みに失敗しました。</p>';
     }

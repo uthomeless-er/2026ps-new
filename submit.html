@@ -190,7 +190,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         teamsData = await loadJSON('data/teams.json');
         const saved = localStorage.getItem(CART_STORAGE_KEY);
         cart = saved ? JSON.parse(saved) : [];
-    } catch(e) { console.error(e); }
+    } catch(e) {}
 
     // 締め切りチェック
     if (KICKOFF && new Date() >= KICKOFF) {
@@ -398,7 +398,6 @@ async function submitPrediction() {
         localStorage.removeItem('submit_form_ps2627');
 
     } catch(e) {
-        console.error(e);
         errorBox.style.display = 'block';
         errorBox.textContent = `送信に失敗しました。時間をおいて再度お試しください。（${e.message}）`;
         btn.disabled = false;

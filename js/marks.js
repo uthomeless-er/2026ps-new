@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         updateFormationPreview();
         await preloadLogos();
         drawCanvas();
-    } catch(e) { console.error(e); }
+    } catch(e) {}
 });
 
 /* ── PC: テーブル描画 ── */
