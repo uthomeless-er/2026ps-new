@@ -307,7 +307,7 @@ function spRenderCart() {
     detail.innerHTML = cart.map(item => {
         const isMulti = item.combs.length > 1;
         const expandBtns = isMulti ? `
-            <div style="display:flex;gap:4px;margin-top:4px;">
+            <div style="display:flex;gap:4px;margin-top:2px;width:100%;">
                 <button class="sp-cart-sub-btn" onclick="expandBet(${item.id})">展開</button>
                 <button class="sp-cart-sub-btn" onclick="openExpandBudgetNumpad(${item.id})">予算分配</button>
             </div>` : '';
