@@ -125,6 +125,8 @@
             .sp-card-info { flex: 1; padding: 0 10px; min-width: 0; }
             .sp-team-name { font-size: .84rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
             .sp-team-desc { font-size: .68rem; color: #8a9ab2; margin-top: 2px; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .sp-team-desc.expanded { display: none; }
+            .sp-team-desc-full { font-size: .72rem; color: #5a6a82; line-height: 1.6; padding: 0 0 8px; width: 100%; border-bottom: 1px solid #eef0f4; margin-bottom: 4px; }
             .sp-odds-val { cursor: pointer; }
             .sp-odds-row { display: flex; align-items: center; gap: 5px; margin-top: 2px; }
             .sp-odds-label { font-size: .65rem; color: #8a9ab2; }
@@ -326,12 +328,17 @@ function renderSP() {
                 </div>
                 <div class="sp-chevron">&#8964;</div>
             </div>
-            <div class="sp-members">${memberChips}</div>`;
+            <div class="sp-members">
+                ${team.description ? `<div class="sp-team-desc-full">${team.description}</div>` : ''}
+                ${memberChips}
+            </div>`;
         card.querySelector('.sp-card-main').addEventListener('click', () => {
             const members = card.querySelector('.sp-members');
             const chevron = card.querySelector('.sp-chevron');
             const open = members.classList.toggle('open');
             chevron.classList.toggle('open', open);
+            const desc = card.querySelector('.sp-team-desc');
+            if (desc) desc.classList.toggle('expanded', open);
         });
         card.querySelectorAll('.sp-member-chip').forEach(chip => {
             chip.addEventListener('click', e => {
