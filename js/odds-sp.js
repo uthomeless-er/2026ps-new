@@ -90,27 +90,40 @@ function spRenderMs() {
     const wrap    = document.getElementById('sp-ms-rows');
     const rowDefs = getMsRowDefs(spType, spVoteMode);
 
-    wrap.innerHTML = rowDefs.map(({ label, rowIdx: ri }) => {
-        const btns = teams.map((t, ci) => {
-            const num      = ci + 1;
+    // ヘッダー行（ロゴ+タグ）
+    const headerCells = teams.map(t => `
+        <th class="sp-ms-th">
+            <img src="${t.logo}" class="sp-ms-logo" alt="${t.tag}" onerror="this.style.display='none'">
+            <div class="sp-ms-tag">${t.tag}</div>
+        </th>`).join('');
+
+    // 各行
+    const bodyRows = rowDefs.map(({ label, rowIdx: ri }) => {
+        const cells = teams.map((t, ci) => {
+            const num = ci + 1;
             const isMarked = spMsRows[ri].has(num);
-            let cls = 'sp-ms-btn';
+            let cls = 'sp-ms-cell';
             if (isMarked) {
                 if (ri === 0 && (spVoteMode === 'axis1' || spVoteMode === 'axis2')) cls += ' axis1';
                 else if (ri === 1 && spVoteMode === 'axis2') cls += ' axis2';
                 else cls += ' marked';
             }
-            return `<button class="${cls}" onclick="spToggleMs(${ri},${num})">${num}</button>`;
+            return `<td class="${cls}" onclick="spToggleMs(${ri},${num})">${num}</td>`;
         }).join('');
-
-        return `<div class="sp-ms-row">
-            <div class="sp-ms-row-label">${label}</div>
-            <div class="sp-ms-btns">${btns}
-                <button class="sp-ms-btn" class="sp-ms-btn sp-ms-btn-all" onclick="spBulkMs(${ri},true)">全</button>
-                <button class="sp-ms-btn" class="sp-ms-btn sp-ms-btn-clr" onclick="spBulkMs(${ri},false)">消</button>
-            </div>
-        </div>`;
+        return `<tr>
+            <th class="sp-ms-row-label">${label}</th>
+            ${cells}
+            <td class="sp-ms-op"><button class="sp-ms-op-btn" onclick="spBulkMs(${ri},true)">全</button></td>
+            <td class="sp-ms-op"><button class="sp-ms-op-btn" onclick="spBulkMs(${ri},false)">消</button></td>
+        </tr>`;
     }).join('');
+
+    wrap.innerHTML = `<div class="sp-ms-table-wrap">
+        <table class="sp-ms-table">
+            <thead><tr><th class="sp-ms-row-label"></th>${headerCells}<th colspan="2" class="sp-ms-th-op">操作</th></tr></thead>
+            <tbody>${bodyRows}</tbody>
+        </table>
+    </div>`;
 
     spUpdateMsCount();
 }

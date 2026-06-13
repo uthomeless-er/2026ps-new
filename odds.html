@@ -17,7 +17,7 @@
     <meta name="twitter:image" content="https://uthomeless-er.github.io/2026ps-new/assets/images/ogp.png">
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=06120100">
+    <link rel="stylesheet" href="css/style.css?v=06130001">
 <style>
 .odds-page-wrap { max-width: 1100px; margin: 0 auto; padding: 16px 16px 40px; }
 @media (max-width: 767px) { .odds-page-wrap { display: none; } }
@@ -122,13 +122,13 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/common.js?v=06120100"></script>
+<script src="js/common.js?v=06130001"></script>
 <script>document.addEventListener("DOMContentLoaded", function(){ renderLayout(); });</script>
-<script src="js/utils.js?v=06120100"></script>
-<script src="js/cart.js?v=06120100"></script>
-<script src="js/odds-pc.js?v=06120100"></script>
-<script src="js/odds-sp.js?v=06120100"></script>
-<script src="js/odds-init.js?v=06120100"></script>
+<script src="js/utils.js?v=06130001"></script>
+<script src="js/cart.js?v=06130001"></script>
+<script src="js/odds-pc.js?v=06130001"></script>
+<script src="js/odds-sp.js?v=06130001"></script>
+<script src="js/odds-init.js?v=06130001"></script>
 </div>
 
 
@@ -184,21 +184,21 @@
 
     /* マークシート（SP版） */
     .sp-ms-wrap { padding: 8px 10px; background: #f5f5f5; border-bottom: 1px solid #ddd; }
-    .sp-ms-label { font-size: .75rem; font-weight: 700; color: #555; margin-bottom: 6px; }
-    .sp-ms-row { margin-bottom: 8px; }
-    .sp-ms-row-label { font-size: .72rem; color: #888; margin-bottom: 4px; }
-    .sp-ms-btns { display: flex; flex-wrap: wrap; gap: 5px; }
-    .sp-ms-btn {
-        width: 38px; height: 34px; border-radius: 6px;
-        border: 1.5px solid #bbb; background: #fff;
-        font-size: .85rem; font-weight: 700; cursor: pointer;
-        font-family: 'Noto Sans JP', sans-serif;
-        -webkit-tap-highlight-color: transparent;
-        transition: background .1s, border-color .1s;
-    }
-    .sp-ms-btn.marked   { background: #003399; color: #fff; border-color: #003399; }
-    .sp-ms-btn.axis1    { background: #e91e63; color: #fff; border-color: #e91e63; }
-    .sp-ms-btn.axis2    { background: #ff9800; color: #fff; border-color: #ff9800; }
+    /* テーブル形式マークシート */
+    .sp-ms-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sp-ms-table { border-collapse: collapse; width: max-content; min-width: 100%; }
+    .sp-ms-table thead tr { background: #eef0f4; }
+    .sp-ms-th { padding: 4px 2px; text-align: center; font-weight: normal; min-width: 36px; }
+    .sp-ms-th-op { padding: 4px 2px; text-align: center; font-weight: normal; }
+    .sp-ms-logo { width: 24px; height: 24px; object-fit: contain; display: block; margin: 0 auto 2px; }
+    .sp-ms-tag { font-size: .62rem; color: #555; }
+    .sp-ms-row-label { font-size: .72rem; color: #888; white-space: nowrap; padding: 0 8px 0 2px; text-align: left; font-weight: 700; }
+    .sp-ms-cell { width: 36px; height: 34px; text-align: center; vertical-align: middle; border: 1px solid #ddd; background: #fff; font-size: .85rem; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .1s; }
+    .sp-ms-cell.marked { background: #003399; color: #fff; border-color: #003399; }
+    .sp-ms-cell.axis1  { background: #e91e63; color: #fff; border-color: #e91e63; }
+    .sp-ms-cell.axis2  { background: #ff9800; color: #fff; border-color: #ff9800; }
+    .sp-ms-op { padding: 0 2px; text-align: center; vertical-align: middle; }
+    .sp-ms-op-btn { width: 28px; height: 28px; font-size: .72rem; cursor: pointer; border: 1px solid #bbb; background: #fff; border-radius: 3px; font-family: inherit; }
     .sp-ms-mode-bar { display: flex; gap: 5px; margin-bottom: 8px; flex-wrap: wrap; }
     .sp-ms-mode-btn {
         padding: 5px 10px; border-radius: 4px;
@@ -287,8 +287,6 @@
     }
     .sp-cart-sub-btn:active { background: rgba(255,255,255,.22); }
     /* マークシート全・消ボタン */
-    .sp-ms-btn-all { background:#e8f5e9; color:#1a7a3a; border-color:#1a7a3a; font-size:.65rem; }
-    .sp-ms-btn-clr { background:#fff0f0; color:#d00;    border-color:#d00;    font-size:.65rem; }
     /* 空オッズメッセージ */
     .sp-odds-empty { padding:20px; text-align:center; color:#aaa; font-size:.88rem; }
     /* 単複ボタン行 */
