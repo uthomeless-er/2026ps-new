@@ -27,8 +27,8 @@
       },
       {
         "name": "ふぇぐ",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/feeeeeeeeeg",
+        "youtube": "https://www.youtube.com/channel/UCCmVghrVDgZG0DI0Q7NDwhQ"
       }
     ],
     "description": "Shadowverse競技シーンの強豪。安定した実力と豊富な大会経験を持つ。"
@@ -56,8 +56,8 @@
       },
       {
         "name": "ねぎま",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/leek2060",
+        "youtube": "https://www.youtube.com/@negima_sv"
       }
     ],
     "description": "国内トップクラスの実力を誇るeスポーツ組織。多彩な戦術で相手を翻弄する。"
@@ -85,8 +85,8 @@
       },
       {
         "name": "MingiGod",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/minimin_sv",
+        "youtube": "https://www.youtube.com/channel/UC6b5jWj0jfThr_1HqrdMuCg"
       }
     ],
     "description": "長年にわたりShadowverse競技シーンを牽引してきた名門チーム。"
@@ -114,8 +114,8 @@
       },
       {
         "name": "まっつ",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/mattsu__sv",
+        "youtube": "https://www.youtube.com/@mattsu__sv"
       }
     ],
     "description": "独自の戦略と緻密なプレイングで上位を狙う。"
@@ -148,8 +148,8 @@
       },
       {
         "name": "もっちゃま",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/mocha__mochama",
+        "youtube": "https://www.youtube.com/channel/UCfhO-58gNi8knhWDDpiPExQ"
       }
     ],
     "description": "勢いのある若手プレイヤーを中心に構成されたチーム。"
@@ -182,8 +182,8 @@
       },
       {
         "name": "つきあかめん",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/tsukiakamen",
+        "youtube": "https://www.youtube.com/channel/UCNWYktYNcDfQMd9Q-HG6ZXA"
       }
     ],
     "description": "常に挑戦者として戦い続ける実力派チーム。"
@@ -201,23 +201,25 @@
       },
       {
         "name": "山田レクイエム",
-        "x": "",
+        "x": "https://x.com/YMDrequiem",
         "youtube": ""
       },
       {
         "name": "Chappy",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/chappy_106",
+        "youtube": "",
+        "twitch": "https://www.twitch.tv/chappy916"
       },
       {
         "name": "さくさくぱんだ",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/sakura_hf_",
+        "youtube": "https://www.youtube.com/channel/UCw6cXPqVtF5KVP4qEVFWNqw"
       },
       {
         "name": "Stylish_deko",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/Stylish_deko",
+        "youtube": "",
+        "twitch": "https://www.twitch.tv/stylish_deko"
       }
     ],
     "description": "独特のプレイスタイルで相手を驚かせる戦術家集団。"
@@ -245,13 +247,13 @@
       },
       {
         "name": "Hirobosu",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/hirobosu_sv",
+        "youtube": "https://www.youtube.com/@hirobosu_sv"
       },
       {
         "name": "智念せいら",
-        "x": "",
-        "youtube": ""
+        "x": "https://x.com/seira_chinen",
+        "youtube": "https://www.youtube.com/@seira_chinen"
       }
     ],
     "description": "北海道を拠点とするチーム。地元の期待を背負い戦う。"
