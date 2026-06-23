@@ -16,7 +16,7 @@ function getSupabase() {
 }
 
 // ── 開幕カウントダウン ────────────────────────────────
-const KICKOFF = new Date('2026-07-07T13:00:00+09:00');
+const KICKOFF = new Date('2026-07-11T13:00:00+09:00');
 
 // 締め切りを過ぎたか
 function isClosed() {
