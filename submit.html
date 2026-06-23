@@ -95,7 +95,7 @@
 <div class="submit-wrap">
 
 <div class="section-title">買い目</div>
-<p style="font-size:.84rem;color:#5a6a82;line-height:1.8;margin-bottom:16px;">送信後も同じXアカウントで再送信すれば上書きできます。締め切りは開幕戦の配信開始時間です。</p>
+<p style="font-size:.84rem;color:#5a6a82;line-height:1.8;margin-bottom:16px;">送信後も同じXアカウントで再送信すれば上書きできます。締め切りは2026年7月11日(土) 13:00です。</p>
 
 <!-- 印の確認 -->
 <div class="check-card">
@@ -295,6 +295,16 @@ function restoreFormInputs() {
 async function submitPrediction() {
     const errorBox = document.getElementById('error-box');
     errorBox.style.display = 'none';
+
+    // 締め切りチェック（送信直前）
+    if (KICKOFF && new Date() >= KICKOFF) {
+        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('warn-box').style.display = 'none';
+        const closed = document.getElementById('closed-card');
+        if (closed) closed.style.display = 'block';
+        await psAlert('締め切りを過ぎたため送信できません。');
+        return;
+    }
 
     // 入力検証
     const name    = document.getElementById('input-name').value.trim();
